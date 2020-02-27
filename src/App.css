@@ -6,13 +6,40 @@
   height: 40vmin;
   pointer-events: none;
 }
-
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
 }
+.text-primary{
+  font-weight: 490 !important;
+  color: #3f51b5 !important;
+}
+.bg-primary,.btn-primary{
+  background-color: #3f51b5 !important;
+}
+table.dataTable.dtr-inline.collapsed>tbody>tr>td:first-child:before,
+table.dataTable.dtr-inline.collapsed>tbody>tr>th:first-child:before {
+    display:none!important
+}
+table.dataTable thead  {  background-color: #3f51b5;
+}
+.table thead tr th{
+  height: 5px !important;
+  color:whitesmoke !important;
+  text-align:center;
+  font-size: 15px;
+  background-color: #3f51b5;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  
+}
 
+.bg-mycolor{
+  background-color: #192965;
+  background: 'rgb(2,0,36)';
+    background: 'linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 41%, rgba(0,212,255,1) 100%)';
+}
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

@@ -1,0 +1,12 @@
+.specialization{
+  opacity:0;
+  transition: .8s;
+}
+.card-body .specialization{
+ 
+color:white;
+font-weight: 900;
+display: block;
+background-color:#D81B60  !important;
+opacity:.7;
+}
