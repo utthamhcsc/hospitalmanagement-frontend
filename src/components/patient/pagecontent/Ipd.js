@@ -1,15 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {NavLink} from 'react-router-dom'
+import {NavLink, BrowserRouter,Link} from 'react-router-dom'
 import Table from '../../Table'
 import {Getdata,Postdata} from '../../../Network/Server'
 
 export default function Ipd(props) {
     const column=[{data:'height',title:'Height'},{data:'weight',title:'Weight'},{data:'bp',title:'Bp'},{data:'symptoms',title:'Symptoms'},{data:'note',title:'Note'},{data:'appointmentDate',title:'Appointment Date'},{data:'caseType',title:'Case Type'},{data:'casulity',title:'Casuality'},{data:'oldPatient',title:'Old Patient'},{data:'tpa',title:'TPA'},{data:'creditLimit',title:'Credit Limit'},{data:'consultantDoctor',title:'Consultant Doctor'},{data:'reference',title:'Referenece'},{data:'bedGroup',title:'Bed Group'},{data:'bedNumber',title:'Bed Number'}]
     const [dataSrc,setdataSrc]=React.useState([]);
-    const columnDefs=[]
-    const Link=<NavLink to='dfgh'/>
-
+    const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(<BrowserRouter><button onClick={()=>props.setindex(rowData)} data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
+  </BrowserRouter>,td)}]
+  
     React.useEffect(()=>{Getdata('inpatient/patient/'+props.patientId).then(data=>setdataSrc(data));},[])
 
     return (

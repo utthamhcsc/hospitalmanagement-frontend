@@ -1,16 +1,16 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {NavLink} from 'react-router-dom'
+import {NavLink, BrowserRouter,Link} from 'react-router-dom'
 import Table from '../../Table'
 import {Getdata} from '../../../Network/Server'
 
-export default function Complain() 
+export default function Complain(props) 
 {
     const column=[{data:'complainBy',title:'Complain By'},{data:'source',title:'Source'},{data:'date',title:'Date'},{data:'phone',title:'Phone'},{data:'description',title:'Description'},{data:'actionTaken',title:'Action Taken'},{data:'assigned',title:'Assigned'},{data:'note',title:'Note'},{data:'attachedDocument',title:'attach Document'}]
     const [dataSrc,setdataSrc]=React.useState([]);
-    const columnDefs=[]
-    const Link=<NavLink to='dfgh'/>
-
+    const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(<BrowserRouter><button onClick={()=>props.setindex(rowData)} data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
+  </BrowserRouter>,td)}]
+  
     React.useEffect(()=>{Getdata('complaintype').then(data=>setdataSrc(data));},[])
 
     return (

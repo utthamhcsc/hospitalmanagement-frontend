@@ -6,10 +6,9 @@ import {Getdata,Postdata} from '../../../Network/Server'
 
 export default function Appointment(props)
  {
-    const column=[{data:'apptId',title:'AppointmentNo'},{data:'date',title:'Date'},{data:'doctor',title:'Doctor'},{data:'appointmentStatus',title:'Appointment Status'},{data:'message',title:'Message'},{data:'action',title:'Action'}]
+    const column=[{data:'aptId',title:'AppointmentNo'},{data:'date',title:'Date'},{data:'doctor',title:'Doctor'},{data:'appointmentStatus',title:'Appointment Status'},{data:'message',title:'Message'},{data:'action',title:'Action'}]
     const [dataSrc,setdataSrc]=React.useState([]);
   const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(<BrowserRouter><button onClick={()=>props.setindex(rowData)} data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
-  <button onClick={()=>props.setindex(rowData)} data-toggle='modal' data-target='#bookappointment'><i className='fa fa-pencil'></i></button>
   </BrowserRouter>,td)}]
   
 React.useEffect(()=>{

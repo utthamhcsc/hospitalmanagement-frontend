@@ -21,10 +21,10 @@ export default (prop)=>
 //    <div className='px-4'><i className='fa fa-envelope-o mx-1'></i>email@gmail.com</div>
 // </div>
 }
-<div className='container d-md-flex  ml-auto justify-content-end'>
-<button type="button" className="btn btn-outline-light btn-sm mr-2 " data-toggle="modal" data-target="#bookappointment">
+<div className='container d-md-flex  ml-auto justify-content-end p-2'>
+<button type="button" className="btn btn-outline-light btn-sm mr-2 p-2" data-toggle="modal" data-target="#bookappointment">
  Book Appointment </button>
-<button type="button" className="btn btn-outline-light btn-sm " data-toggle="modal" data-target="#login">
+<button type="button" className="btn btn-outline-light btn-sm p-2 " data-toggle="modal" data-target="#login">
  Login
 </button>
 </div>

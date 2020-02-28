@@ -1,15 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {NavLink} from 'react-router-dom'
+import {NavLink, BrowserRouter,Link} from 'react-router-dom'
 import Table from '../../Table'
 import {Getdata} from '../../../Network/Server'
 
-export default function Visitor() {
+export default function Visitor(props) {
     const column=[{data:'purpose',title:'Purpose'},{data:'name',title:'Name'},{data:'phone',title:'Phone'},{data:'date',title:'Date'},{data:'inTime',title:'In Time'},{data:'outTime',title:'In Time'},{data:'action',title:'Action'}]
     const [dataSrc,setdataSrc]=React.useState([]);
-    const columnDefs=[{targets:-1,createdCell:(td,rowdata,coldata,row,col)=>ReactDOM.render(<button >dfgh</button>,td)}]
-    const Link=<NavLink to='dfgh'/>
-
+    const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(<BrowserRouter><button onClick={()=>props.setindex(rowData)} data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
+    </BrowserRouter>,td)}]
+    
     React.useEffect(()=>{Getdata('visitorlist').then(data=>setdataSrc(data));},[])
     
     return (

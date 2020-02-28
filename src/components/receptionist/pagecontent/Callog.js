@@ -3,16 +3,18 @@ import ReactDOM from 'react-dom'
 import {NavLink,BrowserRouter} from 'react-router-dom'
 import Table from '../../Table'
 import {Getdata,Postdata} from '../../../Network/Server'
-
-export default function CallLog(props) 
+import DisplayForm from '../../../Forms/DisplayForm'
+import CallLog from '../../../Forms/FrontOffice/CallLog'
+export default function Callog(props) 
 {
+    const [index,setindex]=React.useState({});
     const column=[{data:'name',title:'Name'},{data:'date',title:'Date'},{data:'phone',title:'Phone'},{data:'description',title:'Description'},{data:'nextFallowUpDate',title:'Next Follow Update'},{data:'callDuretion',title:'Call Duration'},{data:'callType',title:'Call Type'},{data:'note',title:'Note'},{data:'',title:'Action'}]
     const [dataSrc,setdataSrc]=React.useState([]);
     const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(
       <BrowserRouter>
-      <button onClick={()=>props.setindex(rowData)} className={'btn btn-xs btn-warning'} data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
+      <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-warning'} data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
      
-      <button onClick={()=>props.setindex({})} className={'btn btn-xs btn-success'} data-toggle='modal' data-target='#calllog'><i className='fa fa-pencil'></i></button>
+      <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-success'} data-toggle='modal' data-target='#calllog'><i className='fa fa-pencil'></i></button>
       
       <button onClick={()=>Postdata(`phonecall/${rowData.id}`,'DELETE',{}).then(data=>data.status==1?window.$('#Calllog').DataTable().row(row).remove().draw():'')} className={'btn btn-xs btn-danger'} ><i className='fa fa-trash'></i></button>
      
@@ -31,13 +33,15 @@ export default function CallLog(props)
           <h6 className='text-sm' style={{letterSpacing:'1px',lineHeight:'100%'}}>CallLog</h6>
           <div className='btn-group p-0'>
             <button className={'btn btn-xs  btn-light ml-1 ' } style={{marginLeft:'0.5px !important',opacity:0}} data-toggle="modal" data-target="sdf">dfgh</button>
-            <button data-toggle="modal" onClick={()=>props.setindex({})} data-target='#calllog' class="btn btn-light text-xs  btn-xs  ml-1"> <i class="fa fa-plus"></i> Add CallLog</button>               
+            <button data-toggle="modal" onClick={()=>setindex({})} data-target='#calllog' class="btn btn-light text-xs  btn-xs  ml-1"> <i class="fa fa-plus"></i> Add CallLog</button>               
           </div>
         </li>
       </ol>
     </nav>
     <div className='px-5 pb-5'>
       <Table id='Calllog' col={column} dataSrc={dataSrc} columnDefs={columnDefs}/>
+      <CallLog data={index}/>
+      <DisplayForm data={index}/>
     </div>
  </>
 )

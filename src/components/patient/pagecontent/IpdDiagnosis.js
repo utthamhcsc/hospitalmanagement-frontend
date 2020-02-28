@@ -1,17 +1,17 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {NavLink} from 'react-router-dom'
+import {NavLink, BrowserRouter,Link} from 'react-router-dom'
 import Table from '../../Table'
 import {Getdata} from '../../../Network/Server'
 
-export default function IpdDiagnosis() 
+export default function IpdDiagnosis(props) 
 {
     const column=[{data:'reportType',title:'Report Type'},{data:'reportDate',title:'Report Date'},{data:'description',title:'Description'},{data:'download',title:'Download'}]
     const [dataSrc,setdataSrc]=React.useState([]);
     const columnDefs=[]
     const Link=<NavLink to='dfgh'/>
 
-    React.useEffect(()=>{Getdata().then(data=>setdataSrc(data));},[])
+    React.useEffect(()=>{Getdata('').then(data=>setdataSrc(data));},[])
 
     return (
     <>

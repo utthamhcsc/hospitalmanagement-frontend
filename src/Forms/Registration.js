@@ -1,7 +1,7 @@
 import React from 'react'
 import {useFormik} from 'formik';
 import {Getdata,Postdata,PostFormdata} from '../../src/Network/Server'
-
+import {toast} from 'react-toastify'
 export default (props) =>{
     const formik = useFormik({
         initialValues:{
@@ -14,7 +14,7 @@ export default (props) =>{
             confirmPassword:props.confirmPassword||'',
             
         },
-        onSubmit:values=>{alert(JSON.stringify(values,null,2))
+        onSubmit:values=>{console.log(JSON.stringify(values,null,2))
           Postdata('register','POST',values).then(data=>console.log(data))}
       })
     return(

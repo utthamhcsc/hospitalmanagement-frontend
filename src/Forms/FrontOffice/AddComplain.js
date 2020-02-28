@@ -4,6 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import {useFormik} from 'formik';
 import * as  Yup from 'yup';
 import {Getdata,PostFormdata} from '../../Network/Server'
+import {toast} from 'react-toastify'
 export default (props) =>{
     const mydata=(Object.entries(props.data).length === 0 )?
   {  complainType:'',
@@ -27,18 +28,20 @@ export default (props) =>{
 ...mydata
     }
   ,
-        onSubmit:values=>{alert(JSON.stringify(values,null,2))
-            PostFormdata('complaintype/','POST',values).then(data=>console.log(data))},
+        onSubmit:values=>{console.log(JSON.stringify(values,null,2))
+            PostFormdata('complaintype/','POST',values).then(data=>toast.success('successfully added', {
+      position: toast.POSITION.TOP_CENTER
+    }))},
             validationSchema:Yup.object().shape({
-                complainType:Yup.string().required(),
-            source:Yup.string().required(),
-            complainBy:Yup.string().required(),
-            phone:Yup.number(10).required(),
-            date:Yup.date().required(),
-            description:Yup.string().required(),
-            actionTaken:Yup.string().required(),
-            assigned:Yup.string().required(),
-            note:Yup.string().required(),
+                complainType:Yup.string().required('required'),
+            source:Yup.string().required('required'),
+            complainBy:Yup.string().required('required'),
+            phone:Yup.string().matches(/^[0-9]{10}$/).required('required'),
+            date:Yup.date().required('required'),
+            description:Yup.string().required('required'),
+            actionTaken:Yup.string().required('required'),
+            assigned:Yup.string().required('required'),
+            note:Yup.string().required('required'),
             //attachedDocument:null
 
             })

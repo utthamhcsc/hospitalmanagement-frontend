@@ -9,25 +9,32 @@ import {toast} from 'react-toastify'
 export default (props)=>
 {
   //console.log(props.patientId)
-  const [pid,setPid]=useState(false);
+  const [pid,setPid]=useState(true);
  // const [p,setp]=useState(props.patientId);
   //const p1=props.patientId
  // console.log(props.data.patientId)
-  const formik=useFormik({
-    //enableReinitialize:true,
-    initialValues:{
-      patientId:'',
-      date:'',
-      patientName:'',
-      gender:'',
-      email:'',
-      mobileNumber:'',
-      message:'',
-      department:'',
-      doctor:'',
-      address:''
-    },
-    onSubmit:values=>{alert(JSON.stringify(values,null,2))
+ const mydata=(Object.entries(props.data).length === 0 )?
+ {   patientId:'',
+ date:'',
+ patientName:'',
+ gender:'',
+ email:'',
+ mobileNumber:'',
+ message:'',
+ department:'',
+ doctor:'',
+ address:''
+}:{...props.data,date:new Date(props.data.date)};
+
+ const formik = useFormik({
+   
+ enableReinitialize:true,
+   initialValues:{
+      
+...mydata
+   }
+ ,
+    onSubmit:values=>{console.log(JSON.stringify(values,null,2))
     Postdata('appointment/','POST',values).then(data=>{if(data.err){formik.setFieldError('patientId',data.err)}
   else {toast.success('successfully booked', {
       position: toast.POSITION.TOP_CENTER

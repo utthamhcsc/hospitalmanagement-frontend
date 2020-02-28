@@ -5,7 +5,7 @@ import { useFormik } from 'formik';
 import * as  Yup from 'yup';
 import {Getdata,Postdata,PostFormdata} from '../../Network/Server'
 
-
+import {toast} from 'react-toastify'
 
 export default () =>
 {
@@ -32,29 +32,29 @@ const formik=useFormik({
         operationDate:'',
         operationName:''
        },
-       onSubmit:values=>{alert(JSON.stringify(values,null,2))
+       onSubmit:values=>{console.log(JSON.stringify(values,null,2))
             Postdata('operationtheatre/','POST',values).then(data=>console.log(data))},
             validationSchema:Yup.object().shape({
-            height:Yup.number().required(),
-            weight:Yup.number().required(),
-            bp:Yup.number().required(),
-            symptoms:Yup.string().required(),
-            note:Yup.string().required(),
-            code:Yup.string().required(),
-            selectCtegory:Yup.string().required(),
-            otAssistant:Yup.string().required(),
-            otTechnician:Yup.string().required(),
-            tpa:Yup.string().required(),
-            anesthetistType:Yup.string().required(),
-            anesthetist:Yup.string().required(),
-            standardCharge:Yup.string().required(),
-            appliedCharge:Yup.string().required(),
-            assConsultant1:Yup.string().required(),
-            assConsultant2:Yup.string().required(),
-            consultantDoctor:Yup.string().required(),
-            operationType:Yup.string().required(),
-            operationDate:Yup.string().required(),
-            operationName:Yup.string().required()
+            height:Yup.number('must be number only').required('required'),
+            weight:Yup.number('must be number only').required('required'),
+            bp:Yup.number('must be number only').required('required'),
+            symptoms:Yup.string().required('required'),
+            note:Yup.string().required('required'),
+            code:Yup.string().required('required'),
+            selectCtegory:Yup.string().required('required'),
+            otAssistant:Yup.string().required('required'),
+            otTechnician:Yup.string().required('required'),
+            tpa:Yup.string().required('required'),
+            anesthetistType:Yup.string().required('required'),
+            anesthetist:Yup.string().required('required'),
+            standardCharge:Yup.string().required('required'),
+            appliedCharge:Yup.string().required('required'),
+            assConsultant1:Yup.string().required('required'),
+            assConsultant2:Yup.string().required('required'),
+            consultantDoctor:Yup.string().required('required'),
+            operationType:Yup.string().required('required'),
+            operationDate:Yup.string().required('required'),
+            operationName:Yup.string().required('required')
          })
      })
 

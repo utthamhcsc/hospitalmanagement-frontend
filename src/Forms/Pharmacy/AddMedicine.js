@@ -2,6 +2,7 @@ import React from 'react'
 import {useFormik} from 'formik';
 import * as  Yup from 'yup';
  import {Getdata,Postdata,PostFormdata} from '../../Network/Server'
+ import {toast} from 'react-toastify'
 export default ()=>{
     const formik = useFormik({
          initialValues:
@@ -20,22 +21,24 @@ export default ()=>{
             medicinePhoto:'',
             vatAc:''
        },
-        onSubmit:values=>{alert(JSON.stringify(values,null,2))
-          PostFormdata('medician/','POST',values).then(data=>console.log(data))},
+        onSubmit:values=>{console.log(JSON.stringify(values,null,2))
+          PostFormdata('medician/','POST',values).then(data=>toast.success('successfully added', {
+      position: toast.POSITION.TOP_CENTER
+    }))},
           validationSchema:Yup.object().shape({
-            medicineName:Yup.string().required(),
-            medicineCategory:Yup.string().required(),
-            medicineCompany:Yup.string().required(),
-            medicineComposition:Yup.string().required(),
-            medicineGroup:Yup.string().required(),
-            unit:Yup.number().required(),
-            minLevel:Yup.number().required(),
-            reOrderLevel:Yup.number().required(),
-            vat:Yup.string().required(),
-            packing:Yup.string().required(),
-            note:Yup.string().required(),
+            medicineName:Yup.string().required('required'),
+            medicineCategory:Yup.string().required('required'),
+            medicineCompany:Yup.string().required('required'),
+            medicineComposition:Yup.string().required('required'),
+            medicineGroup:Yup.string().required('required'),
+            unit:Yup.number('must be number only').required('required'),
+            minLevel:Yup.number('must be number only').required('required'),
+            reOrderLevel:Yup.number('must be number only').required('required'),
+            vat:Yup.string().required('required'),
+            packing:Yup.string().required('required'),
+            note:Yup.string().required('required'),
            // medicinePhoto:Yup.string().required(),
-            vatAc:Yup.string().required()
+            vatAc:Yup.string().required('required')
           })
       })
     

@@ -5,7 +5,7 @@ import { useFormik } from 'formik';
 import * as  Yup from 'yup';
  import {Getdata,Postdata,PostFormdata} from '../../Network/Server'
 
-
+ import {toast} from 'react-toastify'
 export default () =>{
    
     const formik=useFormik({
@@ -26,24 +26,26 @@ export default () =>{
         appliedCharge:'',
         paymentMode:''
        },
-       onSubmit:values=>{alert(JSON.stringify(values,null,2))
-         Postdata('opdoutpatient/','POST',values).then(data=>console.log(data))},
+       onSubmit:values=>{console.log(JSON.stringify(values,null,2))
+         Postdata('opdoutpatient/','POST',values).then(data=>toast.success('successfully added', {
+      position: toast.POSITION.TOP_CENTER
+    }))},
          validationSchema:Yup.object().shape({
-            height:Yup.number().required(),
-            weight:Yup.number().required(),
-            bp:Yup.number().required(),
-            symptoms:Yup.string().required(),
-            note:Yup.string().required(),
-            appointmentDate:Yup.date().required(),
-            caseType:Yup.string().required(),
-            casuality:Yup.string().required(),
-            oldPatient:Yup.string().required(),
-            tpa:Yup.string().required(),
-            reference:Yup.string().required(),
-            consDoctor:Yup.string().required(),
-            standardCharge:Yup.string().required(),
-            appliedCharge:Yup.string().required(),
-            paymentMode:Yup.string().required()
+            height:Yup.number('must be number only').required('required'),
+            weight:Yup.number('must be number only').required('required'),
+            bp:Yup.number('must be number only').required('required'),
+            symptoms:Yup.string().required('required'),
+            note:Yup.string().required('required'),
+            appointmentDate:Yup.date().required('required'),
+            caseType:Yup.string().required('required'),
+            casuality:Yup.string().required('required'),
+            oldPatient:Yup.string().required('required'),
+            tpa:Yup.string().required('required'),
+            reference:Yup.string().required('required'),
+            consDoctor:Yup.string().required('required'),
+            standardCharge:Yup.string().required('required'),
+            appliedCharge:Yup.string().required('required'),
+            paymentMode:Yup.string().required('required')
          })
      })
 

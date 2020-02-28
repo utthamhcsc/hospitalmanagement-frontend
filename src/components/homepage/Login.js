@@ -8,6 +8,10 @@ import * as yup from 'yup'
 
 export default (prop)=>{
 const history=useHistory();
+const routedata={
+  patient:'patient/appointment',
+  receptionist:'receptionist/appointment'
+}
 const formik=useFormik({
  initialValues:{ email:'',
   password:''},
@@ -28,7 +32,8 @@ yup.object().shape({
         });
         window.localStorage.setItem('islogin',true)
         window.localStorage.setItem('user',JSON.stringify(data.msg.details));
-        window.location.href='/dashboard/appointment'
+       // window.location.href='/dashboard/appointment'
+       window.location.href=routedata[data.msg.details.role]
       }
       else{
         toast.error(data.msg.msg, {

@@ -4,7 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
  import {Getdata,Postdata,PostFormdata} from '../../Network/Server'
-
+ import {toast} from 'react-toastify'
 
 export default (props) =>
 {
@@ -17,7 +17,7 @@ export default (props) =>
   callDuretion:'',
   callType:'',
   note:'',
- }:{...props.data,date:new Date()};
+ }:{...props.data,date:new Date(props.data.date),nextFallowUpDate:new Date(props.data.nextFallowUpDate)};
   const formik = useFormik({
     
     enableReinitialize:true,
@@ -26,17 +26,19 @@ export default (props) =>
 ...mydata
     }
     ,
-        onSubmit:values=>{alert(JSON.stringify(values,null,2))
-          Postdata('phonecall/','POST',values).then(data=>console.log(data))},
+        onSubmit:values=>{console.log(JSON.stringify(values,null,2))
+          Postdata('phonecall/','POST',values).then(data=>toast.success('successfully added', {
+      position: toast.POSITION.TOP_CENTER
+    }))},
           validationSchema:Yup.object().shape({
-            name:Yup.string().required(),
-            date:Yup.date().required(),
-            phone:Yup.number().required(),
-            nextFallowUpDate:Yup.date().required(),
-            description:Yup.string().required(),
-            callDuretion:Yup.string().required(),
-            callType:Yup.string().required(),
-            note:Yup.string().required(),
+            name:Yup.string().required('required'),
+            date:Yup.date().required('required'),
+            phone:Yup.string().matches(/^[0-9]{10}$/,'must be 10 digit').required('required'),
+            nextFallowUpDate:Yup.date().required('required'),
+            description:Yup.string().required('required'),
+            callDuretion:Yup.string().required('required'),
+            callType:Yup.string().required('required'),
+            note:Yup.string().required('required'),
           })
       })
     return(

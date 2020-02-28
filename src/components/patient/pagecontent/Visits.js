@@ -1,16 +1,16 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {NavLink} from 'react-router-dom'
+import {NavLink, BrowserRouter,Link} from 'react-router-dom'
 import Table from '../../Table'
 import {Getdata} from '../../../Network/Server'
 
-export default function Visits() 
+export default function Visits(props) 
 {
     const column=[{data:'opdNo',title:'Opd No'},{data:'appointmentDate',title:'Appointment Date'},{data:'consultant',title:'Consulatnt'},{data:'reference',title:'Reference'},{data:'symptoms',title:'Symptoms'},{data:'action',title:'Action'}]
     const [dataSrc,setdataSrc]=React.useState([]);
-    const columnDefs=[]
-    const Link=<NavLink to='dfgh'/>
-
+    const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(<BrowserRouter><button onClick={()=>props.setindex(rowData)} data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
+  </BrowserRouter>,td)}]
+  
     React.useEffect(()=>{Getdata().then(data=>setdataSrc(data));},[])
 
     return (

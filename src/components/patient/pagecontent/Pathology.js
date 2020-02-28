@@ -1,16 +1,16 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {NavLink} from 'react-router-dom'
+import {NavLink, BrowserRouter,Link} from 'react-router-dom'
 import Table from '../../Table'
 import {Getdata} from '../../../Network/Server'
 
-export default function Pathology()
+export default function Pathology(props)
  {
     const column=[{data:'billNo',title:'Bill No'},{data:'reportingDate',title:'Reporting Date'},{data:'patientName',title:'Patient Name'},{data:'testName',title:'Test Name'},{data:'shortName',title:'Short Name'},{data:'referenceDoctor',title:'Reference Doctor'},{data:'description',title:'Description'},{data:'chargeCategory',title:'Charge Category'},{data:'appliedCharge',title:'Applied Charge'},{data:'action',title:'Action'}]
     const [dataSrc,setdataSrc]=React.useState([]);
-    const columnDefs=[]
-    const Link=<NavLink to='dfgh'/>
-
+    const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(<BrowserRouter><button onClick={()=>props.setindex(rowData)} data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
+  </BrowserRouter>,td)}]
+  
     React.useEffect(()=>{Getdata('pathology').then(data=>setdataSrc(data));},[])
     
     return (

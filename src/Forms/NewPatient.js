@@ -5,6 +5,7 @@ import * as Yup from 'yup'
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {PostFormdata} from '../Network/Server'
+//import {toast} from 'react-toastify'
 export default ()=>{
     const formik=useFormik({
         initialValues:{
@@ -34,19 +35,19 @@ export default ()=>{
                    },
                    validationSchema:()=>
                     Yup.object().shape({
-                     patientName:Yup.string().required(),
-                     gender:Yup.string().required(),
-                     dateOfBirth:Yup.date().required(),
-                     age:Yup.string().notRequired(),
-                     bloodGroup:Yup.string().required(),
-                     maritalStatus:Yup.string().required(),
-                     phone:Yup.number().required(),
-                     email:Yup.string().email().required(),
+                     patientName:Yup.string().required('required'),
+                     gender:Yup.string().required('required'),
+                     dateOfBirth:Yup.date().required('required'),
+                     age:Yup.string().notRequired('required'),
+                     bloodGroup:Yup.string().required('required'),
+                     maritalStatus:Yup.string().required('required'),
+                     phone:Yup.number().required('required'),
+                     email:Yup.string().email().required('required'),
                    //  photo:Yup.object().required(),
-                     address:Yup.string().required(),
-                     remarks:Yup.string().required(),
-                     knownAllergies:Yup.string().required(),
-                     guardianName:Yup.string().required()
+                     address:Yup.string().required('required'),
+                     remarks:Yup.string().required('required'),
+                     knownAllergies:Yup.string().required('required'),
+                     guardianName:Yup.string().required('required')
                     
                     })
                 

@@ -1,16 +1,16 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {NavLink} from 'react-router-dom'
+import {NavLink, BrowserRouter,Link} from 'react-router-dom'
 import Table from '../../Table'
 import {Getdata,Postdata} from '../../../Network/Server'
 
-export default function Pharmacy() 
+export default function Pharmacy(props) 
 {
     const column=[{data:'billNo',title:'Bill No'},{data:'date',title:'Date'},{data:'patientName',title:'Patient Name'},{data:'doctorName',title:'Doctor Name'},{data:'total',title:'Total'},{data:'action',title:'Action'}]
     const [dataSrc,setdataSrc]=React.useState([]);
-    const columnDefs=[]
-    const Link=<NavLink to='dfgh'/>
-
+    const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(<BrowserRouter><button onClick={()=>props.setindex(rowData)} data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
+  </BrowserRouter>,td)}]
+  
     React.useEffect(()=>{Getdata().then(data=>setdataSrc(data));},[])
 
 

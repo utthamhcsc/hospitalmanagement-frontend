@@ -2,6 +2,7 @@ import React from 'react'
 import {useFormik} from 'formik';
 import * as  Yup from 'yup';
 import {Getdata,Postdata,PostFormdata} from '../../Network/Server'
+import {toast} from 'react-toastify'
 export default ()=>{
     const formik = useFormik({
         initialValues:{
@@ -15,18 +16,20 @@ export default ()=>{
             code:'',
             standardCharge:''
         },
-        onSubmit:values=>{alert(JSON.stringify(values,null,2))
-          Postdata('rediology/','POST',values).then(data=>console.log(data))},
+        onSubmit:values=>{console.log(JSON.stringify(values,null,2))
+          Postdata('rediology/','POST',values).then(data=>toast.success('successfully added', {
+      position: toast.POSITION.TOP_CENTER
+    }))},
           validationSchema:Yup.object().shape({
-            testName:Yup.string().required(),
-            shortName:Yup.string().required(),
-            testType:Yup.string().required(),
-            categoryName:Yup.string().required(),
-            subCategory:Yup.string().required(),
-            reportDays:Yup.number().required(),
-            chargeCategory:Yup.string().required(),
-            code:Yup.string().required(),
-            standardCharge:Yup.string().required()
+            testName:Yup.string().required('required'),
+            shortName:Yup.string().required('required'),
+            testType:Yup.string().required('required'),
+            categoryName:Yup.string().required('required'),
+            subCategory:Yup.string().required('required'),
+            reportDays:Yup.number().required('required'),
+            chargeCategory:Yup.string().required('required'),
+            code:Yup.string().required('required'),
+            standardCharge:Yup.string().required('required')
           })
       })
 

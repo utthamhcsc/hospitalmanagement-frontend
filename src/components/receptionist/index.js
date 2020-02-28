@@ -31,6 +31,7 @@ import PostalReceive from './pagecontent/PostalReceive'
 import PostalDispatch from './pagecontent/PostalDispatch'
 import Visitor from './pagecontent/Visitor'
 import Discharge from './pagecontent/Discharge'
+import Profile from './pagecontent/Profile'
 
 export default function Index() {
   const [index,setindex]=React.useState({})
@@ -59,8 +60,10 @@ export default function Index() {
 <Route path='/receptionist/postalReceive' render={()=><PostalReceive setindex={setindex}/>}/>
 <Route path='/receptionist/postaldispatch' render={()=><PostalDispatch setindex={setindex}/>}/>
 <Route path='/receptionist/discharge' render={()=><Discharge/>}/>
-
-
+<Route path='/receptionist/profile' render={()=><Profile/>}/>
+<AddNewPatient data={{}}/>
+<GenerateBill data={{}}/>
+{/* 
 <BookMyAppointment data={index}/>
     <AddPat data={index} />
     <Radiology data={index}/> 
@@ -77,7 +80,7 @@ export default function Index() {
     <AddVisitor data={index} />
     <ImportMedicine data={index} />
     <AddNewPatient data={index}/>
-    <DisplayForm data={index}/>
+    <DisplayForm data={index}/> */}
       </div>
       </section>
       </div>

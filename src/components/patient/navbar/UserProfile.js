@@ -23,7 +23,7 @@ const UserProfile = () => {
               </li>
               <li class="d-flex justify-content-between py-2 px-1">
                 <div class="pull-left">
-                  <Link href="#" class="btn btn-default btn-flat">Profile</Link>
+                  <a href="#profile" data-toggle='modal' class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
                   <button class="btn btn-default btn-flat"

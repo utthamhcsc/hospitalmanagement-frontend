@@ -1,16 +1,17 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {NavLink} from 'react-router-dom'
+import {NavLink,BrowserRouter} from 'react-router-dom'
 import Table from '../../Table'
 import {Getdata,Postdata} from '../../../Network/Server'
 
-export default function Ambulance()
+
+export default function Ambulance(props)
  {
     const column=[{data:'patienName',title:'Patient Name'},{data:'address',title:'Address'},{data:'vehicleModel',title:'Vehicle model'},{data:'vehicleNo',title:'Vehicle No'},{data:'driver',title:'Driver Name'},{data:'contactNo',title:'Driver Contact'},{data:'amount',title:'Amount'},{data:'action',title:'Action',responsivePriority:2}]
     const [dataSrc,setdataSrc]=React.useState([]);
-    const columnDefs=[]
-    const Link=<NavLink to='dfgh'/>
-
+    const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(<BrowserRouter><button onClick={()=>props.setindex(rowData)} data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
+  </BrowserRouter>,td)}]
+  
     React.useEffect(()=>{Getdata('ambulance').then(data=>setdataSrc(data));},[])
     
     return (

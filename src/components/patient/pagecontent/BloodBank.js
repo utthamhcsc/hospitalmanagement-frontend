@@ -1,16 +1,16 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {NavLink} from 'react-router-dom'
+import {NavLink, BrowserRouter,Link} from 'react-router-dom'
 import Table from '../../Table'
 import {Getdata} from '../../../Network/Server'
 
-export default function BloodBank()
+export default function BloodBank(props)
  {
     const column=[{data:'billNo',title:'Bill No'},{data:'dateOfIssue',title:'Issue Date'},{data:'recieveTo',title:'Recieved To'},{data:'bloodGroup',title:'Boold Group'},{data:'donorName',title:'Donor Name'},{data:'bagNo',title:'Bag No'},{data:'amount',title:'Amount'},{data:'action',title:'Action'}]
     const [dataSrc,setdataSrc]=React.useState([]);
-    const columnDefs=[]
-    const Link=<NavLink to='dfgh'/>
-
+    const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(<BrowserRouter><button onClick={()=>props.setindex(rowData)} data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
+    </BrowserRouter>,td)}]
+    
     React.useEffect(()=>{Getdata('bloodissue').then(data=>setdataSrc(data));},[])
     
     return (

@@ -4,7 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import {useFormik} from 'formik';
 import * as  Yup from 'yup';
  import {Getdata,Postdata,PostFormdata} from '../../Network/Server'
-
+ import {toast} from 'react-toastify'
 export default () =>{
     const formik=useFormik({
     initialValues:
@@ -25,25 +25,27 @@ export default () =>{
         bedNumber:'',
         oldpatient:''
     },
-       onSubmit:values=>{alert(JSON.stringify(values,null,2))
-         Postdata('inpatient/','POST',values).then(data=>console.log(data))},
+       onSubmit:values=>{console.log(JSON.stringify(values,null,2))
+         Postdata('inpatient/','POST',values).then(data=>toast.success('successfully added', {
+      position: toast.POSITION.TOP_CENTER
+    }))},
          validationSchema:Yup.object().shape({
              
-        reference:Yup.string().required(),
-        height:Yup.number().required(),
-        weight:Yup.number().required(),
-        bp:Yup.number().required(),
-        symptoms:Yup.string().required(),
-        note:Yup.string().required(),
-        appointmentDate:Yup.date().required(),
-        caseType:Yup.string().required(),
-        casulity:Yup.string().required(),
-        tpa:Yup.string().required(),
-        consDoctor:Yup.string().required(),
-        creditLimit:Yup.string().required(),
-        bedGroup:Yup.string().required(),
-        bedNumber:Yup.number().required(),
-        oldpatient:Yup.string().required()
+        reference:Yup.string().required('required'),
+        height:Yup.number('must be number only').required('required'),
+        weight:Yup.number('must be number only').required('required'),
+        bp:Yup.number('must be number only').required('required'),
+        symptoms:Yup.string().required('required'),
+        note:Yup.string().required('required'),
+        appointmentDate:Yup.date().required('required'),
+        caseType:Yup.string().required('required'),
+        casulity:Yup.string().required('required'),
+        tpa:Yup.string().required('required'),
+        consDoctor:Yup.string().required('required'),
+        creditLimit:Yup.string().required('required'),
+        bedGroup:Yup.string().required('required'),
+        bedNumber:Yup.number('must be number only').required('required'),
+        oldpatient:Yup.string().required('required')
 
          })
      })

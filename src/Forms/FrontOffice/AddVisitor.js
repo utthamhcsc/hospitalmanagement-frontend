@@ -5,7 +5,7 @@ import {useFormik} from 'formik';
 import * as Yup from 'yup'
 import {Getdata,Postdata,PostFormdata} from '../../Network/Server' 
 
-
+import {toast} from 'react-toastify'
 
 export default  (props) => {
 
@@ -28,18 +28,20 @@ export default  (props) => {
        
 ...mydata
     },
-    onSubmit:values=>{alert(JSON.stringify(values,null,2))
-      PostFormdata('visitorlist/','POST',values).then(data=>console.log(data))},
+    onSubmit:values=>{console.log(JSON.stringify(values,null,2))
+      PostFormdata('visitorlist/','POST',values).then(data=>toast.success('successfully added', {
+      position: toast.POSITION.TOP_CENTER
+    }))},
       validationSchema:Yup.object().shape({
-        purpose:Yup.string().required(),
-        name:Yup.string().required(),
-        phone:Yup.string().required(),
-        idCard:Yup.string().required(),
-        numberOfPersons:Yup.string().required(),
-        date:Yup.date().required(),
-        inTime:Yup.string().required(),
-        outTime:Yup.string().required(),
-        note:Yup.string().required()
+        purpose:Yup.string().required('required'),
+        name:Yup.string().required('required'),
+        phone:Yup.string().required('required'),
+        idCard:Yup.string().required('required'),
+        numberOfPersons:Yup.string().required('required'),
+        date:Yup.date().required('required'),
+        inTime:Yup.string().required('required'),
+        outTime:Yup.string().required('required'),
+        note:Yup.string().required('required')
         //attachdDocument:null
     })
   })

@@ -2,6 +2,7 @@ import React from 'react'
 import {useFormik} from 'formik';
 import * as  Yup from 'yup';
  import {Getdata,Postdata,PostFormdata} from '../../Network/Server'
+ import {toast} from 'react-toastify'
 export default ()=>{
     const formik = useFormik({
         initialValues:{
@@ -17,26 +18,28 @@ export default ()=>{
             code:'',
             standardCharge:''
         },
-        onSubmit:values=>{alert(JSON.stringify(values,null,2))
-          Postdata('pathology/','POST',values).then(data=>console.log(data))},
+        onSubmit:values=>{console.log(JSON.stringify(values,null,2))
+          Postdata('pathology/','POST',values).then(data=>toast.success('successfully added', {
+      position: toast.POSITION.TOP_CENTER
+    }))},
           validationSchema:Yup.object().shape({
-            testName:Yup.string().required(),
-            shortName:Yup.string().required(),
-            testType:Yup.string().required(),
-            categoryName:Yup.string().required(),
-            unit:Yup.number().required(),
-            subCategory:Yup.string().required(),
-            reportDays:Yup.number().required(),
-            method:Yup.string().required(),
-            chargeCategory:Yup.string().required(),
-            code:Yup.string().required(),
-            standardCharge:Yup.string().required()
+            testName:Yup.string().required('required'),
+            shortName:Yup.string().required('required'),
+            testType:Yup.string().required('required'),
+            categoryName:Yup.string().required('required'),
+            unit:Yup.number('must be number only').required('required'),
+            subCategory:Yup.string().required('required'),
+            reportDays:Yup.number('must be number only').required('required'),
+            method:Yup.string().required('required'),
+            chargeCategory:Yup.string().required('required'),
+            code:Yup.string().required('required'),
+            standardCharge:Yup.string().required('required')
   
           })
       })
 
     return(
-        <div class="modal fade" id="AddPathologyTest" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="AddpathologyTest" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document">
          <div class="modal-content" role="document">
 

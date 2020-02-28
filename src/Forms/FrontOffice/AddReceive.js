@@ -4,7 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import {useFormik} from 'formik';
 import * as  Yup from 'yup';
  import {Getdata,Postdata,PostFormdata} from '../../Network/Server'
-
+ import {toast} from 'react-toastify'
 
 export default  (props) => {
   const mydata=(Object.entries(props.data).length === 0 )?
@@ -25,15 +25,17 @@ export default  (props) => {
 ...mydata
     }
   ,
-    onSubmit:values=>{alert(JSON.stringify(values,null,2))
-      PostFormdata('postalrecieve/','POST',values).then(data=>console.log(data))},
+    onSubmit:values=>{console.log(JSON.stringify(values,null,2))
+      PostFormdata('postalrecieve/','POST',values).then(data=>toast.success('successfully added', {
+      position: toast.POSITION.TOP_CENTER
+    }))},
       validationSchema:Yup.object().shape({
-        fromTitle:Yup.string().required(),
-        referenceNo:Yup.string().required(),
-        address:Yup.string().required(),
-        toTitle:Yup.string().required(),
-        note:Yup.string().required(),
-        date:Yup.date().required(),
+        fromTitle:Yup.string().required('required'),
+        referenceNo:Yup.string().required('required'),
+        address:Yup.string().required('required'),
+        toTitle:Yup.string().required('required'),
+        note:Yup.string().required('required'),
+        date:Yup.date().required('required'),
         //attachdDocument:null
     })
   })
