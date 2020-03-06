@@ -42,7 +42,7 @@ export default function Index()
     if(user){
       user=JSON.parse(user);
       console.log(user)
-      setPatientId(user.userId)
+     // setPatientId(user.userId)
     }
 Getdata(`patientprofile/${patientId}`).then(data=>{console.log(data);setPatient(data)})
   },[])

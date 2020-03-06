@@ -7,9 +7,11 @@ import * as  Yup from 'yup';
 
  import {toast} from 'react-toastify'
 export default () =>{
-   
+   const [data,setData]=React.useState({});
     const formik=useFormik({
         initialValues:{
+            patientId:'',
+        
         height:'',
         weight:'',
         bp:'',
@@ -27,7 +29,7 @@ export default () =>{
         paymentMode:''
        },
        onSubmit:values=>{console.log(JSON.stringify(values,null,2))
-         Postdata('opdoutpatient/','POST',values).then(data=>toast.success('successfully added', {
+         Postdata('opdoutpatient/','POST',{...values,name:data[values.patientId]}).then(data=>toast.success('successfully added', {
       position: toast.POSITION.TOP_CENTER
     }))},
          validationSchema:Yup.object().shape({
@@ -48,7 +50,14 @@ export default () =>{
             paymentMode:Yup.string().required('required')
          })
      })
+React.useEffect(()=>{
+    Getdata('/fetchalluser/patient').then(data=>{setData(data);console.log(data)})
 
+
+
+
+
+},[])
 
 
     return(
@@ -64,12 +73,10 @@ export default () =>{
         </button>   
   
                <div className="form-row">
-               <select id="input" className="form-group col-md-4 ">
-                  <option selected>Select Patient</option>
-                  <option>Abhishek</option>
-                  <option>BAsavaraj</option>
-                  <option>Charan</option>
-                  <option>Devegouda</option>
+               <select id="input" className="form-group col-md-4 " {...formik.getFieldProps('patientId')} >
+                 {
+                   data?  Object.keys(data).map(item=><option value={item}>{data[item]}</option>):''
+                 }
                </select>
                <div className="form-group ml-4">
                <button class=" form-inline ml-2" data-toggle='modal' data-target='#addnewpatient'><i class="fas fa-plus "></i>New Patient</button>

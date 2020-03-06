@@ -40,8 +40,8 @@ return(
            patientId:'',
            billNo:'',
            date:new Date(),
-           docter:'',
-           hospitalDocter:'',
+           doctor:'',
+           hospitalDoctor:'',
            note:'',
            medicine:[{
            medicineCategory:'',
@@ -187,7 +187,7 @@ return(
                   <div class="form-row ml-4">
                      <div class="col ">
                          <div className=" ">Hospital Doctor</div>
-                       <select id="input" class="form-inline  my-2 w-100 " value={values.docter} onChange={(e)=>setFieldValue('hospitalDocter',e.target.value)} >
+                       <select id="input" class="form-inline  my-2 w-100 " value={values.docter} onChange={(e)=>setFieldValue('hospitalDoctor',e.target.value)} >
                            <option selected>Select Doctor</option>
                            <option>Dr.Amith</option>
                            <option>Dr.Bharat</option>
@@ -198,7 +198,7 @@ return(
                     </div>
                     <div class="col">
                     <div className="">Doctor Name</div>
-                       <input type="text" class="form-inline w-100 my-2 " placeholder="Doctor Name" value={values.docter} onChange={(e)=>setFieldValue('docter',e.target.value)}/>
+                       <input type="text" class="form-inline w-100 my-2 " placeholder="Doctor Name" value={values.docter} onChange={(e)=>setFieldValue('doctoName',e.target.value)}/>
                        <span className='text-danger'>{touched.docter ?errors.docter:''}</span>     
                      
                     </div>
@@ -216,8 +216,7 @@ return(
                      Total($)
                      </div>
                     <div class="d-flex ">
-                    <input type="number" className=" bg-light border-top-0 border-left-0 border-right-0" value={values.medicine.map(item=>Number(item.charges)).reduce((pre,nxt)=>pre+nxt)} onChange={(e)=>setFieldValue('total',e.target.value)} style={{border:'1px solid black'}}/>
-                     
+                      <input type="number" className=" bg-light border-top-0 border-left-0 border-right-0" value={values.medicine.map(item=>Number(item.charges)).reduce((pre,nxt)=>pre+nxt)} onChange={(e)=>setFieldValue('total',e.target.value)} style={{border:'1px solid black'}}/>
                      </div>
                </div>
               <div className="d-flex justify-content-between my-4">

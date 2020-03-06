@@ -2,7 +2,7 @@ import React,{useState,useEffect} from 'react';
 import {useFormik, yupToFormErrors} from 'formik';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import {Getdata,Postdata} from '../Network/Server'
+import {Getdata,Postdata} from '../../../Network/Server'
 import * as yup from 'yup'
 import {toast} from 'react-toastify'
 
@@ -13,34 +13,26 @@ export default (props)=>
  // const [p,setp]=useState(props.patientId);
   //const p1=props.patientId
  // console.log(props.data.patientId)
- const mydata=(Object.entries(props.data).length === 0 )?
- {   patientId:'',
- date:'',
- patientName:'',
- gender:'',
- email:'',
- mobileNumber:'',
- message:'',
- department:'',
- doctor:'2',
- address:''
-}:{...props.data,date:new Date(props.data.date)};
-
- const formik = useFormik({
-   
- enableReinitialize:true,
-   initialValues:{
-      
-...mydata
-   }
- ,
-    onSubmit:values=>{console.log(JSON.stringify(values,null,2))
-      formik.resetForm();
+  const formik=useFormik({
+    //enableReinitialize:true,
+    initialValues:{
+      patientId:props.patientId,
+      date:'',
+      patientName:'',
+      gender:'',
+      email:'',
+      mobileNumber:'',
+      message:'',
+      department:'',
+      doctor:'',
+      address:''
+    },
+    onSubmit:values=>{//alert(JSON.stringify(values,null,2))
     Postdata('appointment/','POST',values).then(data=>{if(data.err){formik.setFieldError('patientId',data.err)}
   else {toast.success('successfully booked', {
       position: toast.POSITION.TOP_CENTER
     })
-  
+    formik.resetForm();
   }
  // 
   }
@@ -79,17 +71,10 @@ return(<React.Fragment>
       <div className="modal-body bg-light m-4 border   ">
         
         
-  <div className=" form-group form-check form-check-inline" id="newpatient">
-    <input type="radio" className="form-check-input"  name="pat" onClick={()=>{setPid(false);formik.setErrors({})}} checked={!pid}/>
-    <label className="form-check-label" for="exampleCheck1">New Patient</label>
-  </div>
-   <div className=" form-group form-check form-check-inline" id="oldpatient">
-    <input type="radio" className="form-check-input" id="exampleCheck1" name="pat" onClick={()=>{setPid(true);;formik.setErrors({}) }} checked={pid}/>
-    <label className="form-check-label" for="exampleCheck1">Old Patient</label>
-  </div>
+ 
   <form onSubmit={formik.handleSubmit}>
    <div className="input-group" style={pid?{display:'flex'}:{display:'none'}}>
-  <input type="text" className="form-control bg-transparent border-right-0 border-top-0" name="patientId"  {...formik.getFieldProps('patientId')} placeholder="Petient Id"  />
+  <input type="text" readOnly className="form-control bg-transparent border-right-0 border-top-0" name="patientId"  {...formik.getFieldProps('patientId')} placeholder="Petient Id"  />
   <div className="input-group-append ">
     <span className="input-group-text bg-transparent border-right-0 border-top-0 border-left-0 " id="basic-addon2"><i className="fa fa-id-badge" aria-hidden="true"></i></span>
   </div>

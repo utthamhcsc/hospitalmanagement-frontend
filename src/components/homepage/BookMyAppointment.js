@@ -27,7 +27,7 @@ export default (props)=>
       doctor:'',
       address:''
     },
-    onSubmit:values=>{alert(JSON.stringify(values,null,2))
+    onSubmit:values=>{//alert(JSON.stringify(values,null,2))
     Postdata('appointment/','POST',values).then(data=>{if(data.err){formik.setFieldError('patientId',data.err)}
   else {toast.success('successfully booked', {
       position: toast.POSITION.TOP_CENTER

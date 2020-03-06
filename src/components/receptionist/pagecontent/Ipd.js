@@ -9,7 +9,7 @@ import DisplayForm from '../../../Forms/DisplayForm'
 export default function Ipd(props) {
   
   const [index,setindex]=React.useState({});
-    const column=[{data:'height',title:'Height'},{data:'weight',title:'Weight'},{data:'bp',title:'Bp'},{data:'symptoms',title:'Symptoms'},{data:'note',title:'Note'},{data:'appointmentDate',title:'Appointment Date'},{data:'caseType',title:'Case Type'},{data:'casulity',title:'Casuality'},{data:'oldPatient',title:'Old Patient'},{data:'tpa',title:'TPA'},{data:'creditLimit',title:'Credit Limit'},{data:'consultantDoctor',title:'Consultant Doctor'},{data:'reference',title:'Referenece'},{data:'bedGroup',title:'Bed Group'},{data:'bedNumber',title:'Bed Number'},{data:'',title:'Action'}]
+    const column=[{data:'name',title:'Name'},{data:'ipdno',title:'IPD No'},{data:'patientId',title:'Patient Id'},{data:'gender',title:'Gender'},{data:'phone',title:'Phone'},{data:'consultant',title:'Consultant'},{data:'bed',title:'Bed'},{data:'charge',title:'Charge'},{data:'payment',title:'Payment'},{data:'duepayment',title:'Due Payment'},{data:'creditLimit',title:'Credit Limit'}]
     const [dataSrc,setdataSrc]=React.useState([]);
     const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(
       <BrowserRouter>

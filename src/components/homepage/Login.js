@@ -6,22 +6,24 @@ import { ToastContainer, toast } from 'react-toastify';
 import { useHistory } from 'react-router-dom';
 import * as yup from 'yup'
 
-export default (prop)=>{
-const history=useHistory();
-const routedata={
+export default (prop)=>
+{
+    const history=useHistory();
+    const routedata={
   patient:'patient/appointment',
   receptionist:'receptionist/appointment'
-}
-const formik=useFormik({
- initialValues:{ email:'',
-  password:''},
+                      }
+    const formik=useFormik({
+    initialValues:{ email:'',
+    password:''},
   validationSchema:()=>
 yup.object().shape({
   email:yup.string().required(),
   password:yup.string().required()
 })
   ,
-  onSubmit:values=>{
+  onSubmit:values=>
+  {
     alert(JSON.stringify(values));
     Postdata('login','POST',values).then(data=>{
       console.log(data.msg)
@@ -35,9 +37,10 @@ yup.object().shape({
        // window.location.href='/dashboard/appointment'
        window.location.href=routedata[data.msg.details.role]
       }
-      else{
+      else
+      {
         toast.error(data.msg.msg, {
-          position: toast.POSITION.TOP_CENTER
+        position: toast.POSITION.TOP_CENTER
         }); 
       }
     })}

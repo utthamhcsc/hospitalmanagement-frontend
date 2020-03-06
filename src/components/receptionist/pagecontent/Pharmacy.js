@@ -20,9 +20,7 @@ export default function Pharmacy(props) {
       </BrowserRouter>,td)}]
     const Link=<NavLink to='dfgh'/>
 
-    React.useEffect(()=>{
-        Getdata('medician').then(data=>setdataSrc(data));
-      },[])
+    React.useEffect(()=>{Getdata('medician').then(data=>setdataSrc(data));},[])
 
 
     return (

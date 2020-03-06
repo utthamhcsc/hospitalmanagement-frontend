@@ -1,5 +1,5 @@
-//const baseurl='http://192.168.0.121:8080/';
-const baseurl='http://hospitalmanagemapp.gbfpue2n5p.us-east-1.elasticbeanstalk.com/';
+const baseurl='http://192.168.0.121:8080/';
+//const baseurl='http://hospitalmanagemapp.gbfpue2n5p.us-east-1.elasticbeanstalk.com/';
 const Getdata=async(url='')=>
 {
  try
