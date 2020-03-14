@@ -11,14 +11,24 @@ export default (props) =>{
   const {patientId}=useParams();
   const formik=useFormik({
     initialValues:{
-      reportType:'2',
+      reportType:'',
       reportDate:'',
       document:'',
       description:'',
       opdId:''
      },
      onSubmit:values=>{console.log(JSON.stringify(values,null,2))
-     PostFormdata('opdDiagnosis/','POST',{...values,opdId:patientId}).then(data=>{console.log(data)})}
+     PostFormdata('opdDiagnosis/','POST',{...values,opdId:patientId}).then(data=>{console.log(data)})},
+
+     validationSchema:Yup.object().shape({
+               
+      reportType:Yup.string().required('*Required Report Type'),
+      
+      
+      
+
+      })
+
     });
     
     return(
@@ -39,6 +49,7 @@ export default (props) =>{
                 <div className="border bg-light p-3">
                     <div>Report Type</div>
                     <input type="text" className="form-control mt-1" onChange={(e)=>formik.setFieldValue('reportType',e.target.value)}></input>
+                     <span className='text-danger'>{(formik.touched.reportType && formik.errors.reportType)?formik.errors.reportType:''}</span>
                     <div className="mt-2">Report Date</div>
                     <div className=" ">
                                <DatePicker className="form-control "  style={{width:'100% !important'}} selected={formik.values.reportDate} customInput={<input className="form-control"/>}  onChange={(data)=>formik.setFieldValue('reportDate',data)}/>

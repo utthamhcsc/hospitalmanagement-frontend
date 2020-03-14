@@ -7,9 +7,10 @@ import {Postdata} from '../../../Network/Server'
 import * as  Yup from 'yup';
 export default (props) =>{
 
+  const [doctorId,setdoctorId]=React.useState();
   const formik=useFormik({
     initialValues:{
-      doctorId:'2',
+      doctorId,
       doctorName:'',
       department:'',
       day:'',
@@ -18,12 +19,12 @@ export default (props) =>{
       perPatientTime:'',
       status:'',
       action:''
-    
      },
-     onSubmit:values=>{alert(JSON.stringify(values,null,2))
-     Postdata('schedulelist/','POST',values).then(data=>{console.log(data.msg)})}
+     enableReinitialize:true,
+     onSubmit:values=>{console.log(JSON.stringify(values,null,2))
+     Postdata('schedulelist/','POST',values).then(data=>{console.log(data)})}
     });
-
+React.useEffect(()=>{setdoctorId({...props.data,doctorId:props.doctorId})},[props.data])
 
 
     return(

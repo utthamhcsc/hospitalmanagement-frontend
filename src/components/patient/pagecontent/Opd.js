@@ -1,32 +1,30 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {NavLink, BrowserRouter,Link} from 'react-router-dom'
+import {NavLink,BrowserRouter,Link,useHistory} from 'react-router-dom'
 import Table from '../../Table'
-import {Getdata} from '../../../Network/Server'
+import {Getdata,Postdata} from '../../../Network/Server'
+import DisplayForm from '../../../Forms/DisplayForm'
+import AddPat from '../../../Forms/OPDForms/AddPat'
 
 export default function Opd(props)
-{
-const column=[{data:'name',title:'Name'},
-{data:'appointmentDate',title:'Appointment Date'},
-{data:'caseType',title:'Case Type'},
-{data:'casuality',title:'Casuality'},
-{data:'symptoms',title:'Symptoms'},
-{data:'bp',title:'BP'},
-{data:'height',title:'Height'},
-{data:'weight',title:'Weight'},
-{data:'tpa',title:'TPA'},
-{data:'consDoctor',title:'Cons Doctor'},
-{data:'standardCharge',title:'Standard Charge'},
-{data:'appliedCharge',title:'Applied Charge'},
-{data:'paymentMode',title:'Payment Mode'},
-{data:'note',title:'Note'},
-{data:'action',title:'Action'}]
-
-const [dataSrc,setdataSrc]=React.useState([]);
-const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(<BrowserRouter><button onClick={()=>props.setindex(rowData)} data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
-</BrowserRouter>,td)}]
-const Link=<NavLink to='dfgh'/>
-React.useEffect(()=>{Getdata('opdoutpatient/patient/'+props.patientId).then(data=>setdataSrc(data));},[])
+{   
+    const [index,setindex]=React.useState({});
+    const history=useHistory();
+    //const [patientId,setPatientId]=React.useState('');
+    const column=[{data:'name',title:'Name'},{data:'patientId',title:'patient Id'},{data:'gender',title:'Gender'},{data:'mobileNumber',title:'Phone'},{data:'appointmentDate',title:'Last Visit'},{data:'totalVisit',title:'Total Visit'},{data:'action',title:'Action'}]
+    const [dataSrc,setdataSrc]=React.useState([{name:'Rama',patientId:'P-20200212115220',gender:'male',mobileNumber:'8861129756',appointmentDate:'2020/02/04',totalVisit:2}]);
+    const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(
+    <BrowserRouter>
+    <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-warning'} data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
+    </BrowserRouter>,td)},
+    {targets:0,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(
+    <BrowserRouter>
+    <a onClick={()=>history.push(`/patient/opdPatient/${rowData.patientId}`)} href='javascript:void(0)'>{cellData}</a>
+    </BrowserRouter>,td)}
+  ]
+    const link=<NavLink to='dfgh'/>
+    React.useEffect(()=>{Getdata('opdoutpatient').then(data=>{console.log(data);setdataSrc(data)});},[])
+    //React.useEffect(()=>{setdataSrc([{name:'Rama',patientId:'pat123',gender:'male',mobileNumber:'8861129756',appointmentDate:'2020/02/04',totalVisit:2}])},[]);
 return (
 <>
 <nav aria-label="breadcrumb" >
@@ -35,14 +33,15 @@ return (
 <h6 className='text-sm' style={{letterSpacing:'1px',lineHeight:'100%'}}>Opd Patient</h6>
 <div className='btn-group p-0'>
 <button className={'btn btn-xs  btn-light ml-1 ' } style={{marginLeft:'0.5px !important',opacity:0}} data-toggle="modal" data-target="sdf">dfgh</button>
-<NavLink to="/patient/visits" class="btn btn-light text-xs  btn-xs  ml-1"> Visits</NavLink>
-<NavLink to="/patient/diagnosis" class="btn btn-light text-xs  btn-xs  ml-3"> Diagnosis</NavLink>                
+<button data-toggle="modal" data-target="#AddOpdPatient" onClick={()=>setindex({})} class="btn btn-light text-xs  btn-xs  ml-1"> <i class="fa fa-plus"></i> Add Patient</button>               
 </div>
 </li>
 </ol>
 </nav>
 <div className='px-5 pb-5'>
-<Table id='opdoutpatient' col={column} dataSrc={dataSrc} columnDefs={columnDefs}/>
+<Table id='addOpdPatient' col={column} dataSrc={dataSrc} columnDefs={columnDefs}/>
+<DisplayForm data={index}/>
+<AddPat data={index}/>
 </div>
 </>
 )

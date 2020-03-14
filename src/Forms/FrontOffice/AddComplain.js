@@ -3,45 +3,47 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {useFormik} from 'formik';
 import * as  Yup from 'yup';
-import {Getdata,PostFormdata} from '../../Network/Server'
+import {Getdata,PostFormdata, Postdata} from '../../Network/Server'
 import {toast} from 'react-toastify'
 export default (props) =>{
-    const mydata=(Object.entries(props.data).length === 0 )?
-  {  complainType:'',
+const mydata=(Object.entries(props.data).length === 0 )?
+  {  
+  complainType:'',
   source:'',
   complainBy:'',
   phone:'',
-  date:new Date(),
+  date:'',
   description:'',
   actionTaken:'',
   assigned:'',
   note:'',
-  attachedDocument:null
+  attachedDocument:''
 
  }:{...props.data,date:new Date(props.data.date)};
 
   const formik = useFormik({
     
-  //enableReinitialize:true,
     initialValues:{
-       
-...mydata
+        ...mydata
     }
   ,
+  enableReinitialize:true,
+
         onSubmit:values=>{console.log(JSON.stringify(values,null,2))
+
+            !(typeof(values.attachedDocument)=='string')?
             PostFormdata('complaintype/','POST',values).then(data=>toast.success('successfully added', {
       position: toast.POSITION.TOP_CENTER
-    }))},
+    })):
+    Postdata('complaintype/iffileisnull','POST',values).then(data=>toast.success('successfully added', {
+        position: toast.POSITION.TOP_CENTER
+      }))
+},
             validationSchema:Yup.object().shape({
-                complainType:Yup.string().required('required'),
-            source:Yup.string().required('required'),
-            complainBy:Yup.string().required('required'),
-            phone:Yup.string().matches(/^[0-9]{10}$/).required('required'),
-            date:Yup.date().required('required'),
-            description:Yup.string().required('required'),
-            actionTaken:Yup.string().required('required'),
-            assigned:Yup.string().required('required'),
-            note:Yup.string().required('required'),
+               
+            complainBy:Yup.string().required('*Required ComplainBy'),
+            phone:Yup.string().matches(/^[0-9]{10}$/,'must be 10 digit').required('*Required Mobile Number'),
+            
             //attachedDocument:null
 
             })
@@ -88,14 +90,14 @@ return(
             <div className="border bg-light mt-2">
                 <div className="form-row p-2">
                     <div className="form-group col-md-6">
-                        <label for="complainby">Complain By</label>
+                        <label for="complainby">Complain By <small class="req text-danger"> *</small></label>
                         <input type="text" className="form-control" id="complain" placeholder="" name='complainBy' {...formik.getFieldProps('complainBy')}/>
                         <span className='text-danger'>{(formik.touched.complainBy && formik.errors.complainBy)?formik.errors.complainBy:''}</span>
                     </div>
                     
                 
                     <div className="form-group col-md-6">
-                        <label for="complainby">Phone</label>
+                        <label for="complainby">Phone <small class="req text-danger"> *</small></label>
                         <input type="Number" className="form-control" id="complain" placeholder="" name='phone' {...formik.getFieldProps('phone')}/>
                         <span className='text-danger'>{(formik.touched.phone && formik.errors.phone)?formik.errors.phone:''}</span>
                     </div>
@@ -106,7 +108,7 @@ return(
                     <div class="form-group col-md-6">
                        <label for="inputState">Date</label>
                         <div className="w-100 ">
-                           <DatePicker selected={formik.values.date} name='date' onChange={(e)=>formik.setFieldValue('date',e)}/>
+                           <DatePicker autoComplete={false} selected={formik.values.date} name='date' onChange={(e)=>formik.setFieldValue('date',e)}/>
                            
                         </div> 
                         <span className='text-danger'>{(formik.touched.date && formik.errors.date)?formik.errors.date:''}</span>
@@ -150,7 +152,7 @@ return(
                 
                     <div className="form-group col-md-6">
                         <label for="choose">Attach Document</label>
-                        <input type="file" class="form-group-input" id="inputGroupFile01" name='attachedDocument' onChange={(e)=>formik.setFieldValue('attachedDocument',e.target.files[0])}/>
+                        <input type="file" class="form-group-input"  name='attachedDocument' onChange={(e)=>formik.setFieldValue('attachedDocument',e.target.files[0])}/>
                         <span className='text-danger'>{(formik.touched.attachedDocument && formik.errors.attachedDocument)?formik.errors.attachedDocument:''}</span>
                     </div> 
                     </div>

@@ -133,7 +133,7 @@ return(<React.Fragment>
   </div>
   <span className='text-danger d-block mb-3'><span className={'text-light'}>h</span>{formik.errors.department}</span> 
 
-  <DatePicker selected={formik.values.date} name='date' placeholderText='enter date' onChange={(e)=>formik.setFieldValue('date',e)} className="form-control bg-transparent border-right-0 border-top-0 " />
+  <DatePicker autoComplete={false} selected={formik.values.date} name='date' placeholderText='enter date' onChange={(e)=>formik.setFieldValue('date',e)} className="form-control bg-transparent border-right-0 border-top-0 " />
   <div></div>
   <span className='text-danger'><span className={'text-light'}>h</span>{formik.errors.date}</span> 
   <div className="input-group mb-3">

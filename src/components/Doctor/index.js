@@ -29,13 +29,18 @@ import AddDiagnosis from './pagecontent/AddDiagnosis'
 import ReactTooltip from 'react-tooltip'
 import OpdCharges from './pagecontent/OpdCharges'
 import OpdBill from './pagecontent/OpdBill'
+import IpdPatient from './pagecontent/IpdPatient'
+import IpdCharges from './pagecontent/ipdCharges'
+import IpdPrescription from './pagecontent/IpdPrescription'
+import  TestReport from './pagecontent/TestReport'
+
 
 export default function Index() 
 {
   const [index,setindex]=React.useState({})
   
-  const [doctorId,setPatientId]=React.useState('P-20200212115220');
-  const [doctor,setPatient]=React.useState({
+  const [doctorId,setDoctorId]=React.useState('P-20200212115220');
+  const [doctor,setDoctor]=React.useState({
     doctorId:'P-20200212115220',
        address:'asdfghj',
        gender:'male',
@@ -47,13 +52,10 @@ export default function Index()
    
   });
   React.useEffect(()=>{
-    let user=window.localStorage.getItem('user');
-    if(user){
-      user=JSON.parse(user);
-      console.log(user)
-     // setPatientId(user.userId)
-    }
-Getdata(`doctorprofile/${doctorId}`).then(data=>{console.log(data);setPatient(data)})
+    
+      let user=localStorage.getItem('userId');
+   if(typeof(user)=='string'){setDoctorId(user)};
+//Getdata(`doctorprofile/${doctorId}`).then(data=>{console.log(data);setDoctor(data)})
   },[])
   return (
         <>
@@ -64,16 +66,15 @@ Getdata(`doctorprofile/${doctorId}`).then(data=>{console.log(data);setPatient(da
          backgroundSize: 'cover',
          backgroundRepeat: 'no-repeat'
         }} >
-       <section className="content px-4" >
+       <section className="content px-4 mt-4 rounded" >
        <div className="card shadow">
        <Route path='/doctor/appointment' render={()=><Appointment setindex={setindex} doctorId={doctorId}/>}/>
        <Route path='/doctor/Opd' render={()=><Opd setindex={setindex} doctorId={doctorId}/>}/>
-       <Route path='/doctor/Ipd' render={()=><Ipd setindex={setindex} doctorId={doctorId}/>}/>
+       <Route path='/doctor/Ipd'  render={()=><Ipd setindex={setindex} doctorId={doctorId}/>}/>
        <Route path='/doctor/pathology' render={()=><Pathology1 setindex={setindex} doctorId={doctorId}/>}/>
        <Route path='/doctor/radiology' render={()=><Radiology1 setindex={setindex} doctorId={doctorId}/>}/>
        <Route path='/doctor/pharmacy' render={()=><Pharmacy1 setindex={setindex} doctorId={doctorId}/>}/>
        <Route path='/doctor/Visits' render={()=><Visits setindex={setindex} doctorId={doctorId}/>}/>
-       
        <Route path='/doctor/discharge' render={()=><Discharge setindex={setindex} doctorId={doctorId}/>}/>
        <Route path='/doctor/ConsultantRegister' render={()=><ConsultantRegister setindex={setindex} doctorId={doctorId}/>}/>
        <Route path='/doctor/IpdDiagnosis' render={()=><IpdDiagnosis setindex={setindex} doctorId={doctorId}/>}/>
@@ -81,20 +82,24 @@ Getdata(`doctorprofile/${doctorId}`).then(data=>{console.log(data);setPatient(da
        <Route path='/doctor/OperationTheatre' render={()=><OperatioTheatre setindex={setindex} doctorId={doctorId}/>}/>
        <Route path='/doctor/vehicle' render={()=><Ambulance setindex={setindex} doctorId={doctorId}/>}/>
        <Route path='/doctor/bloodbankstatus' render={()=><BloodBank setindex={setindex} doctorId={doctorId}/>}/>
-       <Route path='/doctor/addschedule' render={()=><AddSchedule />}/>
-       <Route path='/doctor/schedule' render={()=><Myshedule />}/>
-       <Route path='/doctor/opdPatient/:patientId' render={()=><OpdPatient />}/>
-       <Route path='/doctor/addprescription' render={()=><Addprescription />}/>
-       <Route path='/doctor/diagnosis/:patientId' render={()=><Diagnosis />}/>
-       <Route path='/doctor/profile' render={()=><Profile />}/>
-       <Route path='/doctor/adddiagnosis' render={()=><AddDiagnosis/>}/>
-       <Route path='/doctor/patient/charges/:patientId' render={()=><OpdCharges/>}/>
-       <Route path='/doctor/patient/bill/:patientId' render={()=><OpdBill/>}/>
-       
-
+       <Route path='/doctor/addschedule' render={()=><AddSchedule doctorId={doctorId}/>}/>
+       <Route path='/doctor/schedule' render={()=><Myshedule doctorId={doctorId}/>}/>
+       <Route path='/doctor/opdPatient/:patientId' render={()=><OpdPatient doctorId={doctorId}/>}/>
+       <Route path='/doctor/addprescription' render={()=><Addprescription doctorId={doctorId}/>}/>
+       <Route path='/doctor/diagnosis/:patientId' render={()=><Diagnosis doctorId={doctorId}/>}/>
+       <Route path='/doctor/profile/:userId' render={()=><Profile doctorId={doctorId}/>}/>
+       <Route path='/doctor/adddiagnosis' render={()=><AddDiagnosis doctorId={doctorId}/>}/>
+       <Route path='/doctor/patient/charges/:patientId' render={()=><OpdCharges doctorId={doctorId}/>}/>
+       <Route path='/doctor/patient/bill/:patientId' render={()=><OpdBill doctorId={doctorId}/>}/>
+       <Route path='/doctor/inPatient/:patientId' render={()=><IpdPatient doctorId={doctorId}/>}/>
+       <Route path='/doctor/ipd1/diagnosis/:patientId' render={()=><IpdDiagnosis doctorId={doctorId}/>}/>
+       <Route path='/doctor/ipd1/consultentRegister/:patientId' render={()=><ConsultantRegister doctorId={doctorId}/>}/>
+       <Route path='/doctor/testreport' render={()=><TestReport setindex={setindex} doctorId={doctorId}/>}/>
+       <Route path='/doctor/ipd1/ipdPresciption/:patientId' render={()=><IpdPrescription doctorId={doctorId}/>}/>
+       <Route path='/doctor/ipd1/Charges/:patientId' render={()=><IpdCharges doctorId={doctorId}/>}/>
        <BookMyAppointment data={index} doctorId={doctorId}/>
      {/* <Profile data={doctor}/> */}
-     <AddSchedule />
+     
      <DisplayForm data={index}/>
      <ReactTooltip />
         </div>
@@ -102,4 +107,4 @@ Getdata(`doctorprofile/${doctorId}`).then(data=>{console.log(data);setPatient(da
     </div>
   </>
   )
-      }
+}

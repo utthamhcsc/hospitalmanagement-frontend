@@ -9,9 +9,11 @@ import DisplayForm from '../../../Forms/DisplayForm'
 export default function Diagnosis(props) 
 {
     const {patientId}=useParams();
+    const [index,setindex]=React.useState();
     const column=[{data:'reportType',title:'Report Type'},{data:'reportDate',title:'Report Date'},{data:'description',title:'Description'},{data:'action',title:'Action'}]
     const [dataSrc,setdataSrc]=React.useState([]);
-    const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(<BrowserRouter><button onClick={()=>props.setindex(rowData)} data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
+    const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(
+    <BrowserRouter><button onClick={()=>setindex(rowData)} data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
     </BrowserRouter>,td)}]
     
     React.useEffect(()=>{Getdata('opdDiagnosis/'+patientId).then(data=>setdataSrc(data));},[])
@@ -24,11 +26,7 @@ export default function Diagnosis(props)
           <h6 className='text-sm ' style={{letterSpacing:'1px',lineHeight:'100%'}}>Diagnosis</h6>
           <div className='btn-group p-0'>
             <button className={'btn btn-xs  btn-light ml-1 ' } style={{marginLeft:'0.5px !important',opacity:0}} data-toggle="modal" data-target="sdf">dfgh</button>              
-          
-<NavLink to={`/doctor/patient/charges/${patientId}`} class="btn btn-light text-xs  btn-xs  ml-1"> Charges</NavLink>  
-<NavLink to={`/doctor/patient/bill/${patientId}`} class="btn btn-light text-xs  btn-xs  ml-1"> Bill</NavLink>  
-
-
+              <NavLink to={`/doctor/patient/charges/${patientId}`} class="btn btn-light text-xs  btn-xs  ml-1"> Charges</NavLink>  
             <button data-toggle="modal" data-target="#addDiagnosis"  class="btn btn-light text-xs  btn-xs  ml-1"> <i class="fa fa-plus"></i> Add Diagnosis</button>               
           </div>
         </li>
@@ -36,9 +34,8 @@ export default function Diagnosis(props)
     </nav>
     <div className='px-5 pb-5'>
       <Table id='opdDiagnosis' col={column} dataSrc={dataSrc} columnDefs={columnDefs}/>
-      <DisplayForm />
+      <DisplayForm data={index}/>
       <AddDiagnosis/>
-
     </div>
   </>
   )

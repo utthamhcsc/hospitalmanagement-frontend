@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link,useHistory} from 'react-router-dom'
-const UserProfile = () => {
+const UserProfile = (props) => {
   const history=useHistory()
   return (
       <>
@@ -13,9 +13,14 @@ const UserProfile = () => {
                 <img src={'dist/img/user2-160x160.jpg'} class="img-circle" alt="User Image" alt='no img'/>
 
                 <p>
-                  asdfghj
+                  {localStorage.getItem('name')?localStorage.getItem('name'):'Patient'}
                   
                 </p>
+                <p>
+                  {localStorage.getItem('userId')?localStorage.getItem('userId'):'PatientId'}
+                  
+                </p>
+              
               </li>
               <li class="user-body">
                 <div class="row">
@@ -29,10 +34,7 @@ const UserProfile = () => {
                   <button class="btn btn-default btn-flat"
                   onClick={()=>{
                     localStorage.removeItem('islogin')
-                    localStorage.removeItem('user')
-                    localStorage.removeItem('url')
-                    localStorage.removeItem('col')
-                    localStorage.removeItem('sidebtn')
+                    localStorage.removeItem('userId')
                     localStorage.removeItem('name')
 history.push('/')
                   }}

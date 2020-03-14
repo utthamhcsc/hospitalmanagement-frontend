@@ -2,8 +2,21 @@ import React from 'react'
 import Table from '../components/Table'
 import {Formik, FieldArray} from 'formik'
 import { Postdata } from '../Network/Server'
+import * as Yup from 'yup';
 export default (props)=> {
-    return (
+
+  const myvalidation=Yup.object().shape({
+    caseHistory: Yup.array().of(Yup.object().shape({
+  patientId:Yup.string().required(),
+  medicianCategory:Yup.string().required('Category Required'),
+  medicine:Yup.string().required('Medicine Required'),
+  dosage:Yup.string().required('Dosage Required'),
+  instruction:Yup.number().required('Instruction Required'),
+  }))
+  })
+
+
+ return (
         <div class="modal fade " id="addPriscription" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
          <div class="modal-content" role="document"> 
@@ -25,13 +38,14 @@ export default (props)=> {
     
     }}
     enableReinitialize={true}
+    validationSchema={myvalidation}
       onSubmit={values =>{console.log(values);
       Postdata('prescription/','POST',values).then(data=>{
          console.log(data);
         window.location.reload();
       })
     }
-      }>{({values,getFieldProps,handleSubmit})=><form>
+      }>{({values,getFieldProps,handleSubmit,touched,errors})=><form>
        <div><b className='text-sm'>Header</b></div>
        <textarea className="form-control mt-2" rows="4" {...getFieldProps('header')}></textarea>
       
@@ -65,24 +79,33 @@ export default (props)=> {
                            <option>Inhalers</option>   
                            <option>Tablet</option>   
                            </select></td>
+                           
                            <td><select className='form-control' {...getFieldProps(`caseHistory.${index}.medicine`)}>
+                           <span class="text-danger">{touched.medicianCategory?errors.medicianCategory:''}</span>
+
                            <option selected>Select</option>
                            <option>DIA FORMIN FORTE</option>
                            <option>DOLOROLE FORTE</option>
-                           <option>FLAGYL</option>
-                               
+                           <option>FLAGYL</option>    
                            </select></td>
-                           <td><select className='form-control' {...getFieldProps(`caseHistory.${index}.dosage`)}>
+                           
+                           <td><select className='form-control'  {...getFieldProps(`caseHistory.${index}.dosage`)}>
+                           <span class="text-danger">{touched.medicine?errors.medicine:''}</span>
+
                            <option selected>Select</option>
                            <option>10MI</option>
                            <option>5MI</option>
                            <option>1TS</option>
-                               
-                             </select></td>
-                           <td><input className='form-control' {...getFieldProps(`caseHistory.${index}.instruction`)}></input></td>
-                  {index==0? <td onClick={()=>arrayHelpers.push({medicianCategory:'',medicine:'',dosage:'',instruction:''})}><i className='fa fa-plus fa-lg text-primary'></i></td>
-: <td onClick={() => arrayHelpers.remove(index)}><i className='fa fa-close fa-lg text-danger'></i></td>
+                           </select></td>
+                           
+                           <td><input className='form-control'  {...getFieldProps(`caseHistory.${index}.instruction`)}></input></td>
+                           <span class="text-danger">{touched.dosage?errors.dosage:''}</span>
+
+                  {index==0? <td onClick={()=>arrayHelpers.push({medicianCategory:'',medicine:'',dosage:'',instruction:''})}><i className='fa fa-plus fa-lg text-primary'></i></td>: <td onClick={() => arrayHelpers.remove(index)}><i className='fa fa-close fa-lg text-danger'></i></td>
+                  
 }
+<span class="text-danger">{touched.instruction?errors.instruction:''}</span>
+
                        </tr>)
                        
                        

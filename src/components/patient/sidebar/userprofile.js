@@ -8,7 +8,7 @@ const userprofile = (props) => {
           <img src={'dist/img/user2-160x160.jpg'} className="img-circle elevation-2" alt='no img'/>
         </div>
         <div className="info ">
-  <span to='/dashboard'style={{letterSpacing:'2px',lineHeight:'100%'}} className="text-white ml-2">{'sdfg'}</span>
+  <span to='/dashboard'style={{letterSpacing:'2px',lineHeight:'100%'}} className="text-white ml-2">{localStorage.getItem('name')?localStorage.getItem('name'):'patient'}</span>
   <span to='/dashboard' style={{letterSpacing:'2px',lineHeight:'100%'}} className="d-block text-white ml-2">Patient</span>
 
         </div>

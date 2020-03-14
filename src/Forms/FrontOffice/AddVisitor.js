@@ -19,7 +19,7 @@ export default  (props) => {
   inTime:'',
   outTime:'',
   note:'',
-  attachedDocument:null
+  attachedDocument:''
  }:{...props.data,date:new Date(props.data.date)};
   const formik = useFormik({
     
@@ -29,19 +29,21 @@ export default  (props) => {
 ...mydata
     },
     onSubmit:values=>{console.log(JSON.stringify(values,null,2))
-      PostFormdata('visitorlist/','POST',values).then(data=>toast.success('successfully added', {
+      typeof(values.attachedDocument)=='string'?
+      Postdata('visitorlist/iffileisnull','POST',values).then(data=>toast.success('successfully added', {
       position: toast.POSITION.TOP_CENTER
-    }))},
+    })):
+    PostFormdata('visitorlist/','POST',values).then(data=>toast.success('successfully added', {
+      position: toast.POSITION.TOP_CENTER
+    }))
+  
+  
+  },
       validationSchema:Yup.object().shape({
         purpose:Yup.string().required('required'),
-        name:Yup.string().required('required'),
-        phone:Yup.string().required('required'),
-        idCard:Yup.string().required('required'),
-        numberOfPersons:Yup.string().required('required'),
-        date:Yup.date().required('required'),
-        inTime:Yup.string().required('required'),
-        outTime:Yup.string().required('required'),
-        note:Yup.string().required('required')
+        
+        phone:Yup.string().matches(/^[0-9]{10}$/,'Must be 10 digit').required('*Enter Mobile Number'),
+        
         //attachdDocument:null
     })
   })
@@ -62,7 +64,7 @@ return(
   <div className="border bg-light">
   <div class="form-row p-2">
     <div class="form-group col-md-6 ">
-      <label for="inputEmail4" className="text-sm">Purpose</label>
+      <label for="inputEmail4" className="text-sm">Purpose <small class="req text-danger"> *</small></label>
       <select id="input" class="form-control" name='purpose' {...formik.getFieldProps('purpose')}>
         <option selected>Choose</option>
         <option>Visit</option>
@@ -85,7 +87,7 @@ return(
   <div class="form-row p-2">
 
     <div class="form-group col-md-6">
-      <label for="inputAddress" className="text-sm">Phone</label>
+      <label for="inputAddress" className="text-sm">Phone <small class="req text-danger"> *</small></label>
       <input type="number" class="form-control" id="inputAddress" name='phone' {...formik.getFieldProps('phone')}/>
       <span className='text-danger'>{(formik.touched.phone && formik.errors.phone)?formik.errors.phone:''}</span>
     </div>

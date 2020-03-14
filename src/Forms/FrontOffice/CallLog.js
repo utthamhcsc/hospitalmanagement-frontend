@@ -17,7 +17,7 @@ export default (props) =>
   callDuretion:'',
   callType:'',
   note:'',
- }:{...props.data,date:new Date(props.data.date),nextFallowUpDate:new Date(props.data.nextFallowUpDate)};
+ }:{...props.data,date:new Date(props.data.date),nextFallowUpDate:props.data.nextFallowUpDate==''?new Date():new Date(props.data.nextFallowUpDate)};
   const formik = useFormik({
     
     enableReinitialize:true,
@@ -31,14 +31,12 @@ export default (props) =>
       position: toast.POSITION.TOP_CENTER
     }))},
           validationSchema:Yup.object().shape({
-            name:Yup.string().required('required'),
-            date:Yup.date().required('required'),
-            phone:Yup.string().matches(/^[0-9]{10}$/,'must be 10 digit').required('required'),
-            nextFallowUpDate:Yup.date().required('required'),
-            description:Yup.string().required('required'),
-            callDuretion:Yup.string().required('required'),
-            callType:Yup.string().required('required'),
-            note:Yup.string().required('required'),
+            name:Yup.string().required('*Enter Name'),
+            
+            phone:Yup.string().matches(/^[0-9]{10}$/,'Must be 10 digit').required('*Enter Mobile Number'),
+            
+            callType:Yup.string().required('*Select Call Type'),
+            
           })
       })
     return(
@@ -58,13 +56,13 @@ export default (props) =>
                     <div className="form-row p-2">
 
                         <div className="form-group col-md-6 ">
-                           <label for="name">Name</label>
+                           <label for="name">Name <small class="req text-danger"> *</small></label>
                            <input type="text" className="form-control" id="name" value={formik.values.name} onChange={(e)=>formik.setFieldValue('name',e.target.value)}/>
                            <span className='text-danger'>{(formik.touched.name && formik.errors.name)?formik.errors.name:''}</span>
                         </div>
 
                         <div className="form-group col-md-6 ">
-                            <label for="phone">Phone</label>
+                            <label for="phone">Phone <small class="req text-danger"> *</small></label>
                             <input type="number" className="form-control" value={formik.values.phone} onChange={(e)=>formik.setFieldValue('phone',e.target.value)}/>
                             <span className='text-danger'>{(formik.touched.phone && formik.errors.phone)?formik.errors.phone:''}</span>
                         </div>
@@ -120,7 +118,7 @@ export default (props) =>
                         
                 
                         <div className="form-group ml-2">
-                        <label for="calltype">Call Type</label>
+                        <label for="calltype">Call Type <small class="req text-danger"> *</small></label>
                         <div className="form-check ">
                             <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" checked={formik.values.callType=='incomingCall'} onChange={(e)=>formik.setFieldValue('callType','incomingCall')}/>
                             <label class="form-check-label" for="exampleRadios1">Incoming Call</label>

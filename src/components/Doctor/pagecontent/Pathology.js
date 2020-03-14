@@ -6,7 +6,7 @@ import {Getdata} from '../../../Network/Server'
 
 export default function Pathology(props)
  {
-    const column=[{data:'billNo',title:'Bill No'},{data:'reportingDate',title:'Reporting Date'},{data:'patientName',title:'Patient Name'},{data:'testName',title:'Test Name'},{data:'shortName',title:'Short Name'},{data:'referenceDoctor',title:'Reference Doctor'},{data:'description',title:'Description'},{data:'chargeCategory',title:'Charge Category'},{data:'appliedCharge',title:'Applied Charge'},{data:'action',title:'Action'}]
+    const column=[{data:'testName',title:'Test Name'},{data:'shortName',title:'Short Name'},{data:'testType',title:'Test Type'},{data:'category',title:'Category'},{data:'subCategory',title:'Sub Category'},{data:'method',title:'Method'},{data:'reportDays',title:'Report Days'},{data:'charge',title:'Charge'}]
     const [dataSrc,setdataSrc]=React.useState([]);
     const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(<BrowserRouter><button onClick={()=>props.setindex(rowData)} data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
   </BrowserRouter>,td)}]
@@ -21,6 +21,8 @@ export default function Pathology(props)
                 <h6 className='text-sm' style={{letterSpacing:'1px',lineHeight:'100%'}}>Pathology</h6>
                 <div className='btn-group p-0'>
                   <button className={'btn btn-xs  btn-light ml-1 ' } style={{marginLeft:'0.5px !important',opacity:0}} data-toggle="modal" data-target="sdf">dfgh</button>
+                  <NavLink to={ '/doctor/testreport'} activeClassName='active' class="btn btn-light text-xs  btn-xs ml-1 ">
+                  <i class="fa fa-reorder"></i> Test Report</NavLink>             
                 </div>
               </li>
           </ol>

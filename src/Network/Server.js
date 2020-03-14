@@ -1,13 +1,14 @@
-const baseurl='http://192.168.0.121:8080/';
+//const baseurl='http://192.168.0.121:8080/';
 //const baseurl='http://hospitalmanagemapp.gbfpue2n5p.us-east-1.elasticbeanstalk.com/';
+const baseurl='http://localhost:8080/'
+
 const Getdata=async(url='')=>
 {
  try
  {
   const response= await fetch(baseurl+url)      
+  console.log(response)
   return await response.json();
-  
-  //return data;
   }catch(err){
   console.log(err);
  }

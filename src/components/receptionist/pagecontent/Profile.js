@@ -1,6 +1,16 @@
 import React from 'react'
+import { useParams } from 'react-router-dom';
+import {Getdata} from '../../../Network/Server'
 
 export default function Profile() {
+    const {userId}=useParams();
+    const [data,setData]=React.useState()
+    React.useEffect(()=>{
+
+        Getdata('staff/'+userId).then(data=>setData(data));
+    },[])
+
+
     return (
         <>
         <div class="card" >
@@ -8,20 +18,21 @@ export default function Profile() {
         <div class="card-header row p-0 m-0 border-0">
    <div className='col-sm-2 pt-5 text-center'>
    <img src={'dist/img/user2-160x160.jpg'} height="100" width="100" className="img-thumbnail rounded-circle" alt="User Image" alt='no img'/>
-   <div>Pramod</div>
-   <button className='btn btn-sm btn-light'>change password</button>
-    </div>   
+   <div>{data && data.firstName+' '+data.lastName}</div>
+   {/* <button className='btn btn-sm btn-light'>change password</button>
+        */}
+        </div>
     <div className='col-sm-10 p-5 '>
         <div className="row">
             <div className='col-md-6'>
             <ul class="list-group border-0 ">
             <li class="list-group-item py-1 border-0 d-flex text-sm px-5">
-            <span className='w-50'> Staff ID</span> <a class="pull-right text-aqua">9009</a>
+    <span className='w-50'> Staff ID</span> <a class="pull-right text-aqua">{data && data.staffId}</a>
                             </li>
                            
-  <li class="list-group-item py-1 border-0 d-flex text-sm px-5"><span className='w-50'>Role</span><a class="pull-right text-aqua">Receptionist</a></li>
-  <li class="list-group-item py-1 border-0 d-flex text-sm px-5"><span className='w-50'>Designation</span><a class="pull-right text-aqua">Receptionist</a></li>
-  <li class="list-group-item py-1 border-0 d-flex text-sm px-5"><span className='w-50'>Department</span><a class="pull-right text-aqua">Reception</a></li>
+    <li class="list-group-item py-1 border-0 d-flex text-sm px-5"><span className='w-50'>Role</span><a class="pull-right text-aqua">{data && data.role}</a></li>
+  <li class="list-group-item py-1 border-0 d-flex text-sm px-5"><span className='w-50'>Designation</span><a class="pull-right text-aqua">{data && data.designation}</a></li>
+  <li class="list-group-item py-1 border-0 d-flex text-sm px-5"><span className='w-50'>Department</span><a class="pull-right text-aqua">{data && data.department}</a></li>
   <li class="list-group-item py-1 border-0 d-flex text-sm px-5"><span className='w-50'>EPF No </span><a class="pull-right text-aqua">0834567886543</a></li>
 </ul>
             </div>
@@ -30,7 +41,7 @@ export default function Profile() {
   <li class="list-group-item py-1 border-0 d-flex text-sm px-5"><span className='w-50'>Contract Type</span> <a class="pull-right text-aqua">permanent</a></li>
   <li class="list-group-item py-1 border-0 d-flex text-sm px-5"><span className='w-50'>Work Shift</span> <a class="pull-right text-aqua">Day</a></li>
   <li class="list-group-item py-1 border-0 d-flex text-sm px-5"><span className='w-50'>Location </span> <a class="pull-right text-aqua">Ramanagaram</a>    </li>
-  <li class="list-group-item py-1 border-0 d-flex text-sm px-5"><span className='w-50'>Date Of Joining</span> <a class="pull-right text-aqua">26/12/2012</a></li>
+  <li class="list-group-item py-1 border-0 d-flex text-sm px-5"><span className='w-50'>Date Of Joining</span> <a class="pull-right text-aqua">{data && data.dateOfJoining && new Date(data.dateOfJoining).toLocaleDateString()}</a></li>
 </ul></div>
         </div>
 
@@ -51,17 +62,17 @@ export default function Profile() {
                                <b> Personal Details</b>
                             </li>
                             <li class="list-group-item py-1 text-sm px-3">
-                                <b>Staff ID</b> <a class="pull-right text-aqua">9009</a>
+                                <b>Staff ID</b> <a class="pull-right text-aqua">{data && data.staffId}</a>
                             </li>
                             <li class="list-group-item py-1 text-sm px-3">
-                                <b>Role</b> <a class="pull-right text-aqua">Admin</a>
+                                <b>Role</b> <a class="pull-right text-aqua">{data && data.role}</a>
                             </li>
 
                             <li class="list-group-item py-1 text-sm px-3">
-                                <b>Designation</b> <a class="pull-right text-aqua">Doctor</a>
+                                <b>Designation</b> <a class="pull-right text-aqua">{data && data.designation}</a>
                             </li>
                             <li class="list-group-item py-1 text-sm px-3">
-                                <b>Department</b> <a class="pull-right text-aqua">Cardiology</a>
+                                <b>Department</b> <a class="pull-right text-aqua">{data && data.department}</a>
                             </li>
 
                             <li class="list-group-item py-1 text-sm px-3">
@@ -81,7 +92,7 @@ export default function Profile() {
                                 <b>Location</b> <a class="pull-right text-aqua">Ground Floor</a>
                             </li>
                             <li class="list-group-item py-1 text-sm px-3">
-                                <b>Date Of Joining</b> <a class="pull-right text-aqua">19/07/2012</a>
+    <b>Date Of Joining</b> <a class="pull-right text-aqua">{data && data.dateOfJoining  && new Date(data.dateOfJoining).toLocaleDateString()}</a>
                             </li>
                                                     </ul>
                                                     {/* Address */}
@@ -91,10 +102,10 @@ export default function Profile() {
                                <b>Address</b>
                             </li>
                             <li class="list-group-item py-1 text-sm px-3">
-                                <b>Current Address</b> <a class="pull-right text-aqua">9009</a>
+                                <b>Current Address</b> <a class="pull-right text-aqua">{data && data.currentAddress}</a>
                             </li>
                             <li class="list-group-item py-1 text-sm px-3">
-                                <b>Permanent Address</b> <a class="pull-right text-aqua">Admin</a>
+    <b>Permanent Address</b> <a class="pull-right text-aqua">{data && data.permnentAddress}</a>
                             </li>
 
                                                     </ul>
@@ -105,21 +116,21 @@ export default function Profile() {
                                <b> Bank Account Details</b>
                             </li>
                             <li class="list-group-item py-1 text-sm px-3">
-                                <b>Bank Name</b> <a class="pull-right text-aqua">9009</a>
+                                <b>Bank Name</b> <a class="pull-right text-aqua">{data && data.bankName}</a>
                             </li>
                             <li class="list-group-item py-1 text-sm px-3">
-                                <b>Branch Name</b> <a class="pull-right text-aqua">Admin</a>
-                            </li>
-
-                            <li class="list-group-item py-1 text-sm px-3">
-                                <b>Account Name</b> <a class="pull-right text-aqua">Doctor</a>
-                            </li>
-                            <li class="list-group-item py-1 text-sm px-3">
-                                <b>Account Number</b> <a class="pull-right text-aqua">Cardiology</a>
+                                <b>Branch Name</b> <a class="pull-right text-aqua">{data && data.bankBranchName}</a>
                             </li>
 
                             <li class="list-group-item py-1 text-sm px-3">
-                                <b>IFSC Code</b> <a class="pull-right text-aqua">8934783274</a>
+                                <b>Account Name</b> <a class="pull-right text-aqua">{data && data.accountTitle}</a>
+                            </li>
+                            <li class="list-group-item py-1 text-sm px-3">
+                                <b>Account Number</b> <a class="pull-right text-aqua">{data && data.accountNumber}</a>
+                            </li>
+
+                            <li class="list-group-item py-1 text-sm px-3">
+                                <b>IFSC Code</b> <a class="pull-right text-aqua">{data && data.ifscCode}</a>
                             </li>
                            
                                                     </ul>

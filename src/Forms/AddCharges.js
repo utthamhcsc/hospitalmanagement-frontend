@@ -2,6 +2,7 @@ import React from 'react'
 import { useFormik } from 'formik'
 import ReactDatePicker from 'react-datepicker'
 import { Postdata } from '../Network/Server'
+import * as  Yup from 'yup';
 import { useParams } from 'react-router-dom'
 
 export default (props)=> {
@@ -22,7 +23,17 @@ const formik=useFormik({
     //enableReinitialize:'true',
     onSubmit:values=>{
         Postdata('charges/','POST',{...values,opdId:patientId}).then(data=>console.log(data))
-    }
+    },
+
+    validationSchema:Yup.object().shape({
+               
+        date:Yup.string().required('*Required Date'),
+        chargeType:Yup.string().required('*Required Charge Type '),
+        chargeCategory:Yup.string().required('*Required Charge Category'),
+        
+        //attachedDocument:null
+
+        })
 })
 
 
@@ -47,6 +58,7 @@ const formik=useFormik({
                                         <div>Date <small class="req"> *</small> </div>
                                        <ReactDatePicker className='form-control' selected={formik.values.date} onChange={(e)=>formik.setFieldValue('date',e)}/>
                                     </div>
+                                    <span className='text-danger'>{(formik.touched.date && formik.errors.date)?formik.errors.date:''}</span>
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="form-group">
@@ -62,6 +74,7 @@ const formik=useFormik({
                                         </select>
                                         <span class="text-danger"></span>
                                     </div>
+                                    <span className='text-danger'>{(formik.touched.chargeType && formik.errors.chargeType)?formik.errors.chargeType:''}</span>
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="form-group">
@@ -78,7 +91,9 @@ const formik=useFormik({
 
                                         </select> 
                                         <span class="text-danger"></span>
+
                                     </div>
+                                    <span className='text-danger'>{(formik.touched.chargeCategory && formik.errors.chargeCategory)?formik.errors.chargeCategory:''}</span>
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="form-group">

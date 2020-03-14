@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link,useHistory} from 'react-router-dom'
-const UserProfile = () => {
+const UserProfile = (props) => {
   const history=useHistory()
   return (
       <>
@@ -13,9 +13,14 @@ const UserProfile = () => {
                 <img src={'dist/img/user2-160x160.jpg'} class="img-circle" alt="User Image" alt='no img'/>
 
                 <p>
-                  Dr.Bhatra
+                 {localStorage.getItem('name')?localStorage.getItem('name'):'Dr.Bhatra'}
                   
                 </p>
+                <p>
+                 {localStorage.getItem('userId')?localStorage.getItem('userId'):'DoctorId'}
+                  
+                </p>
+              
               </li>
               <li class="user-body">
                 <div class="row">
@@ -23,17 +28,15 @@ const UserProfile = () => {
               </li>
               <li class="d-flex justify-content-between py-2 px-1">
                 <div class="pull-left">
-                <Link to="/doctor/profile" class="btn btn-default btn-flat">Profile</Link>
+                <Link to={"/doctor/profile"+localStorage.getItem('userId')} class="btn btn-default btn-flat">Profile</Link>
                 </div>
                 <div class="pull-right">
                   <button class="btn btn-default btn-flat"
                   onClick={()=>{
                     localStorage.removeItem('islogin')
-                    localStorage.removeItem('user')
-                    localStorage.removeItem('url')
-                    localStorage.removeItem('col')
-                    localStorage.removeItem('sidebtn')
+                    localStorage.removeItem('userId')
                     localStorage.removeItem('name')
+                    localStorage.removeItem('role')
                     history.push('/')
                   }}
                   >Sign out</button>

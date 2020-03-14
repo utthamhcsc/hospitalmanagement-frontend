@@ -15,7 +15,7 @@ export default  (props) => {
     toTitle:'',
     note:'',
     date:'',
-    attachDocument:null
+    attachDocument:''
  }:{...props.data,date:new Date(props.data.date)};
   const formik = useFormik({
     
@@ -26,16 +26,15 @@ export default  (props) => {
     }
   ,
     onSubmit:values=>{console.log(JSON.stringify(values,null,2))
-      PostFormdata('postalrecieve/','POST',values).then(data=>toast.success('successfully added', {
+      typeof(values.attachDocument)=='string'?
+      Postdata('postalrecieve/iffileisnull','POST',values).then(data=>toast.success('successfully added', {
+        position: toast.POSITION.TOP_CENTER
+      }))
+      :PostFormdata('postalrecieve/','POST',values).then(data=>toast.success('successfully added', {
       position: toast.POSITION.TOP_CENTER
     }))},
       validationSchema:Yup.object().shape({
-        fromTitle:Yup.string().required('required'),
-        referenceNo:Yup.string().required('required'),
-        address:Yup.string().required('required'),
-        toTitle:Yup.string().required('required'),
-        note:Yup.string().required('required'),
-        date:Yup.date().required('required'),
+        fromTitle:Yup.string().required('Required FromTitle'),
         //attachdDocument:null
     })
   })
@@ -57,7 +56,7 @@ return(
       <div class="form-row p-2">
 
          <div class="form-group col-md-6">
-           <label for="fromtitle">From Title</label>
+           <label for="fromtitle">From Title <small class="req text-danger"> *</small></label>
            <input type="text" class="form-control" id="Fromtitle" value={formik.values.fromTitle} onChange={(e)=>formik.setFieldValue('fromTitle',e.target.value)}/>
            <span className='text-danger'>{(formik.touched.fromTitle && formik.errors.fromTitle)?formik.errors.fromTitle:''}</span>
          </div>

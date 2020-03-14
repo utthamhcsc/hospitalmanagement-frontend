@@ -10,13 +10,15 @@ export default function Complain(props)
 {
     
   const [index,setindex]=React.useState({});  
-    const column=[{data:'complainBy',title:'Complain By'},{data:'source',title:'Source'},{data:'date',title:'Date'},{data:'phone',title:'Phone'},{data:'description',title:'Description'},{data:'actionTaken',title:'Action Taken'},{data:'assigned',title:'Assigned'},{data:'note',title:'Note'},{data:'attachedDocument',title:'attach Document'},{data:'',title:'Action'}]
+  
+  const [index1,setindex1]=React.useState({});  
+    const column=[{data:'complainBy',title:'Complain By'},{data:'source',title:'Source'},{data:'date',title:'Date',render:( data, type, row, meta )=>new Date(data).toLocaleDateString()},{data:'phone',title:'Phone'},{data:'description',title:'Description'},{data:'actionTaken',title:'Action Taken'},{data:'assigned',title:'Assigned'},{data:'note',title:'Note'},{data:'attachedDocument',title:'attach Document'},{data:'',title:'Action'}]
     const [dataSrc,setdataSrc]=React.useState([]);
     const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(
       <BrowserRouter>
       <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-warning'} data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
      
-      <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-success'} data-toggle='modal' data-target='#Complain'><i className='fa fa-pencil'></i></button>
+      <button onClick={()=>setindex1(rowData)} className={'btn btn-xs btn-success'} data-toggle='modal' data-target='#Complain'><i className='fa fa-pencil'></i></button>
       
       <button onClick={()=>Postdata(`complaintype/${rowData.id}`,'DELETE',{}).then(data=>data.status==1?window.$('#complain').DataTable().row(row).remove().draw():'')} className={'btn btn-xs btn-danger'} ><i className='fa fa-trash'></i></button>
      
@@ -33,14 +35,14 @@ export default function Complain(props)
           <h6 className='text-sm ' style={{letterSpacing:'1px',lineHeight:'100%'}}>Complain</h6>
           <div className='btn-group p-0'>
             <button className={'btn btn-xs  btn-light ml-1 ' } style={{marginLeft:'0.5px !important',opacity:0}} data-toggle="modal" data-target="sdf">dfgh</button>
-            <button data-toggle="modal" data-target="#Complain" onClick={()=>setindex({})}  class="btn btn-light text-xs  btn-xs  ml-1"> <i class="fa fa-plus"></i> Add Complain</button>               
+            <button data-toggle="modal" data-target="#Complain" onClick={()=>setindex1({})}  class="btn btn-light text-xs  btn-xs  ml-1"> <i class="fa fa-plus"></i> Add Complain</button>               
           </div>
         </li>
       </ol>
     </nav>
     <div className='px-5 pb-5'>
       <Table id='complain' col={column} dataSrc={dataSrc} columnDefs={columnDefs}/>
-      <AddComplain data={index}/>
+      <AddComplain data={index1}/>
       <DisplayForm data={index}/>
     </div>
   </>

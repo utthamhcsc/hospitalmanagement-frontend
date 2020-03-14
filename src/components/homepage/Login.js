@@ -2,7 +2,7 @@ import React from 'react';
 import {useFormik} from 'formik'
 import {Postdata} from '../../Network/Server'
 import { ToastContainer, toast } from 'react-toastify';
-  import 'react-toastify/dist/ReactToastify.css';
+import 'react-toastify/dist/ReactToastify.css';
 import { useHistory } from 'react-router-dom';
 import * as yup from 'yup'
 
@@ -11,8 +11,10 @@ export default (prop)=>
     const history=useHistory();
     const routedata={
   patient:'patient/appointment',
-  receptionist:'receptionist/appointment'
-                      }
+  receptionist:'receptionist/appointment',
+  doctor:'doctor/appointment',
+  admin:'admin/appointment'              
+  }
     const formik=useFormik({
     initialValues:{ email:'',
     password:''},
@@ -24,7 +26,7 @@ yup.object().shape({
   ,
   onSubmit:values=>
   {
-    alert(JSON.stringify(values));
+  //  alert(JSON.stringify(values));
     Postdata('login','POST',values).then(data=>{
       console.log(data.msg)
       if(data.msg.status==1){
@@ -33,9 +35,11 @@ yup.object().shape({
           position: toast.POSITION.TOP_CENTER
         });
         window.localStorage.setItem('islogin',true)
-        window.localStorage.setItem('user',JSON.stringify(data.msg.details));
+        window.localStorage.setItem('userId',data.msg.details.userId);
+        window.localStorage.setItem('name',data.msg.details.name);
+        window.localStorage.setItem('role',data.msg.details.role)
        // window.location.href='/dashboard/appointment'
-       window.location.href=routedata[data.msg.details.role]
+       window.location.href=routedata[data.msg.details.role];
       }
       else
       {
@@ -79,10 +83,8 @@ return(
  // <div class="text-center p-0">
  // <button type="button" class="btn btn-link  text-center ">Forgot Password ?</button>
   //<span class="d-block mb-3 text-black">- - - - - OR - - - - -</span>
-  //<span class="bg-primary p-1 mr-3"><i class="fab fa-facebook"></i></span>
-  
+  //<span class="bg-primary p-1 mr-3"><i class="fab fa-facebook"></i></span> 
 //<span class="bg-danger p-1 mr-3"><i class="fab fa-google-plus"></i></span>
-
 //</div>
 }
       </div>
