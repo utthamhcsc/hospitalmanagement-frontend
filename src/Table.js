@@ -1,23 +1,27 @@
-import React,{useEffect} from 'react'
+import React,{useEffect, useState} from 'react'
 import ReactDOM from 'react-dom'
 import {NavLink,BrowserRouter} from 'react-router-dom'
+import { Getdata } from './Network/Server';
 export default (prop)=>{
- useEffect(()=>{ 
+  const [state, setstate] = useState({});
+  const [column,setcolumn]=useState([{data:'name',title:'Name'},{data:'ipdId',title:'IPD No'},
+  {data:'patientId',title:'patient Id'},{data:'gender',title:'Gender'},
+  {data:'phone',title:'Phone'},{data:'action',title:'Action'}]);
+ useEffect(async()=>{ 
   //  if(window.$.fn.DataTable.isDataTable("#example")){
   //   window.$(prop.id).DataTable().clear().destroy();
   //  }
+  let state=[];
+  await Getdata('inpatient').then(data=>state=data)
   
   let table=window.$(document).ready(function(){
-       
-    window.$('#'+prop.id).DataTable().destroy();
-    window.$('#'+prop.id).empty();
-   
+    
   window.$.fn.dataTable.ext.errMode='none';
-  window.$('#'+prop.id).DataTable( {
-    data:prop.dataSrc,
-    columns:prop.col,
-    columnDefs:prop.columnDefs,
-     dom: '<"d-sm-flex flex-row justify-content-between border-primary m-0 p-0"<l><"btn-group"B><f>>t<"d-sm-flex justify-content-between align-items-center p-2"ip>',
+  window.$('#table').DataTable( {
+    data:state,
+    columns:column,
+    columnDefs:[],
+     dom: '<"d-sm-flex flex-row justify-content-between border-primary m-0 p-0"<"p-2"l><"text-center p-2"B><"p-2"f>>t<"d-sm-flex justify-content-between align-items-center p-2"ip>',
         buttons: [
             {
               extend:'copy',
@@ -50,24 +54,23 @@ export default (prop)=>{
 
     } )});
     return ()=>{
+      
+    window.$('#table').DataTable().destroy();
+    window.$('#table').empty();
     }
     
-} ,[prop.dataSrc]
+} 
  );
 
   return(
 
 <>
 
-<table id={prop.id} className={`table table-striped table-bordered dt-responsive nowrap  `} style={{width:'100%'}}>
+<table id={'table'} className={`table table-striped table-bordered dt-responsive nowrap  `} style={{width:'100%'}}>
   <thead className='p-0 bg-primary'>
-           {<tr>
-                {prop.col.map(
-                    (name)=>{
-                    return <th className='text-sm p-2 text-center'>{name.title}</th>
-                    }
-                )}
-            </tr>}
+    <tr>
+  {column.map(data=><th>{data.title}</th>)}
+          </tr>
         </thead>
         <tbody>
             

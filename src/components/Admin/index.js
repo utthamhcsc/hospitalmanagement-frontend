@@ -31,6 +31,7 @@ import Diagnosis from './pagecontent/Diagnosis'
 import AddStaff from '../../Forms/HumanResource/AddStaff'
 import HumanResource from './pagecontent/HumanResource'
 import StaffTable from './pagecontent/StaffTable'
+import SettingsPharmacy from './pagecontent/SettingsPharmacy'
 export default function Index(props) {
   const [index,setindex]=React.useState({})
     return (
@@ -45,6 +46,8 @@ export default function Index(props) {
     }} >
     <section className="content px-4 mt-4" >
       <div className="card shadow">
+        
+<Route path='/admin/settings/pharmacy' render={()=><SettingsPharmacy/>}/>
 <Route path='/admin/appointment' render={()=><Appointment setindex={setindex}/>}/>
 <Route path='/admin/Opd' render={()=><Opd setindex={setindex}/>}/>
 <Route path='/admin/Ipd' render={()=><Ipd setindex={setindex}/>}/>

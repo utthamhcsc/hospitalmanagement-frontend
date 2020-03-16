@@ -1,5 +1,5 @@
 import React from 'react';
-import {NavLink} from 'react-router-dom'
+import {NavLink, Link} from 'react-router-dom'
 import Userprofile from './userprofile';
 
 const sidebaritem = (props) =>
@@ -103,11 +103,11 @@ return (
                 </NavLink>
             </li>
             <li className="nav-item has-treeview shadow p-1">
-                <NavLink className="nav-link py-1 text-white" to="#ertyu">
+                <Link className="nav-link py-1 text-white" >
                     <i class="text-xs fas fa-line-chart"></i> 
                     <p className='pl-3 ' style={{letterSpacing:'1px',fontSize:'13px',lineHeight:'100%'}}>Reports <i class="fa fa-angle-left pull-right"></i></p> 
-                </NavLink>
-                <ul className="nav nav-treeview text-dark bg-light">
+                 </Link>
+                {/*<ul className="nav nav-treeview text-dark bg-light">
                     <li className="nav-item"><NavLink className="nav-link py-1 text-white" to="/appointment/appointmentReport"><i class="text-xs fas fa-angle-right"></i> Appointment Report</NavLink></li>
                     <li className="nav-item"><NavLink className="nav-link py-1 text-white" to="/patient/opd_report"><i class="text-xs fas fa-angle-right"></i> OPD Report</NavLink></li>
                     <li className="nav-item"><NavLink className="nav-link py-1 text-white" to="/patient/ipdreport"><i class="text-xs fas fa-angle-right"></i> IPD Report</NavLink></li>
@@ -120,20 +120,18 @@ return (
                     <li className="nav-item"><NavLink className="nav-link py-1 text-white" to="/item/itemreport"><i class="text-xs fas fa-angle-right"></i> Inventory Stock Report</NavLink></li>
                     <li className="nav-item"><NavLink className="nav-link py-1 text-white" to="/item/additemreport"><i class="text-xs fas fa-angle-right"></i> Inventory Item Report</NavLink></li>
                     <li className="nav-item"><NavLink className="nav-link py-1 text-white" to="/issueitem/issueinventoryreport"><i class="text-xs fas fa-angle-right"></i> Inventory Issue Report</NavLink></li>
-                </ul>
+                </ul> */}
             </li>
-            <li className="nav-item has-treeview shadow p-1">
-                <NavLink className="nav-link py-1 text-white" to="#sdfghj">
+            <li className="nav-item has-treeview shadow p-1" >
+                <Link className="nav-link py-1 text-white">
                     <i class="text-xs fas fa-cogs"></i> 
-                    <p className='pl-3 ' style={{letterSpacing:'1px',fontSize:'13px',lineHeight:'100%'}}><i class="fa fa-angle-left pull-right"></i>Setup</p>
-                </NavLink>
-                <ul className="nav nav-treeview text-dark bg-light">
-                    <li className="nav-item"> 
-                       <NavLink className="nav-link py-1 text-white" to=""><i class="text-xs fas fa-angle-right"></i> Patient</NavLink>
-                    </li>
-                                                        <li className="nav-item"><NavLink className="nav-link py-1 text-white" to="/charges"><i class="text-xs fas fa-angle-right"></i> Hospital Charges</NavLink></li>
-                                                            <li className="nav-item"><NavLink className="nav-link py-1 text-white" to="/setup/bed/status"><i class="text-xs fas fa-angle-right"></i> Bed</NavLink></li>
-                                                                <li className="nav-item"><NavLink className="nav-link py-1 text-white" to="/visitorspurpose"><i class="text-xs fas fa-angle-right"></i> Front Office</NavLink></li>
+                    <p className='pl-3 ' style={{letterSpacing:'1px',fontSize:'13px',lineHeight:'100%'}}>
+                        <i class="fa fa-angle-left pull-right"></i>Setup</p>
+                </Link>
+                <ul className="nav nav-treeview text-dark bg-light" style={{zIndex:-999}}>
+                    <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/admin/settings/pharmacy"><i class="text-xs fas fa-angle-right"></i> Pharmacy</NavLink></li>
+                    <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/setup/bed/status"><i class="text-xs fas fa-angle-right"></i> Bed</NavLink></li>
+                    <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/visitorspurpose"><i class="text-xs fas fa-angle-right"></i> Front Office</NavLink></li>
                                 
 
                     </ul>

@@ -5,6 +5,7 @@ import Receptionist from './components/receptionist'
 import Patient from './components/patient'
 import Doctor from './components/Doctor'
 import Admin from './components/Admin'
+import Table from './Table'
 
 import './App.css';
 import { ToastContainer } from 'react-toastify';
@@ -17,6 +18,7 @@ function App() {
         <Route path='/doctor' component={Doctor}/>
         <Route path='/admin' component={Admin}/>
         <Route path='/' exact component={Header}/>
+        <Route path='/table' component={Table}/>
         <ToastContainer/>
     </BrowserRouter>
   );

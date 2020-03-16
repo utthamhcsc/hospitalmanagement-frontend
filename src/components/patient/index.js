@@ -52,7 +52,7 @@ export default function Index(props)
       console.log(user)
      setPatientId(user)
     }
-Getdata(`patientprofile/${patientId}`).then(data=>{console.log(data);setPatient(data)})
+//Getdata(`patientprofile/${patientId}`).then(data=>{console.log(data);setPatient(data)})
   },[])
   return (
         <>
