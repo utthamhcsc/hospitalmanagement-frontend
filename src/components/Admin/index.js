@@ -60,7 +60,7 @@ export default function Index(props) {
 <Route path='/admin/postalReceive' render={()=><PostalReceive setindex={setindex}/>}/>
 <Route path='/admin/postaldispatch' render={()=><PostalDispatch setindex={setindex}/>}/>
 <Route path='/admin/discharge' render={()=><Discharge/>}/>
- <Route path='/receptionist/profile' render={()=><Profile/>}/>
+ <Route path='/admin/profile' render={()=><Profile/>}/>
 {/*<Route path='/admin/opdPatient/:patientId' render={()=><OpdPatient />}/>
        <Route path='/admin/diagnosis/:patientId' render={()=><Diagnosis />}/> */}
        {/* <Route path='/admin/profile' render={()=><Profile />}/>

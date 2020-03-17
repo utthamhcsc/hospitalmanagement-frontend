@@ -31,7 +31,7 @@ const myvalidation=Yup.object().shape({
 
 return(
 <>
-        <div class="modal fade" id="GenerateBill" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="generateBill" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document">
          <div class="modal-content" role="document">
 
