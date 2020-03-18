@@ -3,24 +3,24 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Formik ,FieldArray} from 'formik';
 import * as Yup from 'yup'
-import { Getdata } from '../../Network/Server';
+import { Getdata, Postdata, PostFormdata } from '../../Network/Server';
 export default (props) =>{
-    const [medicineNames,setMedicineNames]=React.useState({})
-    const getmedicineName=React.useCallback((id,index)=>{ 
-        Getdata('pharmacy/getbycategoryId/'+id).then(data=>setMedicineNames({...medicineNames,[index]:data}))
-       // console.log(medicineNames[index])
+    const [pharmacyIds,setMedicineNames]=React.useState({})
+    const getpharmacyId=React.useCallback((id,index)=>{ 
+        Getdata('pharmacy/getbycategoryId/'+id).then(data=>setMedicineNames({...pharmacyIds,[index]:data}))
+       // console.log(pharmacyIds[index])
           })
     
 const schema=Yup.object().shape({
     supplierId:Yup.string().required(),
-    billNo:Yup.string().required(),
+   // billNo:Yup.string().required(),
     date:Yup.date().required(),
-    //docter:Yup.string().required(),
+    //doctor:Yup.string().required(),
    // hospitalDocter:Yup.string().required(),
     note:Yup.string().required(),
     medicine:Yup.array().of(Yup.object().shape({
     medicineCategory:Yup.string().required('required'),
-    medicineName:Yup.string().required('required'),
+    pharmacyId:Yup.string().required('required'),
     batchNum:Yup.number().required('required'),
     expiryDate:Yup.string().required('required'),
     mrp:Yup.number().required('required'),
@@ -43,18 +43,20 @@ const schema=Yup.object().shape({
             supplierId:'',
             billNo:'',
             date:new Date(),
-            docter:'',
+            doctor:'',
             hospitalDocter:'',
             note:'',
             medicine:[{
                     medicineCategoryId:'',
-                    medicineName:'',
+                    pharmacyId:'',
                     batchNum:'',
                     expiryDate:'',
                     mrp:'',
                     batchamt:'',
+                    inwardDate:new Date(),
                     quantity:0,
                     packingqty:0,
+                    availableQuantity:0,
                     purchasePrice:0,
                     saleprice:0,
                     amount:0,
@@ -68,7 +70,22 @@ const schema=Yup.object().shape({
 
         }
        // validationSchema={schema}
-        onSubmit={(values)=>console.log(values)}           > 
+        onSubmit={(values)=>{console.log(values);
+            typeof(values.attachDocument)=='string'?
+            Postdata('purchaseMedicine/add','POST',values).then(data=>{
+                if(data.status==1){
+                    //resetForm()
+                    console.log(data)
+                }
+            }):
+            PostFormdata('purchaseMedicine/add/file','POST',{...values,medicine:JSON.stringify(values.medicine)}).then(data=>{
+                if(data.status==1){
+                   // resetForm()
+                    console.log(data)
+                }
+            })
+        }
+        }           > 
         {({values,handleChange,setFieldValue,handleSubmit,errors,touched,getFieldProps})=>(   
         <div class="modal fade" id="purchasemedicine" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document">
@@ -120,12 +137,14 @@ const schema=Yup.object().shape({
                          <button onClick={()=>arrayhelper.push(
                              {
                                 medicineCategoryId:'',
-                                medicineName:'',
+                                pharmacyId:'',
                                 batchNum:'',
                                 expiryDate:'',
+                                inwardDate:new Date(),
                                 mrp:'',
                                 batchamt:'',
                                 quantity:0,
+                                availableQuantity:0,
                                 packingqty:0,
                                purchasePrice:0,
                                 saleprice:0,
@@ -138,8 +157,10 @@ const schema=Yup.object().shape({
                      {
                          values.medicine.map((item,index)=> <tr>
                          <td className=" " >
-                            <select id="input" name='medicineCategory' value={values.medicine[index].medicineCategoryId} onChange={(e)=>{setFieldValue(`medicine.${index}.medicineCategoryId`,e.target.value);
-                        getmedicineName(e.target.value,index);
+                            <select id="input" name='medicineCategory' 
+                            value={values.medicine[index].medicineCategoryId} 
+                            onChange={(e)=>{setFieldValue(`medicine.${index}.medicineCategoryId`,e.target.value);
+                        getpharmacyId(e.target.value,index);
                         }} className="form-control">
                             <option value=''>Select</option>
                             {
@@ -151,14 +172,14 @@ const schema=Yup.object().shape({
                        
                          </td>
                          <td className="">
-                            <select id="input" name='medicineName' class="form-control" {...getFieldProps(`medicine.${index}.medicineName`)} className='form-control'>
+                            <select id="input" name='pharmacyId' class="form-control" {...getFieldProps(`medicine.${index}.pharmacyId`)} className='form-control'>
                             <option value=''>Select</option>
                             {   
-                             medicineNames[index]?medicineNames[index].map((data)=><option value={data[0]}>{data[1]}</option>)
+                             pharmacyIds[index]?pharmacyIds[index].map((data)=><option value={data[0]}>{data[1]}</option>)
                              :''
                             }
                             </select>
-                        <span className='text-danger'>{errors.medicine?errors.medicine[index]?errors.medicine[index].medicineName:'':''}</span>     
+                        <span className='text-danger'>{errors.medicine?errors.medicine[index]?errors.medicine[index].pharmacyId:'':''}</span>     
                        
                          </td>
                          <td className="">
@@ -195,8 +216,7 @@ const schema=Yup.object().shape({
                          <input type="text" name='quantity' className="form-control" 
                          value={values.medicine[index].quantity} 
                          onChange={(e)=>{setFieldValue(`medicine.${index}.quantity`,e.target.value);
-                         setFieldValue('total', values.total+new Number(e.target.value) *new Number(values.medicine[index].purchasePrice))
-                         setFieldValue('netamount', values.netamount+new Number(e.target.value) *new Number(values.medicine[index].purchasePrice))
+                         setFieldValue(`medicine.${index}.availableQuantity`,e.target.value);
                          
                          setFieldValue(`medicine.${index}.amount`, new Number(e.target.value) *new Number(values.medicine[index].purchasePrice))
                       
@@ -208,9 +228,7 @@ const schema=Yup.object().shape({
                          <input type="text" name='purchaseprice' className="form-control" 
                           value={values.medicine[index].purchasePrice} 
                           onChange={(e)=>{setFieldValue(`medicine.${index}.purchasePrice`,e.target.value);
-                          setFieldValue(`total`,values.total+new Number(e.target.value)*new Number(values.medicine[index].quantity))
-                          setFieldValue('netamount', values.netamount+new Number(e.target.value) *new Number(values.medicine[index].quantity))
-                       
+                        
                           setFieldValue(`medicine.${index}.amount`, new Number(e.target.value) * new Number(values.medicine[index].quantity))
                           }}/>
                          <span className='text-danger'>{errors.medicine?errors.medicine[index]?errors.medicine[index].purchasePrice:'':''}</span>     
@@ -317,10 +335,17 @@ const schema=Yup.object().shape({
                    </div>
                 </div>
                 <div className="d-flex float-right p-2">
+                      
                 <button onClick={()=>{
-
+ setFieldValue('total', values.medicine.reduce((prev,next)=>new Number(prev)+new Number(next.amount),0));
+ setFieldValue('netamount', values.medicine.reduce((prev,data)=>new Number(prev)+new Number(data.amount)+values.tax-values.discount,0))
 
                 }} class="btn btn-outline-primary">Calculate</button>
+                <button onClick={()=>{
+ setFieldValue('total', values.medicine.reduce((prev,next)=>new Number(prev)+new Number(next.amount),0));
+ setFieldValue('netamount', values.medicine.reduce((prev,data)=>new Number(prev)+new Number(data.amount)+values.tax-values.discount,0))
+ handleSubmit()
+                }} class="btn btn-outline-primary">Save</button>
                 </div>
                </div>
 </div>

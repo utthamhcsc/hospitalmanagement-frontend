@@ -8,6 +8,9 @@ import GenerateBill from '../../../Forms/Pharmacy/GenerateBill'
 export default (props)=> {
   
   const [index,setindex]=React.useState({});
+  const [medicineCategory,setMedicineCategory]=React.useState([])
+  const [patient,setpatient]=React.useState([]);
+  const [doctor,setdoctor]=React.useState([]);
     const column=[{data:'medicineName',title:'Medicine Name'},{data:'medicineCategory',title:'Medicine Category'},{data:'medicineCompany',title:'Medicine Company'},{data:'medicineComposition',title:'Medicine Composition'},{data:'medicineGroup',title:'Medicine Group'},{data:'unit',title:'Unit'},{data:'minLevel',title:'Min Level'},{data:'reOrderLevel',title:'ReOrder Level'},{data:'vat',title:'Vat'},{data:'packing',title:'Packing'},{data:'note',title:'Note'},{data:'vatAc',title:'VatAC'},{data:'MedicinePhoto',title:'Medicine Photo'},{data:'',title:'Action'}]
     const [dataSrc,setdataSrc]=React.useState([]);
     const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(
@@ -22,7 +25,15 @@ export default (props)=> {
     const Link=<NavLink to='dfgh'/>
 
     React.useEffect(()=>{Getdata('medician').then(data=>setdataSrc(data));},[])
-
+const loadUser=()=>{
+  Getdata('medicineCat/get').then(data=>setMedicineCategory(data));
+  Getdata('/fetchalluser').then(data=>{
+    setdoctor(data.filter(item=>item.role=='doctor'))
+    //console.log(doctor)
+    
+    setpatient(data.filter(item=>item.role=='patient'))
+  });
+}
 
     return (
         <>
@@ -32,7 +43,8 @@ export default (props)=> {
       <h6 className='text-sm' style={{letterSpacing:'1px',lineHeight:'100%'}}>Pharmacy Bill</h6>
   <div className='btn-group p-0'>
     <button className={'btn btn-xs  btn-light ml-1 ' } style={{marginLeft:'0.5px !important',opacity:0}} data-toggle="modal" data-target="sdf">dfgh</button>
-    <button data-toggle="modal" data-target="#generateBill" class="btn btn-light text-xs  btn-xs  ml-1"> <i class="fa fa-plus"></i>Generate Bill</button>               
+    <button data-toggle="modal" onClick={loadUser} data-target="#generateBill" class="btn btn-light text-xs  btn-xs  ml-1"> 
+    <i class="fa fa-plus"></i> Generate Bill</button>               
            
  <NavLink to={ '/admin/pharmacy/medicinestock'} activeClassName='active' class="btn btn-light text-xs  btn-xs ml-1 ">
      <i class="fa fa-reorder"></i> Medicine
@@ -44,7 +56,7 @@ export default (props)=> {
 
   <div className='px-5 pb-5'>
     <Table id='pharmacyBill' col={column} dataSrc={dataSrc} columnDefs={columnDefs}/>
-    <GenerateBill/>
+    <GenerateBill doctor={doctor} patient={patient} medicineCategory={medicineCategory}/>
   </div>
         </>
     )

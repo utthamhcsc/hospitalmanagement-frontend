@@ -3,26 +3,44 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useFormik, FieldArray, Formik } from 'formik';
 import * as Yup from 'yup';
-export default () =>{
+import { Getdata, Postdata } from '../../Network/Server';
+export default (props) =>{
+   const [pharmacyIds,setMedicineNames]=React.useState({})
+   const [batch,setBatch]=React.useState({})
+   const [batchDetails,setBatchDetails]=React.useState({})
+   const getpharmacyId=React.useCallback((id,index)=>{ 
+       Getdata('pharmacy/getbycategoryId/'+id).then(data=>setMedicineNames({...pharmacyIds,[index]:data}))
+         })
+         const getBatchId=React.useCallback((id,index)=>{ 
+            Getdata('medicineBatchDetails/getbypharmacyId/'+id).then(data=>setBatch({...batch,[index]:data}))
+              })
+              
+         const getbybathnum=React.useCallback((id,index)=>{ 
+            return Getdata('medicineBatchDetails/getbybathnum/'+id)
+            // setBatchDetails({...batch,[index]:data})
+               })
+              
+  
 
 const myvalidation=Yup.object().shape({
            patientId:Yup.string().required(),
          //  billNo:'',
         //   date:Yup.date().required(),
-           docter:Yup.string().required(),
-           hospitalDocter:Yup.string().required(),
+           doctor:Yup.string().required(),
+           //hospitalDoctor:Yup.string().required(),
            note:Yup.string().required(),
            discount:Yup.number().required(),
            tax:Yup.number().required(),
            netamount:Yup.number().required(),
            medicine:Yup.array().of(Yup.object().shape({
-           medicineCategory:Yup.string().required('medicine category required'),
-           medicineName:Yup.string().required('medicine name required'),
+           medicineCategoryId:Yup.string().required('medicine category required'),
+           pharmacyId:Yup.string().required('medicine name required'),
            batchNum:Yup.string().required('required'),
            expiryDate:Yup.string().required('required'),
            quantity:Yup.number().required('required'),
            saleprice:Yup.number().required('required'),
-           charges:Yup.number().required('required'),
+           amount:Yup.number().required('required'),
+
        })
    ),
     
@@ -44,49 +62,55 @@ return(
            hospitalDoctor:'',
            note:'',
            medicine:[{
-           medicineCategory:'',
-           medicineName:'',
+           medicineCategoryId:'',
+           pharmacyId:'',
            batchNum:'',
            expiryDate:'',
-           quantity:'',
-           saleprice:'',
-           charges:0,
-           }],discount:0,
+           availableQuantity:'',
+           quantity:0,
+           saleprice:0,
+           amount:0,
+           }],
+           total:0,
+           discount:0,
           tax:0,
           netamount:0
    }}
-   validationSchema={myvalidation}
-   onSubmit={(values)=>console.log(values)}>{({values,handleChange,setFieldValue,handleSubmit,errors,touched})=>(<>
-        <div class=" card-header  form-inline bg-primary p-1  border-0">
-            
-        <select id="input" class="form-inline col-md-3 ml-2"  onChange={(e)=>setFieldValue('patientId',e.target.value)}>
-        <option>Select Patient</option>
-        <option>Amar</option>
-        <option>Bharat</option>
-        <option>Chiatanya</option>
-        <option>Dhruva</option>
+  // validationSchema={myvalidation}
+   onSubmit={(values)=>Postdata('pharmacyBillBasic/add','POST',values).then(data=>console.log(data))}>{({values,handleChange,setFieldValue,handleSubmit,errors,touched})=>(<>
+        <div class=" card-header form-inline bg-primary p-2  border-0">
+        
+         <div className='form-group'>   
+        <select id="input" class="form-control"  onChange={(e)=>setFieldValue('patientId',e.target.value)}>
+        <option value=''>Select Patient</option>
+        {
+           props.patient?props.patient.map(data=><option key={data.userId} value={data.userId}>{data.name}</option>):''
+        }
         </select>
         <span className='text-danger'>{touched.patientId?errors.patientId:''}</span>   
-        
-        <button class=" form-inline ml-2" data-toggle='modal' data-target='#addnewpatient'><i class="fas fa-plus "></i>New Patient</button>
-            
-       <div class="form-check mb-2 my-1 ml-3">
-       <label class="form-check-label ml-4" for="inlineFormCheck">  Bill No</label>
-       <input type="number" className="form-inline ml-1 p-0 " value={values.billNo} onChange={(e)=>setFieldValue('billNo',e.target.value)}/>
+        </div>
+        <div className='form-group'>
+        <button class=" form-control ml-2" data-toggle='modal' data-target='#addnewpatient'><i class="fas fa-plus "></i>New Patient</button>
+          </div>  
+       <div class="form-inline">
+       <label class="f" for="inlineFormCheck">  Bill No</label>
+       <input type="number" className="form-control ml-1 p-0 " value={values.billNo} onChange={(e)=>setFieldValue('billNo',e.target.value)}/>
        <span className='text-danger text-sm'>{touched.billNo?errors.billNo:''}</span>      
        </div>
-       <label class="form-check-label ml-auto" for="inlineFormCheck"> Date</label>
+       <div className='form-group ml-auto'>
+       <label class="" for="inlineFormCheck"> Date</label>
        <div className="mx-2">
-         <DatePicker popper-className="form-inline"style={{width:'100% !important'}} selected={values.date} onChange={(e)=>setFieldValue('date',e)}/>
-         <button type="button" class="close mx-1" data-dismiss="modal" aria-label="Close">
+         <DatePicker className="form-control" selected={values.date} onChange={(e)=>setFieldValue('date',e)}/>
+        </div> 
+       </div>
+       <button type="button" class="close mx-1" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
-        </button> 
-       </div> 
+        </button>  
        </div>
        <div className="card-body p-0 m-0 bg-light  ">
          <div className="container-fluid ">
              <FieldArray name='medicine'>{arrayhelper=>(<>
-             <table id="myTable" class="table  ">
+             <table id="myTable" className="table  table-responsive">
                  <thead>
                      
                       <tr>
@@ -100,13 +124,14 @@ return(
                          <td>
                          <button onClick={()=>arrayhelper.push(
                              {
-                                medicineCategory:'',
-                                medicineName:'',
+                                medicineCategoryId:'',
+                                pharmacyId:'',
                                 batchNum:'',
                                 expiryDate:'',
-                                quantity:'',
-                                saleprice:'',
-                                charges:0,
+                                quantity:0,
+                                saleprice:0,
+                                amount:0,
+                                availableQuantity:0
                               }
                          )}><i class="fas fa-plus text-primary border-0"></i></button></td>
                      </tr>
@@ -116,54 +141,89 @@ return(
                      values.medicine.map((item,index)=>
                      <tr>
                          <td className=" " >
-                            <select id="input" name={`medicine.${index}.medicineCategory`} value={values.medicine[index].medicineCategory}onChange={handleChange}  className="form-inline" style={{ width: "120px" }}>
-                            <option selected>Select</option>
-                            <option>Syrup</option>
-                            <option>Capsule</option>
-                            <option>Injection</option>
-                            <option>Ointment</option>
-                            <option>Cream</option>
-                            <option>surgical</option>
-                            <option>Drops</option>
-                            <option>Inhalers</option>
-                            </select>
-                            <span className='text-danger'>{errors.medicine?errors.medicine[index]?errors.medicine[index].medicineCategory:'':''}</span>     
+                            <select id="input"
+                             name={`medicine.${index}.medicineCategoryId`} 
+                             value={values.medicine[index].medicineCategoryId}
+                             onChange={(e)=>{handleChange(e); getpharmacyId(e.target.value,index);}}  className="form-control" >
+                            <option value=''>Select</option>
+                            {
+                             props.medicineCategory?props.medicineCategory.map((data)=><option value={data.id}>{data.medicineCategory}</option>)
+                             :''
+                            } </select>
+                            <span className='text-danger'>{errors.medicine?errors.medicine[index]?errors.medicine[index].medicineCategoryId:'':''}</span>     
                          </td>
                          <td className="">
-                            <select id="input" name={`medicine.${index}.medicineName`} value={values.medicine[index].medicineName} onChange={handleChange} class="form-inline" style={{ width: "130px" }}>
-                                <option selected>Select</option>
-                                <option>d</option>
-                                <option>d</option>
-                                <option></option>
-                            </select>
-                            <span className='text-danger'>{errors.medicine?errors.medicine[index]?errors.medicine[index].medicineName:'':''}</span>     
+                            <select id="input" 
+                            name={`medicine.${index}.pharmacyId`} 
+                            value={values.medicine[index].pharmacyId} 
+                            onChange={(e)=>{handleChange(e); getBatchId(e.target.value,index);}} class="form-control">
+                                 <option value=''>Select</option>
+                            {   
+                             pharmacyIds[index]?pharmacyIds[index].map((data)=><option value={data[0]}>{data[1]}</option>)
+                             :''
+                            }  </select>
+                            <span className='text-danger'>{errors.medicine?errors.medicine[index]?errors.medicine[index].pharmacyId:'':''}</span>     
                           </td>
                          <td className="">
-                            <select id="input" name={`medicine.${index}.batchNum`} value={values.medicine[index].batchNum} onChange={handleChange} className="form-inline " style={{ width: "70px" }}>
-                            <option>B</option>
-        <option>C</option>
+                            <select id="input" name={`medicine.${index}.batchNum`} 
+                            value={values.medicine[index].batchNum} 
+                            onChange={(e)=>{handleChange(e); 
+                            getbybathnum(e.target.value,index).then(data=>{
+                               console.log(data)
+                               setFieldValue(`medicine.${index}.expiryDate`,data.expiryDate)
+                               setFieldValue(`medicine.${index}.availableQuantity`,data.availableQuantity)
+                               
+                               setFieldValue(`medicine.${index}.saleprice`,data.saleprice)
+                            })}} className="form-control " >
+                               <option value=''>Select</option>
+                            {   
+                             batch[index]?batch[index].map((data)=><option value={data[0]}>{data[1]}</option>)
+                             :''
+                            }
       </select>
                             <span className='text-danger'>{errors.medicine?errors.medicine[index]?errors.medicine[index].batchNum:'':''}</span>     
                          </td>
                          <td className="">
                            
-                         <input type="text" name={`medicine.${index}.expiryDate`} value={values.medicine[index].expiryDate} onChange={handleChange} className="form-inline" style={{ width: "80px" }}/>
+                         <input type="text" name={`medicine.${index}.expiryDate`} 
+                         readOnly
+                         value={new Date(values.medicine[index].expiryDate).getMonth()+'/'+new Date(values.medicine[index].expiryDate).getFullYear()} 
+                         className="form-control" />
                          <span className='text-danger'>{errors.medicine?errors.medicine[index]?errors.medicine[index].expiryDate:'':''}</span>     
                          
                          </td>
                          <td className="">
-                         <input type="text" name={`medicine.${index}.quantity`} value={values.medicine[index].quantity} onChange={handleChange} className="form-inline" style={{ width: "130px" }}/>
+                            <div className='input-group'>
+                         <input type="text" name={`medicine.${index}.quantity`} 
+                         value={values.medicine[index].quantity} 
+                         onChange={(e)=>{setFieldValue(`medicine.${index}.quantity`,e.target.value);
+                           setFieldValue(`medicine.${index}.amount`, new Number(e.target.value) * new Number(values.medicine[index].saleprice))
+                        
+                        }}
+                          className="form-control" />
+                          <div className='input-group-append'>
+                          <span className="input-group-text "> {values.medicine[index].availableQuantity}
+      </span>                       </div>
+                          </div>
                          <span className='text-danger'>{errors.medicine?errors.medicine[index]?errors.medicine[index].quantity:'':''}</span>     
                          
                          </td>
                          <td className="">
-                         <input type="text" name={`medicine.${index}.saleprice`} value={values.medicine[index].saleprice} onChange={handleChange}  className="form-inline" style={{ width: "90px" }}/>
+                         <input type="text" name={`medicine.${index}.saleprice`}
+                          value={values.medicine[index].saleprice} onChange={(e)=>{handleChange(e);
+                          
+                        }}
+                        readOnly 
+                           className="form-control" />
                          <span className='text-danger'>{errors.medicine?errors.medicine[index]?errors.medicine[index].saleprice:'':''}</span>     
                          
                          </td>
                          <td className="">
-                         <input type="text" name={`medicine.${index}.charges`} value={values.medicine[index].charges} onChange={handleChange} className="form-inline" style={{ width: "90px" }}/>
-                         <span className='text-danger'>{errors.medicine?errors.medicine[index]?errors.medicine[index].charges:'':''}</span>     
+                         <input type="text" name={`medicine.${index}.amount`} 
+                         value={values.medicine[index].amount} 
+                         readOnly
+                         onChange={handleChange} className="form-control" />
+                         <span className='text-danger'>{errors.medicine?errors.medicine[index]?errors.medicine[index].amount:'':''}</span>     
                          
                          </td>
                          <td>
@@ -185,27 +245,31 @@ return(
          <div className="row ">
              <div className="col-sm-6 ">
                   <div class="form-row ml-4">
-                     <div class="col ">
+                     <div class="col-md-6 from-group">
                          <div className=" ">Hospital Doctor</div>
-                       <select id="input" class="form-inline  my-2 w-100 " value={values.docter} onChange={(e)=>setFieldValue('hospitalDoctor',e.target.value)} >
-                           <option selected>Select Doctor</option>
-                           <option>Dr.Amith</option>
-                           <option>Dr.Bharat</option>
-                           <option>Dr.Chatur</option>
-                       </select>
-                       <span className='text-danger'>{touched.hospitalDocter ?errors.hospitalDocter:''}</span>     
+                       <select id="input" class="form-control" 
+                       value={values.doctor} onChange={(e)=>setFieldValue('doctor',e.target.value)} >
+                           <option value=''>Select Doctor</option>
+                           {
+           props.doctor?props.doctor.map(data=><option key={data.userId} value={data.userId}>{data.name}</option>):''
+        }
+       </select>
+                       <span className='text-danger'>{touched.doctor ?errors.doctor:''}</span>     
                          
                     </div>
-                    <div class="col">
-                    <div className="">Doctor Name</div>
-                       <input type="text" class="form-inline w-100 my-2 " placeholder="Doctor Name" value={values.docter} onChange={(e)=>setFieldValue('doctoName',e.target.value)}/>
-                       <span className='text-danger'>{touched.docter ?errors.docter:''}</span>     
+                    <div class="col-md-6 form-group">
+                    <div className="">Doctor Id</div>
+                       <input type="text" class="form-control" 
+                       placeholder="Doctor Name" value={values.doctor} 
+                       onChange={(e)=>setFieldValue('doctor',e.target.value)}/>
+                       <span className='text-danger'>{touched.doctor ?errors.doctor:''}</span>     
                      
                     </div>
                 </div>
                 <div className="form-row ml-4">
                         <div className="">Note</div>
-                        <textarea className="w-100 my-2" rows="3" value={values.note} onChange={(e)=>setFieldValue('note',e.target.value)}></textarea>
+                        <textarea className="form-control" rows="3" value={values.note} 
+                        onChange={(e)=>setFieldValue('note',e.target.value)}></textarea>
                         <span className='text-danger'>{touched.note ?errors.note:''}</span>     
                      
                     </div>
@@ -216,7 +280,8 @@ return(
                      Total($)
                      </div>
                     <div class="d-flex ">
-                      <input type="number" className=" bg-light border-top-0 border-left-0 border-right-0" value={values.medicine.map(item=>Number(item.charges)).reduce((pre,nxt)=>pre+nxt)} onChange={(e)=>setFieldValue('total',e.target.value)} style={{border:'1px solid black'}}/>
+                      <input type="number" readOnly className=" bg-light border-top-0 border-left-0 border-right-0"
+                       value={values.total} onChange={(e)=>setFieldValue('total',e.target.value)} style={{border:'1px solid black'}}/>
                      </div>
                </div>
               <div className="d-flex justify-content-between my-4">
@@ -224,37 +289,61 @@ return(
                       Discount($)
                    </div>
                    <div class="d-flex ">
-                    <input type="number" className=" bg-light border-top-0 border-left-0 border-right-0" value={values.discount} onChange={(e)=>{setFieldValue('discount',e.target.value)}} style={{border:'1px solid black',width:'89px'}} placeholder="Discount%"/>
+                    <input type="number" className=" bg-light border-top-0 border-left-0 border-right-0"
+                    value={values.discount} 
+                    onChange={(e)=>{setFieldValue('discount',e.target.value);
+                    setFieldValue('netamount', values.netamount-(new Number(e.target.value)/100))}}
+                     style={{border:'1px solid black',width:'89px'}} placeholder="Discount%"/>
                     <span className='text-danger'>{touched.discount ?errors.discount:''}</span>     
                      
                    </div>
                     <div class="d-flex ">
-                    <input type="number" className=" bg-light border-top-0 border-left-0 border-right-0" value={values.medicine.map(item=>Number(item.charges)).reduce((pre,nxt)=>pre+nxt)-(Number(values.discount)/100)} style={{border:'1px solid black'}}/>
-                </div>
+                    <input type="number" className=" bg-light border-top-0 border-left-0 border-right-0" 
+                    readOnly
+                     value={values.total-(values.discount/100)}></input></div>
                 </div>
                <div className="d-flex justify-content-between my-4">
                    <div class=" ml-4 ">
                       Tax($)
                    </div>
                    <div class="d-flex ">
-                      <input type="number" className=" bg-light border-top-0 border-left-0 border-right-0" value={values.tax} onChange={(e)=>setFieldValue('tax',e.target.value)} style={{border:'1px solid black',width:'50px'}} placeholder="tax%"/>
+                      <input type="number" className=" bg-light border-top-0 border-left-0 border-right-0" 
+                     value={values.tax} 
+                     onChange={(e)=>{setFieldValue('tax',e.target.value);
+                     
+                   setFieldValue('netamount', values.netamount+(new Number(e.target.value)/100))
+                   }
+                   }   style={{border:'1px solid black',width:'50px'}} placeholder="tax%"/>
                       <span className='text-danger'>{touched.tax ?errors.tax:''}</span>     
                      
                     </div>
                     <div class="d-flex ">
-                    <input type="number" className=" bg-light border-top-0 border-left-0 border-right-0" value={values.medicine.map(item=>Number(item.charges)).reduce((pre,nxt)=>pre+nxt)-(Number(values.discount)/100)+(values.tax/100)} style={{border:'1px solid black'}}/>
-                   </div>
+                    <input type="number" className=" bg-light border-top-0 border-left-0 border-right-0"
+                    readOnly 
+                    value={values.total-(values.discount/100)+(values.tax/100)}/>
+</div>
                 </div>
                 <div className="d-flex justify-content-between my-4">
                    <div class=" ml-4 ">
                       Net Amount($)
                    </div>
                     <div class="d-flex ">
-                     <input type="number" className=" bg-light border-top-0 border-left-0 border-right-0" value={values.medicine.map(item=>Number(item.charges)).reduce((pre,nxt)=>pre+nxt)-(Number(values.discount)/100)+(values.tax/100)} onChange={()=>alert(values.medicine.map(item=>Number(item.charges)).reduce((pre,nxt)=>pre+nxt)-(Number(values.discount)/100)+(values.tax/100))} style={{border:'1px solid black'}}/>
-                   </div>
+                     <input type="number" className=" bg-light border-top-0 border-left-0 border-right-0" 
+                     value={values.netamount} readOnly onChange={(e)=>setFieldValue('netamount',e.target.value)}/>
+                     </div>
                 </div>
                 <div className="d-flex float-right p-2">
-                <button type="submit" onClick={handleSubmit} class="btn btn-outline-primary">Calculate</button>
+                <button type="submit" onClick={()=>{
+                   setFieldValue('total', values.medicine.reduce((prev,next)=>new Number(prev)+new Number(next.amount),0));
+                   setFieldValue('netamount', values.medicine.reduce((prev,data)=>new Number(prev)+new Number(data.amount)+values.tax-values.discount,0))
+                  
+                }} class="btn btn-outline-primary">Calculate</button>
+                
+                <button type="submit" onClick={()=>{
+                   setFieldValue('total', values.medicine.reduce((prev,next)=>new Number(prev)+new Number(next.amount),0));
+                   setFieldValue('netamount', values.medicine.reduce((prev,data)=>new Number(prev)+new Number(data.amount)+values.tax-values.discount,0))
+                  handleSubmit()
+                }} class="btn btn-outline-primary">save</button>
                 </div>
              </div>
 </div>
