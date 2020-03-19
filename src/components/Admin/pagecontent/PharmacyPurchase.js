@@ -4,16 +4,25 @@ import {NavLink,BrowserRouter} from 'react-router-dom'
 import Table from '../../Table'
 import {Getdata,Postdata} from '../../../Network/Server'
 import PurchaseMedicine from '../../../Forms/Pharmacy/PurchaseMedicine'
+import ViewPurchase from '../../../Forms/Pharmacy/ViewPurchase'
 export default (props) =>{
   const [supplier,setSupplier]=React.useState([]);
   const [medicineCategory,setMedicineCategory]=React.useState([])
 
   const [index,setindex]=React.useState({});
-    const column=[{data:'medicineName',title:'Medicine Name'},{data:'medicineCategory',title:'Medicine Category'},{data:'medicineCompany',title:'Medicine Company'},{data:'medicineComposition',title:'Medicine Composition'},{data:'medicineGroup',title:'Medicine Group'},{data:'unit',title:'Unit'},{data:'minLevel',title:'Min Level'},{data:'reOrderLevel',title:'ReOrder Level'},{data:'vat',title:'Vat'},{data:'packing',title:'Packing'},{data:'note',title:'Note'},{data:'vatAc',title:'VatAC'},{data:'MedicinePhoto',title:'Medicine Photo'},{data:'',title:'Action'}]
+  const [index1,setindex1]=React.useState({});
+    const column=[{data:'purchase.id',title:'Purchase Num'},
+    {data:'supplier.itemSupplier',title:'Supplier Name'},
+    {data:'purchase.total',title:'Amount'},
+    {data:'purchase.tax',title:'Tax'},
+    {data:'purchase.discount',title:'Discount'},
+    {data:'purchase.netamount',title:'Total'},
+    {data:'',title:'Action'}]
     const [dataSrc,setdataSrc]=React.useState([]);
     const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(
       <BrowserRouter>
-      <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-warning'} data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
+      <button onClick={()=>setindex1(rowData)} className={'btn btn-xs btn-warning'} data-toggle='modal'
+       data-target='#viewPurchase'><i className='fa fa-eye'></i></button>
      
       <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-success'} data-toggle='modal' data-target='#GenerateBill'><i className='fa fa-pencil'></i></button>
       
@@ -22,7 +31,9 @@ export default (props) =>{
       </BrowserRouter>,td)}]
     const Link=<NavLink to='dfgh'/>
 
-    React.useEffect(()=>{Getdata('medician').then(data=>setdataSrc(data));},[])
+    React.useEffect(()=>{Getdata('purchaseMedicine/get').then(data=>{setdataSrc(data);
+    console.log(data)
+    });},[])
     const getSupplier=React.useCallback(()=>{
       Getdata('item-supplier/get').then(data=>setSupplier(data))
       Getdata('medicineCat/get').then(data=>setMedicineCategory(data));
@@ -46,6 +57,7 @@ export default (props) =>{
   <div className='px-5 pb-5'>
     <Table id='medicinestock' col={column} dataSrc={dataSrc} columnDefs={columnDefs}/>
     <PurchaseMedicine supplier={supplier} medicineCategory={medicineCategory}/>
+    <ViewPurchase {...index1.supplier} {...index1.purchase}/>
   </div>
         </>
     )

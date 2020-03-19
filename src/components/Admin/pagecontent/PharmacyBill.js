@@ -4,33 +4,39 @@ import {NavLink,BrowserRouter} from 'react-router-dom'
 import Table from '../../Table'
 import {Getdata,Postdata} from '../../../Network/Server'
 import GenerateBill from '../../../Forms/Pharmacy/GenerateBill'
+import ViewBill from '../../../Forms/Pharmacy/ViewBill'
 
 export default (props)=> {
   
   const [index,setindex]=React.useState({});
+  
+  const [index1,setindex1]=React.useState({});
   const [medicineCategory,setMedicineCategory]=React.useState([])
   const [patient,setpatient]=React.useState([]);
   const [doctor,setdoctor]=React.useState([]);
-    const column=[{data:'medicineName',title:'Medicine Name'},{data:'medicineCategory',title:'Medicine Category'},{data:'medicineCompany',title:'Medicine Company'},{data:'medicineComposition',title:'Medicine Composition'},{data:'medicineGroup',title:'Medicine Group'},{data:'unit',title:'Unit'},{data:'minLevel',title:'Min Level'},{data:'reOrderLevel',title:'ReOrder Level'},{data:'vat',title:'Vat'},{data:'packing',title:'Packing'},{data:'note',title:'Note'},{data:'vatAc',title:'VatAC'},{data:'MedicinePhoto',title:'Medicine Photo'},{data:'',title:'Action'}]
+    const column=[{data:'id',title:'Bill No'},
+    {data:'date',title:'Date'},
+    {data:'patientName',title:'Patient Name'},
+    {data:'doctorName',title:'Doctor Name'},
+    {data:'netamount',title:'Total'},
+    {data:'',title:'Action'}]
     const [dataSrc,setdataSrc]=React.useState([]);
     const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(
       <BrowserRouter>
-      <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-light'} data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
+      <button onClick={()=>setindex1(rowData)} className={'btn btn-xs btn-light'} 
+      data-toggle='modal' data-target='#viewBill'><i className='fa fa-eye'></i></button>
      
-      <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-light'} data-toggle='modal' data-target='#GenerateBill'><i className='fa fa-pencil'></i></button>
-      
-      <button onClick={()=>Postdata(`complain/${rowData.id}`,'DELETE',{}).then(data=>data.status==1?window.$('#generateBill').DataTable().row(row).remove().draw():'')} className={'btn btn-xs btn-light'} ><i className='fa fa-trash'></i></button>
      
       </BrowserRouter>,td)}]
     const Link=<NavLink to='dfgh'/>
 
-    React.useEffect(()=>{Getdata('medician').then(data=>setdataSrc(data));},[])
+    React.useEffect(()=>{Getdata('pharmacyBillBasic/get').then(data=>{setdataSrc(data);
+    console.log(data)
+    });},[])
 const loadUser=()=>{
   Getdata('medicineCat/get').then(data=>setMedicineCategory(data));
   Getdata('/fetchalluser').then(data=>{
     setdoctor(data.filter(item=>item.role=='doctor'))
-    //console.log(doctor)
-    
     setpatient(data.filter(item=>item.role=='patient'))
   });
 }
@@ -57,6 +63,7 @@ const loadUser=()=>{
   <div className='px-5 pb-5'>
     <Table id='pharmacyBill' col={column} dataSrc={dataSrc} columnDefs={columnDefs}/>
     <GenerateBill doctor={doctor} patient={patient} medicineCategory={medicineCategory}/>
+    <ViewBill {...index1}/>
   </div>
         </>
     )

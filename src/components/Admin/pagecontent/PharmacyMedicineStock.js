@@ -4,15 +4,33 @@ import {NavLink,BrowserRouter} from 'react-router-dom'
 import Table from '../../Table'
 import {Getdata,Postdata} from '../../../Network/Server'
 import AddMedicine from '../../../Forms/Pharmacy/AddMedicine'
+import ViewMedicine from '../../../Forms/Pharmacy/ViewMedicine'
 
 export default (props) =>{
   const [data,setdata]=React.useState([])
+  
+  const [index1,setindex1]=React.useState({});
   const [index,setindex]=React.useState({});
-    const column=[{data:'medicineName',title:'Medicine Name'},{data:'medicineCategory',title:'Medicine Category'},{data:'medicineCompany',title:'Medicine Company'},{data:'medicineComposition',title:'Medicine Composition'},{data:'medicineGroup',title:'Medicine Group'},{data:'unit',title:'Unit'},{data:'minLevel',title:'Min Level'},{data:'reOrderLevel',title:'ReOrder Level'},{data:'vat',title:'Vat'},{data:'packing',title:'Packing'},{data:'note',title:'Note'},{data:'vatAc',title:'VatAC'},{data:'MedicinePhoto',title:'Medicine Photo'},{data:'',title:'Action'}]
+    const column=[{data:'pharmacy.medicineName',title:'Medicine Name'},
+    {data:'medicine.medicineCategory',title:'Medicine Category'},
+    {data:'pharmacy.medicineCompany',title:'Medicine Company'},
+    {data:'pharmacy.medicineComposition',title:'Medicine Composition'},
+    {data:'pharmacy.medicineGroup',title:'Medicine Group'},
+    {data:'pharmacy.unit',title:'Unit'},
+    {data:'pharmacy.minLevel',title:'Min Level'},
+    {data:'pharmacy.reOrderLevel',title:'ReOrder Level'},
+    {data:'pharmacy.vat',title:'Vat'},
+    {data:'pharmacy.packing',title:'Packing'},
+    {data:'pharmacy.note',title:'Note'},
+    {data:'pharmacy.vatAc',title:'VatAC'},
+    {data:'pharmacy.medicineImage',title:'Medicine Photo'},
+    {data:'availableQuantity',title:'Available Quantity',responsivePriority:3},
+    {data:'',title:'Action'}]
     const [dataSrc,setdataSrc]=React.useState([]);
     const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(
       <BrowserRouter>
-      <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-warning'} data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
+      <button onClick={()=>setindex1(rowData)} className={'btn btn-xs btn-warning'} data-toggle='modal' 
+      data-target='#viewMedicine'><i className='fa fa-eye'></i></button>
      
       <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-success'} data-toggle='modal' data-target='#GenerateBill'><i className='fa fa-pencil'></i></button>
       
@@ -28,7 +46,7 @@ export default (props) =>{
   },[])
       React.useEffect(()=>{
         fetchusecallback()
-         // Getdata('medicinedosage/get').then(data=>{setdataSrc(data);console.log(data)});
+         Getdata('pharmacy/get').then(data=>{setdataSrc(data);console.log(data)});
         },[])
   
     return (
@@ -52,6 +70,7 @@ export default (props) =>{
   <div className='px-5 pb-5'>
     <Table id='medicinestock' col={column} dataSrc={dataSrc} columnDefs={columnDefs}/>
     <AddMedicine medcat={data}/>
+    <ViewMedicine {...index1.medicine} {...index1.pharmacy}/>
   </div>
         </>
     )

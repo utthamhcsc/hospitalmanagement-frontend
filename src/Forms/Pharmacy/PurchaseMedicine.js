@@ -48,6 +48,8 @@ const schema=Yup.object().shape({
             note:'',
             medicine:[{
                     medicineCategoryId:'',
+                    medicineCategory:'',
+                    medicineName:'',
                     pharmacyId:'',
                     batchNum:'',
                     expiryDate:'',
@@ -158,13 +160,17 @@ const schema=Yup.object().shape({
                          values.medicine.map((item,index)=> <tr>
                          <td className=" " >
                             <select id="input" name='medicineCategory' 
-                            value={values.medicine[index].medicineCategoryId} 
-                            onChange={(e)=>{setFieldValue(`medicine.${index}.medicineCategoryId`,e.target.value);
-                        getpharmacyId(e.target.value,index);
+                            value={values.medicine[index].medicineCategoryId+','+values.medicine[index].medicineCategory} 
+                            onChange={(e)=>{
+                                var data=e.target.value.split(',')
+                                setFieldValue(`medicine.${index}.medicineCategoryId`,data[0]);
+                                setFieldValue(`medicine.${index}.medicineCategory`,data[1]);
+
+                                getpharmacyId(data[0],index);
                         }} className="form-control">
-                            <option value=''>Select</option>
+                            <option value=','>Select</option>
                             {
-                             props.medicineCategory?props.medicineCategory.map((data)=><option value={data.id}>{data.medicineCategory}</option>)
+                             props.medicineCategory?props.medicineCategory.map((data)=><option value={data.id+','+data.medicineCategory}>{data.medicineCategory}</option>)
                              :''
                             }
                             </select>
@@ -172,10 +178,19 @@ const schema=Yup.object().shape({
                        
                          </td>
                          <td className="">
-                            <select id="input" name='pharmacyId' class="form-control" {...getFieldProps(`medicine.${index}.pharmacyId`)} className='form-control'>
+                            <select id="input" name='pharmacyId' 
+                            value={values.medicine[index].pharmacyId+','+values.medicine[index].medicineName} 
+                            onChange={(e)=>{
+                                var data=e.target.value.split(',')
+                                setFieldValue(`medicine.${index}.pharmacyId`,data[0]);
+                                setFieldValue(`medicine.${index}.medicineName`,data[1]);
+
+                               // getpharmacyId(data[0],index);
+                        }}
+                            className='form-control'>
                             <option value=''>Select</option>
                             {   
-                             pharmacyIds[index]?pharmacyIds[index].map((data)=><option value={data[0]}>{data[1]}</option>)
+                             pharmacyIds[index]?pharmacyIds[index].map((data)=><option value={data[0]+','+data[1]}>{data[1]}</option>)
                              :''
                             }
                             </select>

@@ -27,7 +27,7 @@ const myvalidation=Yup.object().shape({
          //  billNo:'',
         //   date:Yup.date().required(),
            doctor:Yup.string().required(),
-           //hospitalDoctor:Yup.string().required(),
+           //doctorName:Yup.string().required(),
            note:Yup.string().required(),
            discount:Yup.number().required(),
            tax:Yup.number().required(),
@@ -59,10 +59,12 @@ return(
            billNo:'',
            date:new Date(),
            doctor:'',
-           hospitalDoctor:'',
+           doctorName:'',
            note:'',
            medicine:[{
            medicineCategoryId:'',
+           medicineCategory:'',
+           medicineName:'',
            pharmacyId:'',
            batchNum:'',
            expiryDate:'',
@@ -77,14 +79,21 @@ return(
           netamount:0
    }}
   // validationSchema={myvalidation}
-   onSubmit={(values)=>Postdata('pharmacyBillBasic/add','POST',values).then(data=>console.log(data))}>{({values,handleChange,setFieldValue,handleSubmit,errors,touched})=>(<>
+   onSubmit={(values)=>
+   {Postdata('pharmacyBillBasic/add','POST',values).then(data=>console.log(data))
+  // console.log(values)
+   }}>{({values,handleChange,setFieldValue,handleSubmit,errors,touched})=>(<>
         <div class=" card-header form-inline bg-primary p-2  border-0">
         
          <div className='form-group'>   
-        <select id="input" class="form-control"  onChange={(e)=>setFieldValue('patientId',e.target.value)}>
+        <select id="input" class="form-control"  onChange={(e)=>{
+           var data=e.target.value.split(",");
+           setFieldValue('patientId',data[0]);
+      setFieldValue('patientName',data[1]);
+      }}>
         <option value=''>Select Patient</option>
         {
-           props.patient?props.patient.map(data=><option key={data.userId} value={data.userId}>{data.name}</option>):''
+           props.patient?props.patient.map(data=><option key={data.userId} value={data.userId+','+data.name}>{data.name}</option>):''
         }
         </select>
         <span className='text-danger'>{touched.patientId?errors.patientId:''}</span>   
@@ -143,11 +152,16 @@ return(
                          <td className=" " >
                             <select id="input"
                              name={`medicine.${index}.medicineCategoryId`} 
-                             value={values.medicine[index].medicineCategoryId}
-                             onChange={(e)=>{handleChange(e); getpharmacyId(e.target.value,index);}}  className="form-control" >
+                             value={values.medicine[index].medicineCategoryId+','+values.medicine[index].medicineCategory}
+                             onChange={(e)=>{ 
+                             var data=e.target.value.split(",")
+                           setFieldValue(`medicine.${index}.medicineCategoryId`,data[0])
+                           setFieldValue(`medicine.${index}.medicineCategory`,data[1])
+                           
+                             getpharmacyId(data[0],index);}}  className="form-control" >
                             <option value=''>Select</option>
                             {
-                             props.medicineCategory?props.medicineCategory.map((data)=><option value={data.id}>{data.medicineCategory}</option>)
+                             props.medicineCategory?props.medicineCategory.map((data)=><option value={data.id+','+data.medicineCategory}>{data.medicineCategory}</option>)
                              :''
                             } </select>
                             <span className='text-danger'>{errors.medicine?errors.medicine[index]?errors.medicine[index].medicineCategoryId:'':''}</span>     
@@ -155,11 +169,16 @@ return(
                          <td className="">
                             <select id="input" 
                             name={`medicine.${index}.pharmacyId`} 
-                            value={values.medicine[index].pharmacyId} 
-                            onChange={(e)=>{handleChange(e); getBatchId(e.target.value,index);}} class="form-control">
+                            value={values.medicine[index].pharmacyId+','+values.medicine[index].medicineName} 
+                            onChange={(e)=>{
+                               var data=e.target.value.split(",")
+                               setFieldValue(`medicine.${index}.pharmacyId`,data[0]); 
+                               setFieldValue(`medicine.${index}.medicineName`,data[1]);
+                            getBatchId(data[0],index);
+                            }} class="form-control">
                                  <option value=''>Select</option>
                             {   
-                             pharmacyIds[index]?pharmacyIds[index].map((data)=><option value={data[0]}>{data[1]}</option>)
+                             pharmacyIds[index]?pharmacyIds[index].map((data)=><option value={data[0]+','+data[1]}>{data[1]}</option>)
                              :''
                             }  </select>
                             <span className='text-danger'>{errors.medicine?errors.medicine[index]?errors.medicine[index].pharmacyId:'':''}</span>     
@@ -172,7 +191,6 @@ return(
                                console.log(data)
                                setFieldValue(`medicine.${index}.expiryDate`,data.expiryDate)
                                setFieldValue(`medicine.${index}.availableQuantity`,data.availableQuantity)
-                               
                                setFieldValue(`medicine.${index}.saleprice`,data.saleprice)
                             })}} className="form-control " >
                                <option value=''>Select</option>
@@ -248,20 +266,24 @@ return(
                      <div class="col-md-6 from-group">
                          <div className=" ">Hospital Doctor</div>
                        <select id="input" class="form-control" 
-                       value={values.doctor} onChange={(e)=>setFieldValue('doctor',e.target.value)} >
+                        onChange={(e)=>{
+                        var data=e.target.value.split(",");
+                        setFieldValue('doctor',data[0]);
+                       setFieldValue('doctorName',data[1]);
+                       }} >
                            <option value=''>Select Doctor</option>
                            {
-           props.doctor?props.doctor.map(data=><option key={data.userId} value={data.userId}>{data.name}</option>):''
+           props.doctor?props.doctor.map(data=><option key={data.userId} value={data.userId+','+data.name}>{data.name}</option>):''
         }
        </select>
                        <span className='text-danger'>{touched.doctor ?errors.doctor:''}</span>     
                          
                     </div>
                     <div class="col-md-6 form-group">
-                    <div className="">Doctor Id</div>
+                    <div className="">Doctor Name</div>
                        <input type="text" class="form-control" 
-                       placeholder="Doctor Name" value={values.doctor} 
-                       onChange={(e)=>setFieldValue('doctor',e.target.value)}/>
+                       placeholder="Doctor Name" value={values.doctorName} 
+                       onChange={(e)=>setFieldValue('doctorName',e.target.value)}/>
                        <span className='text-danger'>{touched.doctor ?errors.doctor:''}</span>     
                      
                     </div>
