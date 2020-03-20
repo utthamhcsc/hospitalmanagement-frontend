@@ -2,6 +2,8 @@ import React from 'react';
 import {BrowserRouter,Switch,Route} from 'react-router-dom'
 import Header from './components/homepage/Header'
 import Receptionist from './components/receptionist'
+
+import Pharmasist from './components/Pharmacist'
 import Patient from './components/patient'
 import Doctor from './components/Doctor'
 import Admin from './components/Admin'
@@ -14,6 +16,7 @@ function App() {
   return (
     <BrowserRouter>
         <Route path='/receptionist' component={Receptionist}/>
+        <Route path='/pharmacist' component={Pharmasist}/>
         <Route path='/patient' component={Patient}/>
         <Route path='/doctor' component={Doctor}/>
         <Route path='/admin' component={Admin}/>

@@ -58,7 +58,7 @@ export default  React.memo((props)=> {
                               <td className={'text-left'}>{data.medicineName}</td>
                             <td className={'text-left'}>{data.batchNum}</td>
                             <td className={'text-left'}>{data.unit}</td>
-                            <td className={'text-left'}>{data.expiryDate}</td>
+                            <td className={'text-left'}>{new Date(data.expiryDate).toLocaleDateString()}</td>
                             <td className={'text-left'}>{data.quantity}</td>
                             <td className={'text-left'}>{data.amount}</td>
                             </tr>

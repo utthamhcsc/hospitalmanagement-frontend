@@ -8,6 +8,7 @@ import * as  Yup from 'yup';
  import {toast} from 'react-toastify'
 export default (props) =>{
    const [data,setData]=React.useState({});
+   const [doctor,setDoctor]=React.useState({});
     const formik=useFormik({
         initialValues:{
             patientId:'',
@@ -36,7 +37,7 @@ export default (props) =>{
 
             appointmentDate:Yup.date().required('required'),
             
-            doctorName:Yup.string().required('required'),
+           // doctorName:Yup.string().required('required'),
             
             appliedCharge:Yup.string().required('required'),
             
@@ -45,6 +46,7 @@ export default (props) =>{
 React.useEffect(()=>{
     
     Getdata('/fetchalluser/patient').then(data=>{setData(data);console.log(data)})
+    Getdata('/fetchalluser/doctor').then(data=>{setDoctor(data);console.log(data)})
 
 
 
@@ -172,11 +174,12 @@ React.useEffect(()=>{
                              
                              <div className="from-group col-md-6">
                                  <label for="doctor">Consultant Doctor<small class="req text-danger"> *</small></label>
-                                 <select id="input " className="form-control" value={formik.values.doctorName} onChange={(e)=>formik.setFieldValue('doctorName',e.target.value)}>
-                                     <option>Dr.Thapa</option>
-                                     <option>Dr.Soniya</option>
-                                     <option>Dr.Amit</option>
-                                     </select>
+                                 <select id="input " className="form-control" value={formik.values.doctorId} onChange={(e)=>formik.setFieldValue('doctorId',e.target.value)}>
+                               <option value=''></option>
+                                 {
+                   doctor?Object.keys(doctor).map(item=><option value={item}>{doctor[item]}</option>):''
+                 }
+</select>
                                      <span className='text-danger'>{(formik.touched.doctorName && formik.errors.doctorName)?formik.errors.doctorName:''}</span>
                              </div>
                               <div className="form-group col-md-6">

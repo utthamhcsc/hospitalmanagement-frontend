@@ -23,7 +23,7 @@ export default function Opd(props)
     </BrowserRouter>,td)}
   ]
     const link=<NavLink to='dfgh'/>
-    React.useEffect(()=>{Getdata('opdoutpatient').then(data=>{console.log(data);setdataSrc(data)});},[])
+    React.useEffect(()=>{Getdata('opdoutpatient/').then(data=>{console.log(data);setdataSrc(data)});},[])
     //React.useEffect(()=>{setdataSrc([{name:'Rama',patientId:'pat123',gender:'male',mobileNumber:'8861129756',appointmentDate:'2020/02/04',totalVisit:2}])},[]);
 return (
 <>

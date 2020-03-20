@@ -9,6 +9,7 @@ export default (props)=>{
         {
             medicineName:'',
             medicineCategoryId:'',
+
             medicineCompany:'',
             medicineComposition:'',
             medicineGroup:'',

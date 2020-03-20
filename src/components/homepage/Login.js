@@ -13,7 +13,8 @@ export default (prop)=>
   patient:'patient/appointment',
   receptionist:'receptionist/appointment',
   doctor:'doctor/appointment',
-  admin:'admin/appointment'              
+  admin:'admin/appointment',
+  pharmacist:'pharmacist/pharmacy'          
   }
     const formik=useFormik({
     initialValues:{ email:'',

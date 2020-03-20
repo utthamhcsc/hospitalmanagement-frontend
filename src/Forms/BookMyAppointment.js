@@ -8,7 +8,7 @@ import {toast} from 'react-toastify'
 
 export default (props)=>
 {
-  //console.log(props.patientId)
+  const [data,setData]=React.useState({});
   const [pid,setPid]=useState(true);
  // const [p,setp]=useState(props.patientId);
   //const p1=props.patientId
@@ -22,7 +22,7 @@ export default (props)=>
  mobileNumber:'',
  message:'',
  department:'',
- doctor:'2',
+ doctor:'',
  address:''
 }:{...props.data,date:new Date(props.data.date)};
 
@@ -59,12 +59,11 @@ export default (props)=>
 
 
   })
-  useEffect(() => {
-   // console.log(p)
-    return () => {
-      //cleanup
-    };
-  })
+  React.useEffect(()=>{
+      
+      Getdata('/fetchalluser/doctor').then(data=>{setData(data);console.log(data)})
+  },[])
+  
 return(<React.Fragment>
 <div className="modal fade "  id="bookappointment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div className="modal-dialog" role="document">
@@ -139,11 +138,19 @@ return(<React.Fragment>
   <span className='text-danger mb-3'><span className={'text-light'}>h</span>{formik.errors.gender}</span> 
 
   <div className="input-group ">
-  <select className="form-control bg-transparent border-right-0 border-top-0" name="department" {...formik.getFieldProps('department')} placeholder="Department" aria-label="Recipient's username" aria-describedby="basic-addon2">
+  <select className="form-control bg-transparent border-right-0 border-top-0 mb-3" name="department" {...formik.getFieldProps('department')} placeholder="Department" aria-label="Recipient's username" aria-describedby="basic-addon2">
   <option selected> Select Department</option>
     <option className="">Pathology</option>
     <option className="">radiology</option>
   </select>
+  </div>
+  <div className="input-group ">
+  <select className="form-control bg-transparent border-right-0 border-top-0" name="doctor" {...formik.getFieldProps('doctorId')} placeholder="Doctor" aria-label="Recipient's username" aria-describedby="basic-addon2">
+  <option value=''> Select Doctor</option>
+  {
+                   data?  Object.keys(data).map(item=><option value={item}>{data[item]}</option>):''
+                 }
+   </select>
   </div>
   <span className='text-danger d-block mb-3'><span className={'text-light'}>h</span>{formik.errors.department}</span> 
 

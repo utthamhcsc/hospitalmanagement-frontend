@@ -5,9 +5,10 @@ import {useFormik} from 'formik';
 import * as  Yup from 'yup';
  import {Getdata,Postdata,PostFormdata} from '../../Network/Server'
  import {toast} from 'react-toastify'
-export default () =>{
+export default (props) =>{
     
    const [data,setData]=React.useState({});
+   const [doctor,setDoctor]=React.useState({});
     const formik=useFormik({
     initialValues:
     {
@@ -52,10 +53,18 @@ export default () =>{
 
          })
      })
-     React.useEffect(()=>{
-        Getdata('/fetchalluser/patient').then(data=>{setData(data);console.log(data)})
-    },[])
     
+React.useEffect(()=>{
+    
+    Getdata('/fetchalluser/patient').then(data=>{setData(data);console.log(data)})
+    Getdata('/fetchalluser/doctor').then(data=>{setDoctor(data);console.log(data)})
+
+
+
+
+
+},[])
+
 
     return(
         <div class="modal fade" id="AddipdPatient" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -69,6 +78,7 @@ export default () =>{
         </button>   
                <div className="form-row">
                <select id="input" className="form-group col-md-4"  {...formik.getFieldProps('patientId')} >
+                 <option></option>
                  {
                    data?  Object.keys(data).map(item=><option value={item}>{data[item]}</option>):''
                  }
@@ -80,7 +90,7 @@ export default () =>{
                </div>
                </div>
               <div className="card-body ">
-                <form onSubmit={formik.handleSubmit}>
+                
                     
                     <div className="row">
                         <div className="col-md-8 ">
@@ -169,11 +179,10 @@ export default () =>{
                              </div>
                              <div className="from-group col-md-6">
                                  <label for="doctor">Consultant Doctor</label>
-                                 <select id="input " className="form-control" value={formik.values.doctorName} onChange={(e)=>formik.setFieldValue('doctorName',e.target.value)}>
-                                     <option>Dr.Thapa</option>
-                                     <option>Dr.Soniya</option>
-                                     <option>Dr.Amit</option>
-                                     </select>
+                                 <select id="input " className="form-control" value={formik.values.doctorId} onChange={(e)=>formik.setFieldValue('doctorId',e.target.value)}>
+                                 {
+                   doctor?  Object.keys(doctor).map(item=><option value={item}>{doctor[item]}</option>):''
+                 } </select>
                                      <span className='text-danger'>{(formik.touched.consDoctor && formik.errors.consDoctor)?formik.errors.consDoctor:''}</span>
                              </div>
                              <div className="form-group col-md-6">
@@ -206,13 +215,13 @@ export default () =>{
                                       </div>
                             </div> 
                             <div className="from-group col-md-12 m-4">
-                            <button type="submit" class="col-md-6 btn btn-outline-primary  btn-sm form-control">Save & Print</button>
-                             <button type="submit" class="col-md-4 ml-4 btn btn-outline-primary form-control">Save</button>
+                            <button type="submit" onClick={formik.handleSubmit} class="col-md-6 btn btn-outline-primary  btn-sm form-control">Save & Print</button>
+                             <button type="submit" onClick={formik.handleSubmit} class="col-md-4 ml-4 btn btn-outline-primary form-control">Save</button>
                             </div>
                              </div>
                              
                              </div>   
-                      </form>
+                    
                  </div>
                  </div>
             

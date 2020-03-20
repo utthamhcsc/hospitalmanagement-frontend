@@ -4,7 +4,7 @@ import {NavLink,BrowserRouter,Link,useHistory} from 'react-router-dom'
 import Table from '../../Table'
 import {Getdata,Postdata} from '../../../Network/Server'
 import DisplayForm from '../../../Forms/DisplayForm'
-import AddPat from '../../../Forms/OPDForms/AddPat'
+import AddPat from '../../../Forms/OPDForms/DoctorOpd'
 
 export default function Opd(props)
 {
@@ -29,7 +29,7 @@ export default function Opd(props)
     </BrowserRouter>,td)}
   ]
     const link=<NavLink to='dfgh'/>
-    React.useEffect(()=>{Getdata('opdoutpatient'+props.doctorId).then(data=>{console.log(data);setdataSrc(data)});},[])
+    React.useEffect(()=>{Getdata('opdoutpatient/'+props.doctorId).then(data=>{console.log(data);setdataSrc(data)});},[])
     //React.useEffect(()=>{setdataSrc([{name:'Rama',patientId:'pat123',gender:'male',mobileNumber:'8861129756',appointmentDate:'2020/02/04',totalVisit:2}])},[]);
 return (
 <>
@@ -47,7 +47,7 @@ return (
 <div className='px-5 pb-5'>
 <Table id='addOpdPatient' col={column} dataSrc={dataSrc} columnDefs={columnDefs}/>
 <DisplayForm data={index}/>
-<AddPat data={index}/>
+<AddPat data={index} doctorId={props.doctorId}/>
 </div>
 </>
 )

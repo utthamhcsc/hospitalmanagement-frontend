@@ -8,10 +8,11 @@ import BookMyAppointment from '../../../Forms/BookMyAppointment'
 
 export default function Appointment(props)
 {
-    const [index,setindex]=React.useState({});
+  const [index,setindex]=React.useState({});
+  const [index1,setindex1]=React.useState({});
     const column=[{data:'aptId',title:'AppointmentNo'},
     {data:'date',title:'Date'},
-    {data:'doctor',title:'Doctor'},
+   // {data:'doctor',title:'Doctor'},
     {data:'appointmentStatus',title:'Appointment Status'},
     {data:'message',title:'Message'},
     {data:'action',title:'Action'}]
@@ -19,8 +20,12 @@ export default function Appointment(props)
     const [mydata,setmydata]=React.useState([]);
     const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,
     createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(
-    <BrowserRouter><button onClick={()=>setindex(rowData)} data-toggle='modal' data-target='#viewDetails'>
+    <BrowserRouter><button onClick={()=>setindex(rowData)} data-toggle='modal' 
+    data-target='#viewDetails' class="btn btn-light text-xs  btn-xs mr-2">
     <i className='fa fa-eye'></i></button>
+    <button data-toggle="modal" onClick={()=>setindex1(rowData)} 
+    data-target="#bookappointment" class="btn btn-light text-xs  btn-xs mr-2"> <i class="fa fa-pencil"></i></button>               
+  
     </BrowserRouter>,td)}]
   
     React.useEffect(()=>{Getdata('appointment/').then(data=>{setdataSrc(data);setmydata(data)});},[])
@@ -49,7 +54,7 @@ export default function Appointment(props)
     <h6 classname='text-sm' style={{letterSpacing:'1px'}}>Appointment</h6>
     <div className='btn-group'>
     <button className={'btn btn-xs btn-light ml-1 ' } style={{marginLeft:'0.5px !important',opacity:0}} data-toggle="modal" data-target="sdf">dfgh</button>
-    <button data-toggle="modal" onClick={()=>setindex({})} data-target="#bookappointment" class="btn btn-light text-xs  btn-xs mr-2"> <i class="fa fa-plus"></i> Add Appointment</button>               
+    <button data-toggle="modal" onClick={()=>setindex1({})} data-target="#bookappointment" class="btn btn-light text-xs  btn-xs mr-2"> <i class="fa fa-plus"></i> Add Appointment</button>               
     <button onClick={()=>setdataSrc(data=>mydata.filter(item=>(new Date(item.date).getMonth()==new Date().getMonth() && new Date(item.date).getFullYear()===new Date().getFullYear() && new Date(item.date).getDate()===new Date().getDate()+1 )))}  class="btn btn-light text-xs  btn-xs mr-2"> Today</button>               
     <button  onClick={()=>nextnDaysData(7)}  class="btn btn-light text-xs  btn-xs mr-2">Next 7 Days</button>               
     <button onClick={()=>nextnDaysData(30)} class="btn btn-light text-xs  btn-xs mr-2">Next 30 Days</button>               
@@ -68,7 +73,7 @@ export default function Appointment(props)
   <div className='px-5 pb-5'>
     <Table id='appointment' col={column} dataSrc={dataSrc} columnDefs={columnDefs}/>
     <DisplayForm data={index}/>
-    <BookMyAppointment data={index}/>
+    <BookMyAppointment data={index1}/>
   </div>
         </>
     )

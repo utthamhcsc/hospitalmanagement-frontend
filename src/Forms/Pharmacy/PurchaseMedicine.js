@@ -47,6 +47,7 @@ const schema=Yup.object().shape({
             hospitalDocter:'',
             note:'',
             medicine:[{
+
                     medicineCategoryId:'',
                     medicineCategory:'',
                     medicineName:'',

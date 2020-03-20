@@ -62,6 +62,7 @@ return(
            doctorName:'',
            note:'',
            medicine:[{
+            medicineBatch:'',
            medicineCategoryId:'',
            medicineCategory:'',
            medicineName:'',
@@ -133,14 +134,17 @@ return(
                          <td>
                          <button onClick={()=>arrayhelper.push(
                              {
-                                medicineCategoryId:'',
-                                pharmacyId:'',
-                                batchNum:'',
-                                expiryDate:'',
-                                quantity:0,
-                                saleprice:0,
-                                amount:0,
-                                availableQuantity:0
+                              medicineBatch:'',
+                              medicineCategoryId:'',
+                              medicineCategory:'',
+                              medicineName:'',
+                              pharmacyId:'',
+                              batchNum:'',
+                              expiryDate:'',
+                              availableQuantity:'',
+                              quantity:0,
+                              saleprice:0,
+                              amount:0,
                               }
                          )}><i class="fas fa-plus text-primary border-0"></i></button></td>
                      </tr>
@@ -189,6 +193,7 @@ return(
                             onChange={(e)=>{handleChange(e); 
                             getbybathnum(e.target.value,index).then(data=>{
                                console.log(data)
+                               setFieldValue(`medicine.${index}.medicineBatch`,data.id)
                                setFieldValue(`medicine.${index}.expiryDate`,data.expiryDate)
                                setFieldValue(`medicine.${index}.availableQuantity`,data.availableQuantity)
                                setFieldValue(`medicine.${index}.saleprice`,data.saleprice)

@@ -8,6 +8,7 @@ import * as  Yup from 'yup';
  import {toast} from 'react-toastify'
 export default (props) =>{
    const [data,setData]=React.useState({});
+   //alert(props.doctorId)
     const formik=useFormik({
         initialValues:{
             patientId:'',
@@ -29,14 +30,14 @@ export default (props) =>{
         paymentMode:''
        },
        onSubmit:values=>{console.log(JSON.stringify(values,null,2))
-         Postdata('opdoutpatient/','POST',{...values,name:data[values.patientId]}).then(data=>toast.success('successfully added', {
+         Postdata('opdoutpatient/','POST',{...values,name:data[values.patientId],doctorId:props.doctorId}).then(data=>toast.success('successfully added', {
       position: toast.POSITION.TOP_CENTER
     }))},
          validationSchema:Yup.object().shape({
 
             appointmentDate:Yup.date().required('required'),
             
-            doctorName:Yup.string().required('required'),
+           // doctorName:Yup.string().required('required'),
             
             appliedCharge:Yup.string().required('required'),
             
@@ -77,8 +78,7 @@ React.useEffect(()=>{
                </div>
                </div>
                
-              <div className="card-body">
-                <form onSubmit={formik.handleSubmit}>
+              <div className="card-body">>
                 
                     <div className="row">
                         <div className="col-md-8 ">
@@ -170,15 +170,6 @@ React.useEffect(()=>{
                                  <span className='text-danger'>{(formik.touched.reference && formik.errors.reference)?formik.errors.reference:''}</span>
                              </div>
                              
-                             <div className="from-group col-md-6">
-                                 <label for="doctor">Consultant Doctor<small class="req text-danger"> *</small></label>
-                                 <select id="input " className="form-control" value={formik.values.doctorName} onChange={(e)=>formik.setFieldValue('doctorName',e.target.value)}>
-                                     <option>Dr.Thapa</option>
-                                     <option>Dr.Soniya</option>
-                                     <option>Dr.Amit</option>
-                                     </select>
-                                     <span className='text-danger'>{(formik.touched.doctorName && formik.errors.doctorName)?formik.errors.doctorName:''}</span>
-                             </div>
                               <div className="form-group col-md-6">
                                  <label for="stdcharge">Standard Charge ($)</label>
                                  <input type="number"  className="form-control" value={formik.values.standardCharge} onChange={(e)=>formik.setFieldValue('standardCharge',e.target.value)}/>
@@ -202,13 +193,13 @@ React.useEffect(()=>{
                                       <span className='text-danger'>{(formik.touched.paymentMode && formik.errors.paymentMode)?formik.errors.paymentMode:''}</span>
                             </div> 
                             <div className="from-group col-md-12 m-4">
-                            <button type="submit" class="col-md-6 btn btn-outline-primary form-control">Save & Print</button>
-                             <button type="submit" class="col-md-4 ml-4 btn btn-outline-primary form-control">Save</button>
+                            <button type="submit" onClick={formik.handleSubmit} class="col-md-6 btn btn-outline-primary form-control">Save & Print</button>
+                             <button type="submit" onClick={formik.handleSubmit} class="col-md-4 ml-4 btn btn-outline-primary form-control">Save</button>
                             </div>
                              </div>
                              
                              </div>   
-                      </form>
+                
                  </div>
             </div>
             </div>
