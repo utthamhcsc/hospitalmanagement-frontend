@@ -28,7 +28,7 @@ export default function Discharge(props) {
 ]
  const Link=<NavLink to='dfgh'/>
 
-    React.useEffect(()=>{Getdata('inpatient/'+props.doctorId+'/YES').then(data=>setdataSrc(data));},[])
+    React.useEffect(()=>{Getdata('inpatient/doctor/'+props.doctorId+'/YES').then(data=>setdataSrc(data));},[])
 
     return (
         <>

@@ -24,7 +24,8 @@ let { patientId } = useParams();
   
   ]
   
-    React.useEffect(()=>{Getdata('inpatient/'+props.doctorId+'/').then(data=>setdataSrc(data));},[])
+    React.useEffect(()=>{Getdata('inpatient/doctor/'+props.doctorId+'/NO').then(data=>{setdataSrc(data);
+      console.log(data)});},[])
 
     return (
     <>

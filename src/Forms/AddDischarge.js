@@ -8,18 +8,18 @@ import {Getdata,PostFormdata, Postdata} from '../Network/Server'
 import {toast} from 'react-toastify'
 
 export default  (props) => {
-    const {ipdId,bedGroup,bedNumber}=props;
+    const {ipdId,bednumber,bedgroup}=props;
    // alert(ipdId)
     const [data,setdata]=React.useState({ ipdId:'',
     summer:'',
     disChargeDate:new Date(),
-    bedGroup:'',
-    bedNumber:''
+    bedgroup:'',
+    bednumber:''
    })
    React.useEffect(()=>{
       // alert(JSON.stringify(data,null,2))
-      setdata({...data,ipdId,bedGroup,bedNumber})
-   },[ipdId,bedGroup,bedNumber])
+      setdata({...data,ipdId,bedgroup,bednumber})
+   },[ipdId,bedgroup,bednumber])
     const formik = useFormik(
     {
     initialValues:{
@@ -69,12 +69,12 @@ return(
     <div className="border bg-light mt-2 row">
       <div class="form-group p-2 col-md-6">
       <label for="inputCity">Bed Group</label>
-      <input className="form-control" id="inputCity" readOnly {...formik.getFieldProps('bedGroup')} />
+      <input className="form-control" id="inputCity" readOnly {...formik.getFieldProps('bedgroup')} />
       <span className='text-danger'>{''}</span>
       </div>
       <div class="form-group p-2 col-md-6">
       <label for="inputCity">Bed Number</label>
-      <input className="form-control" id="inputCity" readOnly {...formik.getFieldProps('bedNumber')} />
+      <input className="form-control" id="inputCity" readOnly {...formik.getFieldProps('bednumber')} />
       <span className='text-danger'>{''}</span>
 
  

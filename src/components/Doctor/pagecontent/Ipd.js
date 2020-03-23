@@ -28,7 +28,7 @@ const history=useHistory();
   
   ]
   
-    React.useEffect(()=>{Getdata('inpatient/'+props.doctorId+'/NO').then(data=>setdataSrc(data));},[])
+    React.useEffect(()=>{Getdata('inpatient/doctor/'+props.doctorId+'/NO').then(data=>setdataSrc(data));},[])
 
     return (
     <>

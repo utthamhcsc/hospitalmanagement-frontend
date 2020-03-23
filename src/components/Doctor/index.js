@@ -39,7 +39,7 @@ export default function Index()
 {
   const [index,setindex]=React.useState({})
   
-  const [doctorId,setDoctorId]=React.useState('P-20200212115220');
+  const [doctorId,setDoctorId]=React.useState(localStorage.getItem('userId'));
   const [doctor,setDoctor]=React.useState({
     doctorId:'P-20200212115220',
        address:'asdfghj',
@@ -56,6 +56,7 @@ export default function Index()
       let user=localStorage.getItem('userId');
    if(typeof(user)=='string'){setDoctorId(user)};
 //Getdata(`doctorprofile/${doctorId}`).then(data=>{console.log(data);setDoctor(data)})
+//alert(user)
   },[])
   return (
         <>

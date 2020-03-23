@@ -26,9 +26,11 @@ export default function Appointment(props)
     <button data-toggle="modal" onClick={()=>setindex1(rowData)} 
     data-target="#bookappointment" class="btn btn-light text-xs  btn-xs mr-2"> <i class="fa fa-pencil"></i></button>               
   
+  <button onClick={()=>Postdata(`appointment/${rowData.id}`,'DELETE',{}).then(data=>data.status==1?window.$('#appointment').DataTable().row(row).remove().draw():'')} className={'btn btn-xs btn-light'} ><i className='fa fa-trash'></i></button>
+ 
     </BrowserRouter>,td)}]
   
-    React.useEffect(()=>{Getdata('appointment/').then(data=>{setdataSrc(data);setmydata(data)});},[])
+    React.useEffect(()=>{Getdata('appointment/doctor/'+props.doctorId).then(data=>{setdataSrc(data);setmydata(data)});},[])
 
     React.useEffect(()=>{})
     const lastnDaysData=(n)=>{

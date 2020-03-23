@@ -12,7 +12,7 @@ export default function Opd(props)
     const [index,setindex]=React.useState({});
     const history=useHistory();
     //const [patientId,setPatientId]=React.useState('');
-    const column=[{data:'name',title:'Name'},{data:'patientId',title:'patient Id'},{data:'gender',title:'Gender'},{data:'mobileNumber',title:'Phone'},{data:'appointmentDate',title:'Last Visit'},{data:'totalVisit',title:'Total Visit'},{data:'action',title:'Action'}]
+    const column=[{data:'name',title:'Name'},{data:'patientId',title:'patient Id'},{data:'gender',title:'Gender'},{data:'phone',title:'Phone'},{data:'appointmentDate',title:'Last Visit'},{data:'totalVisit',title:'Total Visit'},{data:'action',title:'Action'}]
     const [dataSrc,setdataSrc]=React.useState([{name:'Rama',patientId:'P-20200212115220',gender:'male',mobileNumber:'8861129756',appointmentDate:'2020/02/04',totalVisit:2}]);
     const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(
     <BrowserRouter>
@@ -29,7 +29,7 @@ export default function Opd(props)
     </BrowserRouter>,td)}
   ]
     const link=<NavLink to='dfgh'/>
-    React.useEffect(()=>{Getdata('opdoutpatient/'+props.doctorId).then(data=>{console.log(data);setdataSrc(data)});},[])
+    React.useEffect(()=>{Getdata('opdoutpatient/sd/'+props.doctorId).then(data=>{console.log(data);setdataSrc(data)});},[])
     //React.useEffect(()=>{setdataSrc([{name:'Rama',patientId:'pat123',gender:'male',mobileNumber:'8861129756',appointmentDate:'2020/02/04',totalVisit:2}])},[]);
 return (
 <>
