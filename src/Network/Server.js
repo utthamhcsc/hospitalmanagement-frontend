@@ -1,5 +1,5 @@
 //const baseurl='http://192.168.0.121:8080/';
-//const baseurl='http://hospitalmanagemapp.gbfpue2n5p.us-east-1.elasticbeanstalk.com/';
+//const baseurl='http://hospitalapp.eba-pp3qspjy.ap-southeast-1.elasticbeanstalk.com/';
 const baseurl='http://localhost:8080/'
 
 const Getdata=async(url='')=>
@@ -21,7 +21,8 @@ const response = await fetch(baseurl+url, {
 method:mymethod,
 headers:
 { 'Content-Type': 'application/json','Access-Control-Allow-Origin':'*'},
-            body: JSON.stringify(data)}); return await response.json();}
+            body: JSON.stringify(data)}); 
+             return await response.json();}
 
 const PostFormdata=async(url = '', method='POST',data = {})=> 
 {
@@ -29,7 +30,7 @@ const PostFormdata=async(url = '', method='POST',data = {})=>
   Object.keys(data).map(item=>formData.append(item,data[item]));
   const response = await fetch(baseurl+url, {method:method,headers: 
   {
-   // 'access-control-allow-origin':'*'
+    'Access-Control-Allow-Origin':'*'
    },
   body: formData});
   return await response.json();

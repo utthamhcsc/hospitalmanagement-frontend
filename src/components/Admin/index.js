@@ -32,6 +32,16 @@ import AddStaff from '../../Forms/HumanResource/AddStaff'
 import HumanResource from './pagecontent/HumanResource'
 import StaffTable from './pagecontent/StaffTable'
 import SettingsPharmacy from './pagecontent/SettingsPharmacy'
+
+import SettingsFrontOffice from './pagecontent/SettingsFrontOffice'
+import SettingsCharges from './pagecontent/SettingsCharges'
+import SettingsBed from './pagecontent/settings/Bed/SettingsBed'
+import InventorySettings from './pagecontent/settings/inventory/InventorySettings'
+import FinanceSettings from './pagecontent/settings/Finance/FinanceSettings'
+import HumanResourceSetting from './pagecontent/settings/HumanResource/HumanResourceSetting'
+import PathologySettings from './pagecontent/settings/Pathology/PathologySettings'
+import RadiologySettings from './pagecontent/settings/Radiology/RadiologySettings'
+import Tpa from './pagecontent/Tpa/Tpa'
 export default function Index(props) {
   const [index,setindex]=React.useState({})
     return (
@@ -47,6 +57,14 @@ export default function Index(props) {
     <section className="content px-4 mt-4" >
       <div className="card shadow">
         
+<Route path='/admin/settings/bed' render={()=><SettingsBed/>}/>
+<Route path='/admin/settings/humanResource' render={()=><HumanResourceSetting/>}/>
+<Route path='/admin/settings/pathology' render={()=><PathologySettings/>}/>
+<Route path='/admin/settings/radiology' render={()=><RadiologySettings/>}/>
+<Route path='/admin/settings/finance' render={()=><FinanceSettings/>}/>
+<Route path='/admin/settings/frontOffice' render={()=><SettingsFrontOffice/>}/>
+<Route path='/admin/settings/inventory' render={()=><InventorySettings/>}/>
+<Route path='/admin/settings/charges' render={()=><SettingsCharges/>}/>
 <Route path='/admin/settings/pharmacy' render={()=><SettingsPharmacy/>}/>
 <Route path='/admin/appointment' render={()=><Appointment setindex={setindex}/>}/>
 <Route path='/admin/Opd' render={()=><Opd setindex={setindex}/>}/>
@@ -61,15 +79,10 @@ export default function Index(props) {
 <Route path='/admin/postaldispatch' render={()=><PostalDispatch setindex={setindex}/>}/>
 <Route path='/admin/discharge' render={()=><Discharge/>}/>
  <Route path='/admin/profile' render={()=><Profile/>}/>
-{/*<Route path='/admin/opdPatient/:patientId' render={()=><OpdPatient />}/>
-       <Route path='/admin/diagnosis/:patientId' render={()=><Diagnosis />}/> */}
-       {/* <Route path='/admin/profile' render={()=><Profile />}/>
-        <Route path='/admin/patient/charges/:patientId' render={()=><OpdCharges />}/> */}
-        {/* <Route path='/admin/patient/bill/:patientId' render={()=><OpdBill />}/> */}
+ <Route path='/admin/tpa' render={()=><Tpa/>}/>
        <Route path='/admin/inPatient/:patientId' render={()=><IpdPatient />}/>
        <Route path='/admin/ipd1/diagnosis/:patientId' render={()=><IpdDiagnosis />}/>
        <Route path='/admin/ipd1/consultentRegister/:patientId' render={()=><ConsultantRegister />}/>
-       {/* <Route path='/admin/testreport' render={()=><TestReport setindex={setindex} />}/> */}
        <Route path='/admin/ipd1/ipdPresciption/:patientId' render={()=><IpdPrescription />}/>
        <Route path='/admin/ipd1/Charges/:patientId' render={()=><IpdCharges />}/>
        <Route path='/admin/opdPatient/:patientId' render={()=><OpdPatient />}/>

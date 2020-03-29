@@ -58,7 +58,7 @@ return (
                 </NavLink>
             </li>
             <li className="nav-item has-treeview shadow p-1">
-                <NavLink className="nav-link py-1 text-white" to="/admin/tpamanagement">
+                <NavLink className="nav-link py-1 text-white" to="/admin/tpa">
                     <i class="text-xs fas fa-umbrella"></i> 
                     <p className='pl-3 ' style={{letterSpacing:'1px',fontSize:'13px',lineHeight:'100%'}}>TPA Management</p>
                 </NavLink>
@@ -130,10 +130,15 @@ return (
                 </Link>
                 <ul className="nav nav-treeview text-dark bg-light" style={{zIndex:-999}}>
                     <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/admin/settings/pharmacy"><i class="text-xs fas fa-angle-right"></i> Pharmacy</NavLink></li>
-                    <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/setup/bed/status"><i class="text-xs fas fa-angle-right"></i> Bed</NavLink></li>
-                    <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/visitorspurpose"><i class="text-xs fas fa-angle-right"></i> Front Office</NavLink></li>
-                                
-
+                    <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/admin/settings/bed"><i class="text-xs fas fa-angle-right"></i> Bed</NavLink></li>
+                    <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/admin/settings/frontOffice"><i class="text-xs fas fa-angle-right"></i> Front Office</NavLink></li>
+                    <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/admin/settings/charges"><i class="text-xs fas fa-angle-right"></i> Charges</NavLink></li>            
+                    <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/admin/settings/inventory"><i class="text-xs fas fa-angle-right"></i> Inventory</NavLink></li>
+                    <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/admin/settings/humanResource"><i class="text-xs fas fa-angle-right"></i> Human Resource</NavLink></li>
+                    <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/admin/settings/pathology"><i class="text-xs fas fa-angle-right"></i> Pathology</NavLink></li>
+                    <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/admin/settings/radiology"><i class="text-xs fas fa-angle-right"></i> Radiology</NavLink></li>
+                    <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/admin/settings/finance"><i class="text-xs fas fa-angle-right"></i> Finance</NavLink></li>
+                 
                     </ul>
 
                 </li>

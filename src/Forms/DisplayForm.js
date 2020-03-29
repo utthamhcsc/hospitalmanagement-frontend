@@ -15,8 +15,8 @@ export default (props)=> {
       <div className="card-body">  
       <ul class="list-group">
       {
-    props.data?Object.keys(props.data).map((name)=>
-<li class="list-group-item d-sm-flex justify-content-between"><div className="font-weight-bold">{name}</div><div>{props.data[name]}</div></li>):''
+    props.data?Object.keys(props.data).map((name,index)=>
+<li key={index} className="list-group-item d-sm-flex justify-content-between"><div className="font-weight-bold">{name}</div><div>{props.data[name]}</div></li>):''
 }
 </ul>  
 
