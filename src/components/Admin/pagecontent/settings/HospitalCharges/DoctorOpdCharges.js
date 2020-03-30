@@ -1,33 +1,39 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import {NavLink,BrowserRouter} from 'react-router-dom'
-import Table from '../../Table'
-import {Getdata,Postdata} from '../../../Network/Server'
-import Radiology1 from '../../../Forms/Radiology/Radiology'
-import AddMediciniCategory from './AddMediciniCategory'
-import DisplayForm from '../../../Forms/DisplayForm'
+import Table from '../../../../Table'
+import { Getdata,Postdata } from '../../../../../Network/Server'
+import AddMediciniCategory from '../../AddMediciniCategory'
+import DisplayForm from '../../../../../Forms/DisplayForm'
+import AddDoctorOpdCharge from '../../../../../Forms/Settings/Charges/AddDoctorOpdCharge'
 
 export default function DoctorOpdCharges(props)
  {
    
-  const [index1,setindex1]=React.useState({medicineCategory:''});
+  const [index1,setindex1]=React.useState({ 
+  standardCharge: "",
+  doctorId: "",
+  organisationCharges: []
+});
   const [index,setindex]=React.useState({});
   const column=[{data:'',title:'Sl.No',render:( data, type, row, meta ) =>`<b>${meta.row+1}</b>`},
-  {data:'medicineCategory',title:'Medicine Category'},
+  {data:'doctorName',title:'Doctor'},
+  {data:'standardCharge',title:'Standard Charge'},
   {data:'action',title:'Action'}]
     const [dataSrc,setdataSrc]=React.useState([]);
     const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(
       <BrowserRouter>
       <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-light'} data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
      
-      <button onClick={()=>setindex1(rowData)} className={'btn btn-xs btn-light'} data-toggle='modal' data-target='#MedicineCategory'><i className='fa fa-pencil'></i></button>
+      <button onClick={()=>setindex1(rowData)} className={'btn btn-xs btn-light'} data-toggle='modal' data-target='#addDoctorCharge'><i className='fa fa-pencil'></i></button>
       
-      <button onClick={()=>Postdata(`medicineCat/delete/${rowData.id}`,'DELETE',{}).then(mydata=>mydata?setdataSrc(data=>data.filter(item=>item.id!=mydata.id)):'')} className={'btn btn-xs btn-light'} ><i className='fa fa-trash'></i></button>
+      <button onClick={()=>Getdata(`doctorOpdCharge/delete/${rowData.id}`).then(mydata=>mydata?setdataSrc(data=>data.filter(item=>item.id!=mydata)):'')} className={'btn btn-xs btn-light'} ><i className='fa fa-trash'></i></button>
      
       </BrowserRouter>,td)}]
     
     React.useEffect(()=>{
-        Getdata('medicineCat/get').then(data=>setdataSrc(data));
+        Getdata('doctorOpdCharge/get').then(data=>setdataSrc(data));
+        //fetchalluser/{role}
       },[])
 
 
@@ -39,7 +45,11 @@ export default function DoctorOpdCharges(props)
       <h6 className='text-sm' style={{letterSpacing:'1px',lineHeight:'100%'}}>Doctor Opd Charges</h6>
   <div className='btn-group p-0'>
     <button className={'btn btn-xs  btn-light ml-1 ' } style={{marginLeft:'0.5px !important',opacity:0}} data-toggle="modal" data-target="sdf">dfgh</button>
-    <button data-toggle="modal" onClick={()=>setindex({})} data-target="#MedicineCategory" class="btn btn-light text-xs  btn-xs  ml-1"> <i class="fa fa-plus"></i> Add Medicine Category</button>               
+    <button data-toggle="modal" onClick={()=>setindex1({standardCharge: "",
+  doctorId: "",
+  organisationCharges: []
+})} data-target="#addDoctorCharge" 
+    class="btn btn-light text-xs  btn-xs  ml-1"> <i class="fa fa-plus"></i> Add Charge</button>               
                          </div>
   </li>
   </ol>
@@ -47,7 +57,7 @@ export default function DoctorOpdCharges(props)
 
   <div className='px-5 pb-5'>
     <Table id='medicineCategory' col={column} dataSrc={dataSrc} columnDefs={columnDefs}/>
-    <AddMediciniCategory data={index1} setdataSrc={setdataSrc}/>
+    <AddDoctorOpdCharge data={index1} setdataSrc={setdataSrc}/>
     <DisplayForm data={index}/>
   </div>
         </>

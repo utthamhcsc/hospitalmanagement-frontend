@@ -1,8 +1,5 @@
 import React from 'react'
 import { BrowserRouter, Route, Switch, useLocation, Link } from 'react-router-dom'
-import Supplier from './Supplier'
-import MedicineDosage from './MedicineDosage'
-import MedicineCategory from './MedicineCategory'
 import ChargeDetails from './ChargeDetails'
 import ChargeCategory from './ChargeCategory'
 import DoctorOpdCharges from './DoctorOpdCharges'

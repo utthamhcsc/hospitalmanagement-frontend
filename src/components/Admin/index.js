@@ -34,7 +34,7 @@ import StaffTable from './pagecontent/StaffTable'
 import SettingsPharmacy from './pagecontent/SettingsPharmacy'
 
 import SettingsFrontOffice from './pagecontent/SettingsFrontOffice'
-import SettingsCharges from './pagecontent/SettingsCharges'
+
 import SettingsBed from './pagecontent/settings/Bed/SettingsBed'
 import InventorySettings from './pagecontent/settings/inventory/InventorySettings'
 import FinanceSettings from './pagecontent/settings/Finance/FinanceSettings'
@@ -42,6 +42,7 @@ import HumanResourceSetting from './pagecontent/settings/HumanResource/HumanReso
 import PathologySettings from './pagecontent/settings/Pathology/PathologySettings'
 import RadiologySettings from './pagecontent/settings/Radiology/RadiologySettings'
 import Tpa from './pagecontent/Tpa/Tpa'
+import SettingsCharges from './pagecontent/settings/HospitalCharges/SettingsCharges'
 export default function Index(props) {
   const [index,setindex]=React.useState({})
     return (
