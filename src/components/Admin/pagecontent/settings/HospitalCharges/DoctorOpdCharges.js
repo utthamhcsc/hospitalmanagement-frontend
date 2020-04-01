@@ -6,6 +6,7 @@ import { Getdata,Postdata } from '../../../../../Network/Server'
 import AddMediciniCategory from '../../AddMediciniCategory'
 import DisplayForm from '../../../../../Forms/DisplayForm'
 import AddDoctorOpdCharge from '../../../../../Forms/Settings/Charges/AddDoctorOpdCharge'
+import ViewCharges from '../../../../../Forms/Settings/Charges/ViewDoctorCharges'
 
 export default function DoctorOpdCharges(props)
  {
@@ -23,7 +24,7 @@ export default function DoctorOpdCharges(props)
     const [dataSrc,setdataSrc]=React.useState([]);
     const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(
       <BrowserRouter>
-      <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-light'} data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
+      <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-light'} data-toggle='modal' data-target='#viewCharges'><i className='fa fa-eye'></i></button>
      
       <button onClick={()=>setindex1(rowData)} className={'btn btn-xs btn-light'} data-toggle='modal' data-target='#addDoctorCharge'><i className='fa fa-pencil'></i></button>
       
@@ -58,7 +59,7 @@ export default function DoctorOpdCharges(props)
   <div className='px-5 pb-5'>
     <Table id='medicineCategory' col={column} dataSrc={dataSrc} columnDefs={columnDefs}/>
     <AddDoctorOpdCharge data={index1} setdataSrc={setdataSrc}/>
-    <DisplayForm data={index}/>
+    <ViewCharges {...index}/>
   </div>
         </>
     )

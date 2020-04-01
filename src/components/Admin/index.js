@@ -43,6 +43,7 @@ import PathologySettings from './pagecontent/settings/Pathology/PathologySetting
 import RadiologySettings from './pagecontent/settings/Radiology/RadiologySettings'
 import Tpa from './pagecontent/Tpa/Tpa'
 import SettingsCharges from './pagecontent/settings/HospitalCharges/SettingsCharges'
+import Staff from './pagecontent/HumanResource/index'
 export default function Index(props) {
   const [index,setindex]=React.useState({})
     return (
@@ -57,7 +58,7 @@ export default function Index(props) {
     }} >
     <section className="content px-4 mt-4" >
       <div className="card shadow">
-        
+ <Route path='/admin/humanResource' render={()=><Staff/>}/>       
 <Route path='/admin/settings/bed' render={()=><SettingsBed/>}/>
 <Route path='/admin/settings/humanResource' render={()=><HumanResourceSetting/>}/>
 <Route path='/admin/settings/pathology' render={()=><PathologySettings/>}/>

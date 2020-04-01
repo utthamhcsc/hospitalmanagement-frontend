@@ -79,7 +79,7 @@ return (
                  </ul>
             </li>
             <li className="nav-item has-treeview shadow p-1">
-                <NavLink className="nav-link py-1 text-white" to="/admin/staff">
+                <NavLink className="nav-link py-1 text-white" to="/admin/humanResource">
                     <i class="text-xs fas fa-sitemap"></i> 
                     <p className='pl-3 ' style={{letterSpacing:'1px',fontSize:'13px',lineHeight:'100%'}}>Human Resource</p> 
                 </NavLink>

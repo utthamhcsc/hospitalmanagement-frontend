@@ -11,13 +11,13 @@ export default function(props) {
       ...props.data
     },
     onSubmit: values => {
-      console.log(values);
-      Postdata('doctorOpdCharge/add','POST',values).then(res=>{
+      console.log({...values,doctorName:data[values.doctorId]});
+      Postdata('doctorOpdCharge/add','POST',{...values,doctorName:data[values.doctorId]}).then(res=>{
        console.log(res)
         if(values.id)
-         props.setdataSrc(data=>data.map(item=>item.id==res.id?{...res,doctorName:data[res.doctorId]}:item))
+         props.setdataSrc(data=>data.map(item=>item.id==res.id?res:item))
         else
-          props.setdataSrc(data=>[{...res,doctorName:data[res.doctorId]},...data])
+          props.setdataSrc(data=>[res,...data])
           window.$('#addCharge').modal('hide')
       })
       //props.setdataSrc(data=>data.map(item=>item.id==values.id?values:values.id?values))

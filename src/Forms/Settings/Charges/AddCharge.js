@@ -3,6 +3,7 @@ import { useFormik } from "formik";
 import { Postdata, Getdata } from "../../../Network/Server";
 export default function(props) {
   const [tpa, settpa] = React.useState([]);
+  const [chargeCategory,setChargeCategory]=React.useState([]);
   const formik = useFormik({
     enableReinitialize: true,
     initialValues: {
@@ -38,6 +39,17 @@ export default function(props) {
             organisationId: item.id,
             charges: 0,
             organisationName: item.organisationName
+          };
+        })
+      )
+    );
+    
+    Getdata("chargesCategory/get").then(data =>
+      setChargeCategory(
+        data.map(item => {
+          return {
+            categoryId: item.id,
+            chargeCategory:item.chargeCategory
           };
         })
       )
@@ -124,6 +136,9 @@ export default function(props) {
                           {...formik.getFieldProps("chargeCategory")}
                         >
                           <option>Select</option>
+                          {
+                            chargeCategory.map(item=><option>{item.chargeCategory}</option>)
+                          }
                         </select>
                         <span className="text-danger" />
                       </div>
