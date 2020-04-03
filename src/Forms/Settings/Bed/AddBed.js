@@ -1,6 +1,6 @@
 import React from 'react'
 import { useFormik } from 'formik';
-import { Postdata } from '../../Network/Server';
+import { Postdata } from '../../../Network/Server';
 export default function(props) {
   const formik=useFormik({
     enableReinitialize:true,
@@ -8,15 +8,16 @@ export default function(props) {
       ...props.data
     },
     onSubmit:values=>{
-
-       let floorId=JSON.parse(values.floorId)||{}
-        Postdata('bedgroup/add','POST',{...values,floorId:floorId.id}).then(res=>{
+console.log(values)
+       let bedType=JSON.parse(values.bedTypeId)||{}
+       let bedGroup=JSON.parse(values.bedGroupId)||{}
+        Postdata('bed/add','POST',{...values,bedTypeId:bedType.id,bedGroupId:bedGroup.id}).then(res=>{
           console.log(res)
             if(values.id)
-            props.setdataSrc(data=>data.map(item=>item.id==res.id?{...res,floorName:floorId.name}:item))  
+            props.setdataSrc(data=>data.map(item=>item.id==res.id?{...res,bedTypeName:bedType.name,bedGroupName:bedGroup.name}:item))  
             else
-            props.setdataSrc(data=>[{...res,floorName:floorId.name},...data])
-            window.$('#bedGroup').modal('hide')
+            props.setdataSrc(data=>[{...res,bedTypeName:bedType.name,bedGroupName:bedGroup.name},...data])
+            window.$('#bed').modal('hide')
         })
       //props.setdataSrc(data=>data.map(item=>item.id==values.id?values:values.id?values))
    //    props.setdataSrc(data=>[...data,values])
@@ -25,11 +26,11 @@ export default function(props) {
   })
       return (
   
-        <div className="modal fade in" id="bedGroup" >
+        <div className="modal fade in" id="bed" >
           <div className="modal-dialog modal-mid" role="document">
             <div className="modal-content modal-media-content">
               <div className="modal-header modal-media-header pb-1">
-              <h6 className="box-title"> Add Bed Group</h6> 
+              <h6 className="box-title"> Add Bed </h6> 
                 <button type="button" className="close" data-dismiss="modal">×</button>
                 
               </div>
@@ -44,12 +45,12 @@ export default function(props) {
                   </div>
                   <div className="ptt10">
                     <div className="form-group">
-                      <label htmlFor="exampleInputEmail1"> Floor</label><small className="req"> *</small>
+                      <label htmlFor="exampleInputEmail1"> Bed Type</label><small className="req"> *</small>
                       
-                      <select autoComplete={'off'}   type="text" className="form-control" {...formik.getFieldProps('floorId')} >
+                      <select autoComplete={'off'}   type="text" className="form-control" {...formik.getFieldProps('bedTypeId')} >
                       <option value=''></option>
                       {
-                          props.floor?props.floor.map(item=><option key={item.id} value={JSON.stringify(item)}>{item.name}</option>):''
+                          props.bedType?props.bedType.map(item=><option key={item.id} value={JSON.stringify(item)}>{item.name}</option>):''
                       }
                       </select>
                       <span className="text-danger" />
@@ -57,11 +58,18 @@ export default function(props) {
                   </div>
                   <div className="ptt10">
                     <div className="form-group">
-                      <label htmlFor="exampleInputEmail1"> Description</label><small className="req"> *</small>
-                      <input   type="text" className="form-control" {...formik.getFieldProps('description')} />
+                      <label htmlFor="exampleInputEmail1"> Bed Group</label><small className="req"> *</small>
+                      
+                      <select autoComplete={'off'}   type="text" className="form-control" {...formik.getFieldProps('bedGroupId')} >
+                      <option value=''></option>
+                      {
+                          props.bedGroup?props.bedGroup.map(item=><option key={item.id} value={JSON.stringify(item)}>{item.name}</option>):''
+                      }
+                      </select>
                       <span className="text-danger" />
                     </div>          
                   </div>
+                 
                 
                 </div>{/*./modal-body*/}        
                 <div className="box-footer">

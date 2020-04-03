@@ -10,7 +10,7 @@ import ApproveLeaveRequest from "./ApproveLeaveRequest";
 export default () => {
   return (
       <Switch>
-          <Route path='/admin/humanResource/addStaff' render={()=><AddStaff/>}/>
+          <Route path='/admin/humanResource/addStaff/:staffId' render={()=><AddStaff/>}/>
   <Route path='/admin/humanResource/payroll' render={()=><PayRoll/>}/>
   <Route path='/admin/humanResource/staffAttendence' render={()=><StaffAttendence/>}/>
   <Route path='/admin/humanResource/leaves' render={()=><Leave/>}/>

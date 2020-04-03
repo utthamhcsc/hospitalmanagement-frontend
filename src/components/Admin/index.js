@@ -44,6 +44,7 @@ import RadiologySettings from './pagecontent/settings/Radiology/RadiologySetting
 import Tpa from './pagecontent/Tpa/Tpa'
 import SettingsCharges from './pagecontent/settings/HospitalCharges/SettingsCharges'
 import Staff from './pagecontent/HumanResource/index'
+import Ambulance from './pagecontent/Ambulance'
 export default function Index(props) {
   const [index,setindex]=React.useState({})
     return (
@@ -57,7 +58,7 @@ export default function Index(props) {
       backgroundRepeat: 'no-repeat'
     }} >
     <section className="content px-4 mt-4" >
-      <div className="card shadow">
+      
  <Route path='/admin/humanResource' render={()=><Staff/>}/>       
 <Route path='/admin/settings/bed' render={()=><SettingsBed/>}/>
 <Route path='/admin/settings/humanResource' render={()=><HumanResourceSetting/>}/>
@@ -76,6 +77,7 @@ export default function Index(props) {
 <Route path='/admin/pharmacy' render={()=><Pharmacy1 setindex={setindex}/>}/>
 <Route path='/admin/visitor' render={()=><Visitor setindex={setindex}/>}/>
 <Route path='/admin/callog' render={()=><Callog setindex={setindex}/>}/>
+<Route path='/admin/vehicle'render={()=><Ambulance/>}/>
 <Route path='/admin/complain' render={()=><Complain setindex={setindex}/>}/>
 <Route path='/admin/postalReceive' render={()=><PostalReceive setindex={setindex}/>}/>
 <Route path='/admin/postaldispatch' render={()=><PostalDispatch setindex={setindex}/>}/>
@@ -116,7 +118,7 @@ export default function Index(props) {
     <ImportMedicine data={index} />
     <AddNewPatient data={index}/>
     <DisplayForm data={index}/> */}
-      </div>
+  
       </section>
       </div>
         </>

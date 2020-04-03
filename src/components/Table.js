@@ -2,6 +2,7 @@ import React,{useEffect} from 'react'
 import ReactDOM from 'react-dom'
 import {NavLink,BrowserRouter} from 'react-router-dom'
 export default (prop)=>{
+  
  useEffect(()=>{ 
   //  if(window.$.fn.DataTable.isDataTable("#example")){
   //   window.$(prop.id).DataTable().clear().destroy();
@@ -64,7 +65,7 @@ export default (prop)=>{
            {<tr>
                 {prop.col.map(
                     (name)=>{
-                    return <th className='text-sm p-2 text-center'>{name.title}</th>
+                    return <th className='text-xs p-2 text-center'>{name.title}</th>
                     }
                 )}
             </tr>}

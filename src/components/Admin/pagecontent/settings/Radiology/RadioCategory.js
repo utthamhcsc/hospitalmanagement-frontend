@@ -5,7 +5,6 @@ import Table from '../../../../Table'
 import {Getdata,Postdata} from '../../../../../Network/Server'
 
 import DisplayForm from '../../../../../Forms/DisplayForm'
-import AddBedType from '../../../../../Forms/Bed/AddBedType'
 import AddRadiologyCategory from '../../../../../Forms/Settings/radiology/AddRadiologyCategory'
 
 export default function BedType(props)

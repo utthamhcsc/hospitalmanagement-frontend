@@ -36,14 +36,13 @@ export default function AddBasicInfo(props) {
             <div class="form-group">
                 <label classname='text-xs' for="exampleInputEmail1">Designation</label>
 
-                <select id="designation" name="designation" {...formik.getFieldProps('designation')} placeholder="" type="text" class="form-control">
+                <select id="designation" name="designation" {...formik.getFieldProps('designationId')} placeholder="" type="text" class="form-control">
                     <option value="">Select</option>
-                    <option value="admin">Admin</option>
-                                                                            <option value="accountant">Accountant</option>
-                                                                            <option value="doctor">Doctor</option>
-                                                                            <option value="pharmacist">Pharmacist</option>
-                                                                            <option value="labtechnician">Pathologist</option>
-                                                                            <option value="receptionist">Receptionist</option>
+                    {
+                        (props.designation||[]).map((item)=><option key={item.id} value={item.id}>{item.name}</option>
+
+                        )
+                    }
                                                                     </select>
                 <span class="text-danger">{formik.touched.designation?formik.errors.designation:''}</span>
             </div>
@@ -51,27 +50,13 @@ export default function AddBasicInfo(props) {
         <div class="col-md-3">
             <div class="form-group">
                 <label classname='text-xs' for="exampleInputEmail1">Department</label>
-                <select id="department" name="department" {...formik.getFieldProps('department')} placeholder="" type="text" class="form-control">
-                    <option value="select">Select</option>
-                                                                            <option value="docter">Doctor</option>
-                                                                            <option value="admin">Admin</option>
-                                                                            <option value="opd">OPD</option>
-                                                                            <option value="ipd">IPD</option>
-                                                                            {/* <option value="6">Emergency</option>
-                                                                            <option value="7">Finance</option>
-                                                                            <option value="8">ICU</option>
-                                                                            <option value="9">NICU</option>
-                                                                            <option value="10">BURN CARE</option>
-                                                                            <option value="11">Pathology</option> */}
-                                                                            <option value="pharmacy">Pharmacy</option>
-                                                                            {/* <option value="13">Radiology</option> */}
-                                                                            <option value="ot">OT</option>
-                                                                            {/* <option value="15">Cardiology</option>
-                                                                            <option value="16">Gynecology</option>
-                                                                            <option value="17">Human resource</option>
-                                                                            <option value="18">Blood Bank</option> */}
-                                                                            <option value="reception">Reception</option>
-                                                                    </select> 
+                <select id="department" name="department" {...formik.getFieldProps('departmentId')} placeholder="" type="text" class="form-control">
+                    <option value="">Select</option>
+                    {
+                        (props.department||[]).map((item)=><option key={item.id} value={item.id}>{item.name}</option>
+
+                        )
+                    }    </select> 
                 <span class="text-danger">{formik.touched.department?formik.errors.department:''}</span>
             </div>
         </div>
@@ -173,7 +158,7 @@ export default function AddBasicInfo(props) {
         <div class="col-md-3">
             <div class="form-group">
                 <label classname='text-xs' for="exampleInputEmail1">Date Of Birth</label><small class="req"> *</small>
-                <ReactDatePicker selected={formik.values.dateOfBirth} className="form-control" showYearDropdown scrollableYearDropdown onChange={(e)=>formik.setFieldValue('dateOfBirth',e)}/>
+                <ReactDatePicker selected={new Date(formik.values.dateOfBirth)!='Invalid Date'?new Date(formik.values.dateOfBirth):''} className="form-control" showYearDropdown onChange={(e)=>formik.setFieldValue('dateOfBirth',e)}/>
                 <span class="text-danger">{formik.touched.dateOfBirth?formik.errors.dateOfBirth:''}</span>
             </div>
         </div>
@@ -183,7 +168,7 @@ export default function AddBasicInfo(props) {
         <div class="col-md-3">
             <div class="form-group">
                 <label classname='text-xs' for="exampleInputEmail1">Date Of Joining</label>
-                <ReactDatePicker selected={formik.values.dateOfJoining} className="form-control" showYearDropdown scrollableYearDropdown onChange={(e)=>formik.setFieldValue('dateOfJoining',e)}/>
+                <ReactDatePicker selected={new Date(formik.values.dateOfJoining)!='Invalid Date'?new Date(formik.values.dateOfJoining):''} className="form-control"  showYearDropdown onChange={(e)=>formik.setFieldValue('dateOfJoining',e)}/>
                 <span class="text-danger">{formik.touched.dateOfJoining?formik.errors.dateOfJoining:''}</span>
             </div>
         </div>
@@ -205,7 +190,7 @@ export default function AddBasicInfo(props) {
         <div class="col-md-3">
             <div class="form-group">
                 <label classname='text-xs' for="exampleInputEmail1">Photo</label>
-                <input  type='file' onChange={(e)=>formik.setFieldValue('photo',e.target.files[0])} placeholder="" class="form-control"  />
+                <input  type='file' onChange={(e)=>formik.setFieldValue('photoFile',e.target.files[0])} placeholder="" class="form-control"  />
             </div>
       </div>
       </div>

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useFormik } from 'formik';
-import { Postdata } from '../../Network/Server';
+import { Postdata } from '../../../Network/Server';
 export default function(props) {
   const formik=useFormik({
     enableReinitialize:true,
@@ -9,26 +9,26 @@ export default function(props) {
     },
     onSubmit:values=>{
 
-        console.log(values)
-        Postdata('floor/add','POST',values).then(res=>{
+        Postdata('bedType/add','POST',values).then(res=>{
+          console.log(res)
             if(values.id)
             props.setdataSrc(data=>data.map(item=>item.id==res.id?res:item))  
             else
             props.setdataSrc(data=>[res,...data])
-            window.$('#floor').modal('hide')
+            window.$('#bedType').modal('hide')
         })
-      // props.setdataSrc(data=>data.map(item=>item.id==values.id?values:values.id?values))
+      //props.setdataSrc(data=>data.map(item=>item.id==values.id?values:values.id?values))
    //    props.setdataSrc(data=>[...data,values])
        
     }
   })
       return (
   
-        <div className="modal fade in" id="floor" >
+        <div className="modal fade in" id="bedType" >
           <div className="modal-dialog modal-mid" role="document">
             <div className="modal-content modal-media-content">
               <div className="modal-header modal-media-header pb-1">
-              <h6 className="box-title"> Add Floor</h6> 
+              <h6 className="box-title"> Add Bed Type</h6> 
                 <button type="button" className="close" data-dismiss="modal">×</button>
                 
               </div>
@@ -37,14 +37,7 @@ export default function(props) {
                   <div className="ptt10">
                     <div className="form-group">
                       <label htmlFor="exampleInputEmail1"> Name</label><small className="req"> *</small>
-                      <input autofocus   type="text" className="form-control" {...formik.getFieldProps('name')} />
-                      <span className="text-danger" />
-                    </div>          
-                  </div>
-                  <div className="ptt10">
-                    <div className="form-group">
-                      <label htmlFor="exampleInputEmail1"> Description</label><small className="req"> *</small>
-                      <input   type="text" className="form-control" {...formik.getFieldProps('description')} />
+                      <input autoComplete={'off'}    type="text" className="form-control" {...formik.getFieldProps('name')} />
                       <span className="text-danger" />
                     </div>          
                   </div>

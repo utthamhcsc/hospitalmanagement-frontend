@@ -6,7 +6,7 @@ import {Getdata,Postdata} from '../../../../../Network/Server'
 import Radiology1 from '../../../../../Forms/Radiology/Radiology'
 import AddMediciniCategory from '../../AddMediciniCategory'
 import DisplayForm from '../../../../../Forms/DisplayForm'
-import AddBedGroup from '../../../../../Forms/Bed/AddBedGroup'
+import AddBedGroup from '../../../../../Forms/Settings/Bed/AddBedGroup'
 
 export default function BedGroup(props)
  {

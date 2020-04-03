@@ -3,10 +3,8 @@ import ReactDOM from 'react-dom'
 import {NavLink,BrowserRouter} from 'react-router-dom'
 import Table from '../../Table'
 import {Getdata,Postdata} from '../../../Network/Server'
-import Radiology1 from '../../../Forms/Radiology/Radiology'
-import AddMediciniCategory from './AddMediciniCategory'
 import DisplayForm from '../../../Forms/DisplayForm'
-import AddFloor from '../../../Forms/Bed/AddFloor'
+import AddFloor from '../../../Forms/Settings/Bed/AddFloor'
 
 export default function Floor(props)
  {
