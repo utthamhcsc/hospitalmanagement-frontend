@@ -16,7 +16,7 @@ export default  (props) => {
     toTitle:'',
     note:'',
     date:'',
-    attachdDocument:''}:{...props.data,date:new Date(props.data.date)};
+    attachdDocument:''}:{...props.data};
 
     const formik = useFormik(
     {
@@ -27,11 +27,29 @@ export default  (props) => {
 
     onSubmit:values=>{console.log(JSON.stringify(values,null,2))
       typeof(formik.values.attachdDocument)!=='string'?
-      PostFormdata('postaldispatchlist/','POST',values).then(data=>toast.success('successfully added', {
-      position: toast.POSITION.TOP_CENTER
-    })):Postdata('postaldispatchlist/iffileisnull','POST',values).then(data=>toast.success('successfully added', {
-      position: toast.POSITION.TOP_CENTER
-    }))},
+      PostFormdata('postaldispatchlist/','POST',values).then(data=> {
+        console.log(data)
+        values.id?
+        props.setdataSrc(item=>item.map(item1=>{
+          if(item1.id==data.id)return data;else return item1;
+  
+        })):
+        props.setdataSrc(item=>[data,...item]
+          
+  
+        )
+      }):Postdata('postaldispatchlist/iffileisnull','POST',values).then(data=>{
+        values.id?
+        props.setdataSrc(item=>item.map(item1=>{
+          if(item1.id==data.id)return data;else return item1;
+  
+        })):
+        props.setdataSrc(item=>[data,...item]
+          
+  
+        )
+        window.$('#PostalDsp').modal('hide')
+      })},
 
       validationSchema:Yup.object().shape({
         toTitle:Yup.string().required('*Required ToTitle'),
@@ -101,7 +119,10 @@ return(
         <div class="form-group col-md-6">
           <label for="inputState">Date</label>
           <div className="w-100 ">
-            <DatePicker className="form-control" value={formik.values.date} style={{width:'100% !important'}} selected={formik.values.date}  name='date' onChange={(data)=>formik.setFieldValue('date',data)}/>
+            <DatePicker className="form-control" 
+            autoComplete={'off'}
+            style={{width:'100% !important'}} 
+            selected={new Date(formik.values.date)=='Invalid Date'?'':new Date(formik.values.date)}  name='date' onChange={(data)=>formik.setFieldValue('date',data)}/>
           </div> 
           <span className='text-danger'>{(formik.touched.date && formik.errors.date)?formik.errors.date:''}</span>
         </div>

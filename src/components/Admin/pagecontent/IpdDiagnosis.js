@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import {NavLink, BrowserRouter,Link, useParams} from 'react-router-dom'
 import Table from '../../Table'
 import {Getdata} from '../../../Network/Server'
-
+import AddDiagnosis from './AddDiagnosis'
 import DisplayForm from '../../../Forms/DisplayForm'
 
 export default function IpdDiagnosis(props) 
@@ -26,15 +26,17 @@ export default function IpdDiagnosis(props)
           <h6 className='text-sm ' style={{letterSpacing:'1px',lineHeight:'100%'}}>Diagnosis</h6>
           <div className='btn-group p-0'>
             <button className={'btn btn-xs  btn-light ml-1 ' } style={{marginLeft:'0.5px !important',opacity:0}} data-toggle="modal" data-target="sdf">dfgh</button>              
-            <NavLink to={ '/receptionist/ipd1/consultentRegister/'+patientId} activeClassName='active' class="btn btn-light text-xs  btn-xs ml-1 ">
+            <NavLink to={ '/admin/ipd1/consultentRegister/'+patientId} activeClassName='active' class="btn btn-light text-xs  btn-xs ml-1 ">
      <i class="fa fa-reorder"></i> Consultant Register
     </NavLink>             
-    <NavLink to={ '/receptionist/ipd1/ipdPresciption/'+patientId} activeClassName='active' class="btn btn-light text-xs  btn-xs ml-1 ">
+    <NavLink to={ '/admin/ipd1/ipdPresciption/'+patientId} activeClassName='active' class="btn btn-light text-xs  btn-xs ml-1 ">
      <i class="fa fa-reorder"></i> Prescription
     </NavLink>  
-    <NavLink to={ '/receptionist/ipd1/Charges/'+patientId} activeClassName='active' class="btn btn-light text-xs  btn-xs ml-1 ">
+    <NavLink to={ '/admin/ipd1/Charges/'+patientId} activeClassName='active' class="btn btn-light text-xs  btn-xs ml-1 ">
      <i class="fa fa-reorder"></i> Charges
     </NavLink>             
+               
+            <button data-toggle="modal" data-target="#addDiagnosis"  class="btn btn-light text-xs  btn-xs  ml-1"> <i class="fa fa-plus"></i> Add Diagnosis</button>               
           </div>
         </li>
       </ol>
@@ -42,7 +44,7 @@ export default function IpdDiagnosis(props)
     <div className='px-5 pb-5'>
       <Table id='ipdDiagnosis' col={column} dataSrc={dataSrc} columnDefs={columnDefs}/>
       <DisplayForm data={index}/>
-      
+      <AddDiagnosis/>
 
     </div>
   </>

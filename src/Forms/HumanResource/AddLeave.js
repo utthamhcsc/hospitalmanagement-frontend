@@ -2,28 +2,31 @@ import React, { useState } from 'react'
 import ReactDatePicker from 'react-datepicker'
 import { date } from 'yup'
 import { useFormik } from 'formik'
-import { Getdata } from '../../Network/Server'
+import { Getdata, PostFormdata } from '../../Network/Server'
 
 export default function AddLeave(props) {
 const [data,setdata]=useState([])
 const formik=useFormik({
   initialValues:{
-    applyDate:'',
-    fromDate:'',
-    toDate:'',
-    leaveType:'',
-    reason:'',
-    attachDocument:'',
-    file:''
+    ...props.data  
   },
   enableReinitialize:true,
   onSubmit:e=>{
-    let item=data.find(item=>item.id=e.leaveType);
-    console.log(item?item.name:'')
-    console.log(e)
+    let role=window.localStorage.getItem('role')
+    let staffId=window.localStorage.getItem('userId')
+    let item=data.find(item=>item.id=e.leaveTypeId);
+    let leaveType=item?item.name:'';
+    console.log({...e,staffId,role})
+    PostFormdata('humanResource/leave/add','POST',e).then(res=>{
+      if(e.id)
+      props.setdataSrc(f=>f.map(item=>item.id==res.id?{...res,leaveType}:item))  
+      else
+      props.setdataSrc(f=>[{...res,leaveType},...f])
+
+window.$('#addleave').modal('hide')
+})
   }
 })
-
 React.useEffect(()=>{
   Getdata('leaveType/get').then(data=>setdata(data));
 },[])
@@ -46,7 +49,9 @@ React.useEffect(()=>{
                      <div className='form-group'>
                        <label>Apply Date</label>
                        <ReactDatePicker  className='form-control' 
-                       selected={formik.values.applyDate} 
+                       selected={new Date(formik.values.applyDate)=='Invalid Date'?
+                       new Date():new Date(formik.values.applyDate)} 
+                        
                        onChange={e=>formik.setFieldValue('applyDate',e)}/>
                      </div>
                      </div>
@@ -55,7 +60,7 @@ React.useEffect(()=>{
                        <label>Leave Type</label>
                        <select 
                        className='form-control'
-                       {...formik.getFieldProps('leaveType')}
+                       {...formik.getFieldProps('leaveTypeId')}
                        >
                        <option value="">Select</option>
              {
@@ -68,15 +73,17 @@ React.useEffect(()=>{
                      <div className='form-group'>
                        <label>From Date</label>
                        <ReactDatePicker  className='form-control' 
-                        selected={formik.values.fromDate} 
-                        onChange={e=>formik.setFieldValue('fromDate',e)}/>
+                     selected={new Date(formik.values.fromDate)=='Invalid Date'?new Date():new Date(formik.values.fromDate)} 
+                      onChange={e=>formik.setFieldValue('fromDate',e)}/>
                      </div>
                      </div>
                      <div className='col-md-6'>
                      <div className='form-group'>
                        <label>To Date</label>
                        <ReactDatePicker  className='form-control' 
-                        selected={formik.values.toDate} 
+                        selected={new Date(formik.values.toDate)=='Invalid Date'?
+                        new Date():new Date(formik.values.toDate)} 
+                        
                         onChange={e=>formik.setFieldValue('toDate',e)}/>
                      </div>
                      </div>

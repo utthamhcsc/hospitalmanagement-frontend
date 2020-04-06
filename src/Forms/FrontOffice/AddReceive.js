@@ -16,7 +16,7 @@ export default  (props) => {
     note:'',
     date:'',
     attachDocument:''
- }:{...props.data,date:new Date(props.data.date)};
+ }:{...props.data};
   const formik = useFormik({
     
     enableReinitialize:true,
@@ -27,12 +27,23 @@ export default  (props) => {
   ,
     onSubmit:values=>{console.log(JSON.stringify(values,null,2))
       typeof(values.attachDocument)=='string'?
-      Postdata('postalrecieve/iffileisnull','POST',values).then(data=>toast.success('successfully added', {
-        position: toast.POSITION.TOP_CENTER
-      }))
-      :PostFormdata('postalrecieve/','POST',values).then(data=>toast.success('successfully added', {
-      position: toast.POSITION.TOP_CENTER
-    }))},
+      Postdata('postalrecieve/iffileisnull','POST',values).then(data=>{
+        values.id?
+        props.setdataSrc(item=>item.map(item1=>{
+          if(item1.id==data.id)return data;else return item1;
+  
+        })):
+        props.setdataSrc(item=>[data,...item])
+      })
+      :PostFormdata('postalrecieve/','POST',values).then(data=>{
+        values.id?
+        props.setdataSrc(item=>item.map(item1=>{
+          if(item1.id==data.id)return data;else return item1;
+  
+        })):
+        props.setdataSrc(item=>[data,...item])
+        window.$('#PostalRcv').modal('hide')
+      })},
       validationSchema:Yup.object().shape({
         fromTitle:Yup.string().required('Required FromTitle'),
         //attachdDocument:null
@@ -101,7 +112,10 @@ return(
         <div class="form-group col-md-6">
       <label for="inputState">Date</label>
       <div className="w-100 ">
-          <DatePicker className="form-control "  style={{width:'100% !important'}} selected={formik.values.date} customInput={<input className="form-control"/>} name='date' onChange={(data)=>formik.setFieldValue('date',data)}/>
+          <DatePicker className="form-control "  style={{width:'100% !important'}}
+          autoComplete='off' 
+          selected={new Date(formik.values.date)=='Invalid Date'?'':new Date(formik.values.date)} customInput={<input className="form-control"/>} 
+          name='date' onChange={(data)=>formik.setFieldValue('date',data)}/>
       </div> 
       
       <span className='text-danger'>{(formik.touched.date && formik.errors.date)?formik.errors.date:''}</span>

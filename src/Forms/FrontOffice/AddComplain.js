@@ -19,7 +19,7 @@ const mydata=(Object.entries(props.data).length === 0 )?
   note:'',
   attachedDocument:''
 
- }:{...props.data,date:new Date(props.data.date)};
+ }:{...props.data};
 
   const formik = useFormik({
     
@@ -32,12 +32,18 @@ const mydata=(Object.entries(props.data).length === 0 )?
         onSubmit:values=>{console.log(JSON.stringify(values,null,2))
 
             !(typeof(values.attachedDocument)=='string')?
-            PostFormdata('complaintype/','POST',values).then(data=>toast.success('successfully added', {
-      position: toast.POSITION.TOP_CENTER
-    })):
-    Postdata('complaintype/iffileisnull','POST',values).then(data=>toast.success('successfully added', {
-        position: toast.POSITION.TOP_CENTER
-      }))
+            PostFormdata('complaintype/','POST',values).then(data=>{
+                if(values.id)
+                props.setdataSrc(item=>item.map(item1=>item1.id==data.id?data:item1))
+                else props.setdataSrc(item=>[...item,data])}
+                //window.$('#calllog').modal('hide')
+                ):
+    Postdata('complaintype/iffileisnull','POST',values).then(data=>{ if(values.id)
+        props.setdataSrc(item=>item.map(item1=>item1.id==data.id?data:item1))
+        else props.setdataSrc(item=>[...item,data])
+        })
+        window.$('#Complain').modal('hide') 
+
 },
             validationSchema:Yup.object().shape({
                
@@ -69,9 +75,10 @@ return(
                 <div className="form-group col-md-6">
                     <label for="complaintype">Complain Type</label>
                     <select id="input" className={`form-control ${(formik.touched.complainType && formik.errors.complainType)?formik.errors:''}`} name='complainType' {...formik.getFieldProps('complainType')}>
-                      <option selected>Choose</option>
-                      <option>Food Quality</option>
-                      <option>Hospital Services</option>
+                      <option value=''>Choose</option>
+                     {
+                         (props.complainType||[]).map(item=> <option>{item.complainType}</option>)
+                     }
                     </select>
                     <span className='text-danger'>{(formik.touched.complainType && formik.errors.complainType)?formik.errors.complainType:''}</span>
                 </div>
@@ -79,9 +86,10 @@ return(
                 <div className="form-group col-md-6">
                     <label for="source">Source</label>
                     <select id="input" className="form-control" name='source' {...formik.getFieldProps('source')} >
-                        <option selected>Choose</option>
-                        <option>Online Advertising</option>
-                        <option>From Visitors</option>
+                    <option value=''>Choose</option>
+                     {
+                         (props.source||[]).map(item=> <option>{item.source}</option>)
+                     }
                     </select>
                     <span className='text-danger'>{(formik.touched.source && formik.errors.source)?formik.errors.source:''}</span>
                 </div>
@@ -108,7 +116,9 @@ return(
                     <div class="form-group col-md-6">
                        <label for="inputState">Date</label>
                         <div className="w-100 ">
-                           <DatePicker autoComplete={false} selected={formik.values.date} name='date' onChange={(e)=>formik.setFieldValue('date',e)}/>
+                           <DatePicker autoComplete={'off'} 
+                           selected={new Date(formik.values.date)=='Invalid Date'?'':new Date(formik.values.date)} 
+                           name='date' onChange={(e)=>formik.setFieldValue('date',e)}/>
                            
                         </div> 
                         <span className='text-danger'>{(formik.touched.date && formik.errors.date)?formik.errors.date:''}</span>
@@ -117,7 +127,8 @@ return(
                 
                     <div className="form-group col-md-6">
                         <label for="inputCity">Description</label>
-                        <textarea className="form-control " rows="3" placeholder="" value="" name='description' {...formik.getFieldProps('description')}>
+                        <textarea className="form-control " rows="3" 
+                         name='description' {...formik.getFieldProps('description')}>
                         </textarea>
                         <span className='text-danger'>{(formik.touched.description && formik.errors.description)?formik.errors.description:''}</span>
                     </div>    

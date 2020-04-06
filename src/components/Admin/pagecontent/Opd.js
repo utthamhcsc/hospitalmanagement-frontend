@@ -4,22 +4,28 @@ import {NavLink,BrowserRouter,Link,useHistory} from 'react-router-dom'
 import Table from '../../Table'
 import {Getdata,Postdata} from '../../../Network/Server'
 import DisplayForm from '../../../Forms/DisplayForm'
-import AddPat from '../../../Forms/OPDForms/AddPat'
+import AddPat from '../../../Forms/OPDForms/DoctorOpd'
 
 export default function Opd(props)
-{   
+{
+    
     const [index,setindex]=React.useState({});
     const history=useHistory();
     //const [patientId,setPatientId]=React.useState('');
-    const column=[{data:'name',title:'Name'},{data:'patientId',title:'patient Id'},{data:'gender',title:'Gender'},{data:'mobileNumber',title:'Phone'},{data:'appointmentDate',title:'Last Visit'},{data:'totalVisit',title:'Total Visit'},{data:'action',title:'Action'}]
+    const column=[{data:'name',title:'Name'},{data:'patientId',title:'patient Id'},{data:'gender',title:'Gender'},{data:'phone',title:'Phone'},{data:'appointmentDate',title:'Last Visit'},{data:'totalVisit',title:'Total Visit'},{data:'action',title:'Action'}]
     const [dataSrc,setdataSrc]=React.useState([{name:'Rama',patientId:'P-20200212115220',gender:'male',mobileNumber:'8861129756',appointmentDate:'2020/02/04',totalVisit:2}]);
     const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(
     <BrowserRouter>
     <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-warning'} data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
+   
+    <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-success'} data-toggle='modal' data-target='#AddOpdPatient'><i className='fa fa-pencil'></i></button>
+    
+    <button onClick={()=>Postdata(`opdoutpatient/${rowData.id}`,'DELETE',{}).then(data=>data.status==1?window.$('#addOpdPatient').DataTable().row(row).remove().draw():'')} className={'btn btn-xs btn-danger'} ><i className='fa fa-trash'></i></button>
+   
     </BrowserRouter>,td)},
     {targets:0,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(
     <BrowserRouter>
-    <a onClick={()=>history.push(`/receptionist/opdPatient/${rowData.patientId}`)} href='javascript:void(0)'>{cellData}</a>
+    <a onClick={()=>history.push(`/admin/opdPatient/${rowData.patientId}`)} href='javascript:void(0)'>{cellData}</a>
     </BrowserRouter>,td)}
   ]
     const link=<NavLink to='dfgh'/>
@@ -41,7 +47,7 @@ return (
 <div className='px-5 pb-5'>
 <Table id='addOpdPatient' col={column} dataSrc={dataSrc} columnDefs={columnDefs}/>
 <DisplayForm data={index}/>
-<AddPat data={index}/>
+<AddPat data={index} adminId={props.adminId}/>
 </div>
 </>
 )

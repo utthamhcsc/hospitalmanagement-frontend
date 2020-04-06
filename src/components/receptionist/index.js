@@ -2,7 +2,7 @@ import React from 'react'
 import {Route} from 'react-router-dom'
 import Sidebar from './sidebar/sidebar'
 import Navbar from './navbar/Navbar'
-import Appointment from './pagecontent/Appointment'
+import FrontOffice from './pagecontent/FrontOffice'
 import Radiology1 from './pagecontent/Radiology'
 import Opd from './pagecontent/Opd'
 import Ipd from './pagecontent/Ipd'
@@ -44,7 +44,7 @@ let user=JSON.parse(localStorage.getItem('user'))
     }} >
     <section className="content px-4 mt-4" >
       <div className="card shadow">
-<Route path='/receptionist/appointment' render={()=><Appointment setindex={setindex}/>}/>
+<Route path='/receptionist/appointment' render={()=><FrontOffice />}/>
 <Route path='/receptionist/Opd' render={()=><Opd setindex={setindex}/>}/>
 <Route path='/receptionist/Ipd' render={()=><Ipd setindex={setindex}/>}/>
 <Route path='/receptionist/pathology' render={()=><Pathology1 setindex={setindex}/>}/>

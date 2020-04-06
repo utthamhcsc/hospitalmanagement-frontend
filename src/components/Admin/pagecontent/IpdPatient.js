@@ -18,13 +18,14 @@ let { patientId } = useParams();
     </BrowserRouter>,td)},
    {targets:0,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(
     <BrowserRouter>
-    <a onClick={()=>history.push(`/receptionist/ipd1/consultentRegister/${rowData.patientId}`)} href='javascript:void(0)'>{cellData}</a>
+    <a onClick={()=>history.push(`/admin/ipd1/consultentRegister/${rowData.patientId}`)} href='javascript:void(0)'>{cellData}</a>
     </BrowserRouter>,td)}
    
   
   ]
   
-    React.useEffect(()=>{Getdata('inpatient/'+props.receptionistId+'/').then(data=>setdataSrc(data));},[])
+    React.useEffect(()=>{Getdata('inpatient/NO').then(data=>{setdataSrc(data);
+      console.log(data)});},[])
 
     return (
     <>
@@ -35,13 +36,13 @@ let { patientId } = useParams();
     <h6 className='text-sm' style={{letterSpacing:'1px',lineHeight:'100%'}}>Ipd Patient</h6>
     <div className='btn-group p-0'>
     <button className={'btn btn-xs  btn-light ml-1 ' } style={{marginLeft:'0.5px !important',opacity:0}} data-toggle="modal" data-target="#AddipdPatient">dfgh</button>
-    <NavLink to={ '/receptionist/ipd1/consultentRegister/'+patientId} activeClassName='active' class="btn btn-light text-xs  btn-xs ml-1 ">
+    <NavLink to={ '/admin/ipd1/consultentRegister/'+patientId} activeClassName='active' class="btn btn-light text-xs  btn-xs ml-1 ">
      <i class="fa fa-reorder"></i> Consultant Register
     </NavLink>             
-    <NavLink to={ '/receptionist/ipd1/diagnosis/'+patientId} activeClassName='active' class="btn btn-light text-xs  btn-xs ml-1 ">
+    <NavLink to={ '/admin/ipd1/diagnosis/'+patientId} activeClassName='active' class="btn btn-light text-xs  btn-xs ml-1 ">
      <i class="fa fa-reorder"></i> Diagnosis
     </NavLink>             
-    <NavLink to={ '/receptionist/ipd1/ipdPresciption/'+patientId} activeClassName='active' class="btn btn-light text-xs  btn-xs ml-1 ">
+    <NavLink to={ '/admin/ipd1/ipdPresciption/'+patientId} activeClassName='active' class="btn btn-light text-xs  btn-xs ml-1 ">
      <i class="fa fa-reorder"></i> Prescription
     </NavLink>             
     </div>
@@ -51,7 +52,7 @@ let { patientId } = useParams();
     <div className='px-5 pb-5'>
     <Table id='addipdPatient' col={column} dataSrc={dataSrc} columnDefs={columnDefs}/>
     <DisplayForm data={index}/>
-    <IPDAddpat data={index} receptionistId={props.receptionistId}/>
+    <IPDAddpat data={index} adminId={props.adminId}/>
     </div>
    </>
   )

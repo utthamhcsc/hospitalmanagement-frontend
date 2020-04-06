@@ -17,6 +17,11 @@ export default function OpdCharges(props)
     const [dataSrc,setdataSrc]=React.useState([{name:'opd123',patientId:'2019/12/12',gender:'Dr Covinda',mobileNumber:'Refe123',appointmentDate:'corona',totalVisit:2}]);
     const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(
     <BrowserRouter>
+
+      <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-warning'} title='view Details' data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
+      <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-success'} title='add prescription'  data-toggle='modal' data-target='#addPriscription'><i className='fa fa-pencil' data-tip='hello'></i></button>
+      <button onClick={()=>Postdata(`opdoutpatient/${rowData.id}`,'DELETE',{}).then(data=>data.status==1?window.$('#addOpdPatient').DataTable().row(row).remove().draw():'')} className={'btn btn-xs btn-danger'} ><i className='fa fa-trash'></i></button>
+      <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-primary'} title='view Case History' data-toggle='modal' data-target='#viewCaseHistory'><i className='fa fa-eye'></i></button>
    
       <ReactTooltip/>
    </BrowserRouter>,td)},
@@ -61,10 +66,9 @@ return (
 <h6 className='text-sm' style={{letterSpacing:'1px',lineHeight:'100%'}}>Opd Bill</h6>
 <div className='btn-group p-0'>
 <button className={'btn btn-xs  btn-light ml-1 ' } style={{marginLeft:'0.5px !important',opacity:0}} data-toggle="modal" data-target="sdf">dfgh</button>
-{/* 
-<NavLink to={`/receptionist/opdPatient/${patientId}`} class="btn btn-light text-xs  btn-xs  ml-1"><i className='fa fa-reorder ml-1'/> Visits</NavLink>   */}
-<NavLink to={`/receptionist/diagnosis/${patientId}`} class="btn btn-light text-xs  btn-xs  ml-1"><i className='fa fa-reorder ml-1'/> Diagnosis</NavLink>  
-<NavLink to={`/receptionist/patient/charges/${patientId}`} class="btn btn-light text-xs  btn-xs  ml-1"><i className='fa fa-reorder ml-1'/> Charges</NavLink>  
+<NavLink to={`/admin/diagnosis/${patientId}`} class="btn btn-light text-xs  btn-xs  ml-1"> Diagnosis</NavLink>  
+<NavLink to={`/admin/patient/charges/${patientId}`} class="btn btn-light text-xs  btn-xs  ml-1"> Charges</NavLink>  
+
 </div>
 </li>
 </ol>

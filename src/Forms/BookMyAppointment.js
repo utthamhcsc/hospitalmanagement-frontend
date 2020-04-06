@@ -8,14 +8,14 @@ import {toast} from 'react-toastify'
 
 export default (props)=>
 {
+
+  const [doctor,setdoctor]=React.useState([])
   const [data,setData]=React.useState({});
   const [pid,setPid]=useState(true);
- // const [p,setp]=useState(props.patientId);
-  //const p1=props.patientId
- // console.log(props.data.patientId)
  const mydata=(Object.entries(props.data).length === 0 )?
  {   patientId:'',
  date:'',
+ appointmentStatus:'pending',
  patientName:'',
  gender:'',
  email:'',
@@ -23,8 +23,9 @@ export default (props)=>
  message:'',
  department:'',
  doctor:'',
+ doctorId:'',
  address:''
-}:{...props.data,date:new Date(props.data.date)};
+}:{...props.data};
 
  const formik = useFormik({
    
@@ -34,17 +35,29 @@ export default (props)=>
   ...mydata
    },
     onSubmit:values=>{console.log(JSON.stringify(values,null,2))
-    formik.resetForm();
-    Postdata('appointment/','POST',values).then(data=>{if(data.err){formik.setFieldError('patientId',data.err)}
-    else {toast.success('successfully booked', {
-    position: toast.POSITION.TOP_CENTER
+    //formik.resetForm();
+    Postdata('myappointment/add','POST',values).then(data=>{
+      if(data.err){
+formik.setErrors(data)
+      }else{
+        values.id?
+        props.setdataSrc(item=>item.map(item1=>{
+          if(item1.id==data.id)return data;else return item1;
+  
+        })):
+        props.setdataSrc(item=>[data,...item]
+          
+  
+        )
+        window.$('#bookappointment').modal('hide')
+      }
     })
   
   }
  // 
-  }
-    )
-    },
+  
+    
+    ,
       validationSchema:()=>yup.object().shape({
       date:yup.date().required(),
       patientName:!pid?yup.string().required():yup.string().notRequired(),
@@ -52,7 +65,7 @@ export default (props)=>
       email:!pid?yup.string().email().required():yup.string().notRequired(),
       mobileNumber:!pid?yup.string().required().matches(/^[0-9]{10,10}$/,'must be 10 digit and number'):yup.string().notRequired(),
       message:yup.string().required(),
-      department:yup.string().required(),
+      //department:yup.string().required(),
      // doctor:yup.string().required(),
       address:!pid?yup.string().required():yup.string().notRequired()
     })
@@ -60,10 +73,13 @@ export default (props)=>
 
   })
   React.useEffect(()=>{
-      
-      Getdata('/fetchalluser/doctor').then(data=>{setData(data);console.log(data)})
-  },[])
-  
+    if(!mydata.department=='')
+    fetchdoctor(mydata.department)
+    
+  },[props.data])
+   const fetchdoctor=(id)=>{
+    Getdata('humanResource/get/doctor/'+id).then(data=>{setdoctor(data)})
+   }
 return(<React.Fragment>
 <div className="modal fade "  id="bookappointment" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div className="modal-dialog" role="document">
@@ -85,6 +101,7 @@ return(<React.Fragment>
     <input type="radio" className="form-check-input" id="exampleCheck1" name="pat" onClick={()=>{setPid(true);;formik.setErrors({}) }} checked={pid}/>
     <label className="form-check-label" for="exampleCheck1">Old Patient</label>
   </div>
+<div className='pt-2 text-danger'>{formik.errors.err}</div>
   <form onSubmit={formik.handleSubmit}>
    <div className="input-group" style={pid?{display:'flex'}:{display:'none'}}>
   <input type="text" className="form-control bg-transparent border-right-0 border-top-0" name="patientId"  {...formik.getFieldProps('patientId')} placeholder="Petient Id"  />
@@ -138,23 +155,25 @@ return(<React.Fragment>
   <span className='text-danger mb-3'><span className={'text-light'}>h</span>{formik.errors.gender}</span> 
 
   <div className="input-group ">
-  <select className="form-control bg-transparent border-right-0 border-top-0 mb-3" name="department" {...formik.getFieldProps('department')} placeholder="Department" aria-label="Recipient's username" aria-describedby="basic-addon2">
-  <option selected> Select Department</option>
-    <option className="">Pathology</option>
-    <option className="">radiology</option>
+  <select className="form-control bg-transparent border-right-0 border-top-0 mb-3" 
+  name="department" value={formik.values.department} onChange={(e)=>{fetchdoctor(e.target.value);formik.setFieldValue('department',e.target.value)}} placeholder="Department" aria-label="Recipient's username" aria-describedby="basic-addon2">
+  <option > Select Department</option>
+   {
+     (props.department||[]).map(item=><option value={item.id}>{item.name}</option>)
+   }
   </select>
   </div>
   <div className="input-group ">
   <select className="form-control bg-transparent border-right-0 border-top-0" name="doctor" {...formik.getFieldProps('doctorId')} placeholder="Doctor" aria-label="Recipient's username" aria-describedby="basic-addon2">
   <option value=''> Select Doctor</option>
   {
-                   data?  Object.keys(data).map(item=><option value={item}>{data[item]}</option>):''
-                 }
+    (doctor||[]).map(data=><option value={data.doctorId}>{data.firstName+' '+data.lastName}</option>)
+  }
    </select>
   </div>
   <span className='text-danger d-block mb-3'><span className={'text-light'}>h</span>{formik.errors.department}</span> 
 
-  <DatePicker autoComplete={false} selected={formik.values.date} name='date' placeholderText='enter date' onChange={(e)=>formik.setFieldValue('date',e)} className="form-control bg-transparent border-right-0 border-top-0 " />
+  <DatePicker autoComplete={'off'} selected={new Date(formik.values.date)=='Invalid Date'?'':new Date()} name='date' placeholderText='enter date' onChange={(e)=>formik.setFieldValue('date',e)} className="form-control bg-transparent border-right-0 border-top-0 " />
   <div></div>
   <span className='text-danger'><span className={'text-light'}>h</span>{formik.errors.date}</span> 
   <div className="input-group mb-3">

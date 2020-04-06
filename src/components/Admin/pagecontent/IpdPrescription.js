@@ -27,15 +27,18 @@ export default function Prescription(props)
           <h6 className='text-sm ' style={{letterSpacing:'1px',lineHeight:'100%'}}>Prescription</h6>
           <div className='btn-group p-0'>
           <button className={'btn btn-xs  btn-light ml-1 ' } style={{marginLeft:'0.5px !important',opacity:0}} data-toggle="modal" data-target="#AddipdPatient">dfgh</button>
-    <NavLink to={ '/receptionist/ipd1/consultentRegister/'+patientId} activeClassName='active' class="btn btn-light text-xs  btn-xs ml-1 ">
+    <NavLink to={ '/admin/ipd1/consultentRegister/'+patientId} activeClassName='active' class="btn btn-light text-xs  btn-xs ml-1 ">
      <i class="fa fa-reorder"></i> Consultant Register
     </NavLink>             
-    <NavLink to={ '/receptionist/ipd1/diagnosis/'+patientId} activeClassName='active' class="btn btn-light text-xs  btn-xs ml-1 ">
+    <NavLink to={ '/admin/ipd1/diagnosis/'+patientId} activeClassName='active' class="btn btn-light text-xs  btn-xs ml-1 ">
      <i class="fa fa-reorder"></i> Diagnosis
     </NavLink>   
-    <NavLink to={ '/receptionist/ipd1/Charges/'+patientId} activeClassName='active' class="btn btn-light text-xs  btn-xs ml-1 ">
+    <NavLink to={ '/admin/ipd1/Charges/'+patientId} activeClassName='active' class="btn btn-light text-xs  btn-xs ml-1 ">
      <i class="fa fa-reorder"></i> Charges
     </NavLink>             
+              
+   <button onClick={()=>{}} className={'btn btn-light text-xs  btn-xs  ml-1'} title='add prescription'  data-toggle='modal' data-target='#addPriscription'><i className='fa fa-plus ml-1'></i>Add Prescription</button>
+  
           </div>
         </li>
       </ol>

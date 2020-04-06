@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {useFormik} from 'formik';
@@ -8,7 +8,7 @@ import {Getdata,Postdata,PostFormdata} from '../../Network/Server'
 import {toast} from 'react-toastify'
 
 export default  (props) => {
-
+const [data,setdata]=useState([])
   const mydata=(Object.entries(props.data).length === 0 )?
   { purpose:'',
   name:'',
@@ -20,7 +20,7 @@ export default  (props) => {
   outTime:'',
   note:'',
   attachedDocument:''
- }:{...props.data,date:new Date(props.data.date)};
+ }:{...props.data};
   const formik = useFormik({
     
     enableReinitialize:true,
@@ -30,14 +30,32 @@ export default  (props) => {
     },
     onSubmit:values=>{console.log(JSON.stringify(values,null,2))
       typeof(values.attachedDocument)=='string'?
-      Postdata('visitorlist/iffileisnull','POST',values).then(data=>toast.success('successfully added', {
-      position: toast.POSITION.TOP_CENTER
-    })):
-    PostFormdata('visitorlist/','POST',values).then(data=>toast.success('successfully added', {
-      position: toast.POSITION.TOP_CENTER
-    }))
+      Postdata('visitorlist/iffileisnull','POST',values).then(data=>
+      {
+        values.id?
+        props.setdataSrc(item=>item.map(item1=>{
+          if(item1.id==data.id)return data;else return item1;
+
+        })):
+        props.setdataSrc(item=>[data,...item]
+          
+
+        )
+      }  
+      ):
+    PostFormdata('visitorlist/','POST',values).then(data=> {
+      values.id?
+      props.setdataSrc(item=>item.map(item1=>{
+        if(item1.id==data.id)return data;else return item1;
+
+      })):
+      props.setdataSrc(item=>[data,...item]
+        
+
+      )
+    })
   
-  
+  window.$('#Visitor').modal('hide')
   },
       validationSchema:Yup.object().shape({
         purpose:Yup.string().required('required'),
@@ -47,6 +65,13 @@ export default  (props) => {
         //attachdDocument:null
     })
   })
+  React.useEffect(()=>{
+    Getdata('purpose/get').then(data=>setdata(data));
+  },[])
+
+
+
+
 return(
   <div class="modal fade" id="Visitor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-md" role="document">
@@ -66,10 +91,10 @@ return(
     <div class="form-group col-md-6 ">
       <label for="inputEmail4" className="text-sm">Purpose <small class="req text-danger"> *</small></label>
       <select id="input" class="form-control" name='purpose' {...formik.getFieldProps('purpose')}>
-        <option selected>Choose</option>
-        <option>Visit</option>
-        <option>Enquiry</option>
-        <option>Seminar</option>
+        <option value=''>Choose</option>
+        {
+          (data||[]).map(item=><option>{item.purpose}</option>)
+        }
       </select>
       <span className='text-danger'>{(formik.touched.purpose && formik.errors.purpose)?formik.errors.purpose:''}</span>
     </div>
@@ -113,7 +138,12 @@ return(
     <div class="form-group col-md-6">
       <label for="inputState" className="text-sm">Date</label>
       <div className="w-100 ">
-          <DatePicker className="form-control "  style={{width:'100% !important'}} selected={formik.values.date} customInput={<input className="form-control"/>} name='date' onChange={(data)=>formik.setFieldValue('date',data)}/>
+          <DatePicker autoComplete='off' className="form-control "  style={{width:'100% !important'}} 
+          selected={new Date(formik.values.date)=='Invalid Date'?
+          '':new Date(formik.values.date)} 
+                        
+          
+          customInput={<input className="form-control"/>} name='date' onChange={(data)=>formik.setFieldValue('date',data)}/>
       </div> 
       
       <span className='text-danger'>{(formik.touched.date && formik.errors.date)?formik.errors.date:''}</span>

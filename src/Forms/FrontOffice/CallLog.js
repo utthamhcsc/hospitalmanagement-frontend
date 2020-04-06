@@ -17,7 +17,7 @@ export default (props) =>
   callDuretion:'',
   callType:'',
   note:'',
- }:{...props.data,date:new Date(props.data.date),nextFallowUpDate:props.data.nextFallowUpDate==''?new Date():new Date(props.data.nextFallowUpDate)};
+ }:{...props.data};
   const formik = useFormik({
     
     enableReinitialize:true,
@@ -27,9 +27,13 @@ export default (props) =>
     }
     ,
         onSubmit:values=>{console.log(JSON.stringify(values,null,2))
-          Postdata('phonecall/','POST',values).then(data=>toast.success('successfully added', {
-      position: toast.POSITION.TOP_CENTER
-    }))},
+          Postdata('phonecall/','POST',values).then(data=>{
+            //  console.log(data.id==values.id)
+              if(values.id)
+              props.setdataSrc(item=>item.map(item1=>item1.id==data.id?data:item1))
+              else props.setdataSrc(item=>[...item,data])
+              window.$('#calllog').modal('hide')
+          })},
           validationSchema:Yup.object().shape({
             name:Yup.string().required('*Enter Name'),
             
@@ -75,7 +79,12 @@ export default (props) =>
                        <div className="form-group col-md-6">
                          <label for="inputState">Date</label>
                             <div className=" ">
-                               <DatePicker className="form-control "  style={{width:'100% !important'}} selected={formik.values.date} customInput={<input className="form-control"/>}  onChange={(data)=>formik.setFieldValue('date',data)}/>
+                               <DatePicker 
+                               className="form-control "  
+                               style={{width:'100% !important'}} 
+                               selected={new Date(formik.values.date)=='Invalid Date'?'':new Date(formik.values.date)} 
+                               customInput={<input className="form-control"/>}  
+                               onChange={(data)=>formik.setFieldValue('date',data)}/>
                             </div>
                             <span className='text-danger'>{(formik.touched.date && formik.errors.date)?formik.errors.date:''}</span>
                        </div>
@@ -95,7 +104,9 @@ export default (props) =>
                        <div className="form-group col-md-6">
                          <label for="inputState">Next Follow Up Date</label>
                             <div className="w-100 ">
-                               <DatePicker className="form-control "  style={{width:'100% !important'}} selected={formik.values.nextFallowUpDate} customInput={<input className="form-control"/>}  onChange={(data)=>formik.setFieldValue('nextFallowUpDate',data)}/>
+                               <DatePicker className="form-control "  style={{width:'100% !important'}} 
+                               selected={new Date(formik.values.nextFallowUpDate)=='Invalid Date'?'':new Date(formik.values.nextFallowUpDate)} 
+                               customInput={<input className="form-control"/>}  onChange={(data)=>formik.setFieldValue('nextFallowUpDate',data)}/>
                             </div>
                             
                        <span className='text-danger'>{(formik.touched.nextFallowUpDate && formik.errors.nextFallowUpDate)?formik.errors.nextFallowUpDate:''}</span>

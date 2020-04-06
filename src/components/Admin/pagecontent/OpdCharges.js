@@ -19,6 +19,9 @@ const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(
     <BrowserRouter>
     <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-warning'} title='view Details' data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
    
+    <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-success'} title='add prescription'  data-toggle='modal' data-target='#addPriscription'><i className='fa fa-pencil' data-tip='hello'></i></button>
+    
+    <button onClick={()=>Postdata(`opdCharge/${rowData.id}`,'DELETE',{}).then(data=>data.status==1?window.$('#addOpdPatient').DataTable().row(row).remove().draw():'')} className={'btn btn-xs btn-danger'} ><i className='fa fa-trash'></i></button>
    
    <ReactTooltip/>
     </BrowserRouter>,td)}
@@ -36,10 +39,12 @@ return (
 <h6 className='text-sm' style={{letterSpacing:'1px',lineHeight:'100%'}}>Opd Charges</h6>
 <div className='btn-group p-0'>
 <button className={'btn btn-xs  btn-light ml-1 ' } style={{marginLeft :'0.5px !important',opacity:0}} data-toggle="modal" data-target="sdf">dfgh</button>
-{/* <NavLink to={`/receptionist/opdPatient/${patientId}`} class="btn btn-light text-xs  btn-xs  ml-1"><i className='fa fa-reorder ml-1'/> Visits</NavLink>    */}
-<NavLink to={`/receptionist/diagnosis/${patientId}`} class="btn btn-light text-xs  btn-xs  ml-1"><i className='fa fa-reorder ml-1'/> Diagnosis</NavLink>   
-<NavLink to={`/receptionist/patient/bill/${patientId}`} class="btn btn-light text-xs  btn-xs  ml-1"><i className='fa fa-reorder ml-1'/> Bill</NavLink> 
+<NavLink to={`/admin/diagnosis/${patientId}`} class="btn btn-light text-xs  btn-xs  ml-1"> Diagnosis</NavLink>   
+<NavLink to={`/admin/patient/bill/${patientId}`} class="btn btn-light text-xs  btn-xs  ml-1"> Bill</NavLink>  
 
+
+<button data-toggle="modal" data-target="#add_chargeModal" onClick={()=>setindex({})} class="btn btn-light text-xs  btn-xs  ml-1"> <i class="fa fa-arrow"></i>Add Charges</button>   
+           
 </div>
 </li>
 </ol>

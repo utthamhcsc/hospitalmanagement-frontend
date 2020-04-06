@@ -3,13 +3,13 @@ import ReactDOM from 'react-dom'
 import {NavLink, BrowserRouter,Link, useParams} from 'react-router-dom'
 import Table from '../../Table'
 import {Getdata} from '../../../Network/Server'
-
+import AddDiagnosis from './AddDiagnosis'
 import DisplayForm from '../../../Forms/DisplayForm'
 
 export default function Diagnosis(props) 
 {
     const {patientId}=useParams();
-    const [index,setindex]=React.useState({});
+    const [index,setindex]=React.useState();
     const column=[{data:'reportType',title:'Report Type'},{data:'reportDate',title:'Report Date'},{data:'description',title:'Description'},{data:'action',title:'Action'}]
     const [dataSrc,setdataSrc]=React.useState([]);
     const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(
@@ -26,9 +26,8 @@ export default function Diagnosis(props)
           <h6 className='text-sm ' style={{letterSpacing:'1px',lineHeight:'100%'}}>Diagnosis</h6>
           <div className='btn-group p-0'>
             <button className={'btn btn-xs  btn-light ml-1 ' } style={{marginLeft:'0.5px !important',opacity:0}} data-toggle="modal" data-target="sdf">dfgh</button>              
-              <NavLink to={`/receptionist/patient/charges/${patientId}`} class="btn btn-light text-xs  btn-xs  ml-1"><i className='fa fa-reorder ml-1'/> Charges</NavLink>    
-{/* <NavLink to={`/receptionist/opdPatient/${patientId}`} class="btn btn-light text-xs  btn-xs  ml-1"><i className='fa fa-reorder ml-1'/> Visits</NavLink>   */}
-<NavLink to={`/receptionist/patient/bill/${patientId}`} class="btn btn-light text-xs  btn-xs  ml-1"><i className='fa fa-reorder ml-1'/> Bill</NavLink> 
+              <NavLink to={`/admin/patient/charges/${patientId}`} class="btn btn-light text-xs  btn-xs  ml-1"> Charges</NavLink>  
+            <button data-toggle="modal" data-target="#addDiagnosis"  class="btn btn-light text-xs  btn-xs  ml-1"> <i class="fa fa-plus"></i> Add Diagnosis</button>               
           </div>
         </li>
       </ol>
@@ -36,6 +35,7 @@ export default function Diagnosis(props)
     <div className='px-5 pb-5'>
       <Table id='opdDiagnosis' col={column} dataSrc={dataSrc} columnDefs={columnDefs}/>
       <DisplayForm data={index}/>
+      <AddDiagnosis/>
     </div>
   </>
   )

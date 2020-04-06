@@ -47,19 +47,19 @@ React.useEffect(()=>{
 <div className='btn-group'>
     <button className={'btn btn-xs btn-light ml-1 ' } style={{marginLeft:'0.5px !important',opacity:0}} data-toggle="modal" data-target="sdf">dfgh</button>
     <button data-toggle="modal" onClick={()=>setindex({})} data-target="#bookappointment" class="btn btn-light text-xs  btn-xs ml-1"> <i class="fa fa-plus"></i> Add Appointment</button>               
-    <NavLink to={ '/receptionist/visitor'} activeClassName='active'  class="btn btn-light text-xs  btn-xs ml-1"><i class="fa fa-reorder"></i> Visitors Log</NavLink> 
-                             <NavLink to={ '/receptionist/callog'} activeClassName='active'  class="btn btn-light text-xs  btn-xs ml-1"><i class="fa fa-reorder"></i> Phone Call Log</NavLink> 
-                             <NavLink to={ '/receptionist/postalReceive'} activeClassName='active' class="btn btn-light text-xs  btn-xs ml-1 ">
+    <NavLink to={ '/admin/visitor'} activeClassName='active'  class="btn btn-light text-xs  btn-xs ml-1"><i class="fa fa-reorder"></i> Visitors Log</NavLink> 
+                             <NavLink to={ '/admin/callog'} activeClassName='active'  class="btn btn-light text-xs  btn-xs ml-1"><i class="fa fa-reorder"></i> Phone Call Log</NavLink> 
+                             <NavLink to={ '/admin/postalReceive'} activeClassName='active' class="btn btn-light text-xs  btn-xs ml-1 ">
      <i class="fa fa-reorder"></i> Postal Receive
  </NavLink>
- <NavLink to={ '/receptionist/postaldispatch'} activeClassName='active' class="btn btn-light text-xs  btn-xs ml-1 ">
+ <NavLink to={ '/admin/postaldispatch'} activeClassName='active' class="btn btn-light text-xs  btn-xs ml-1 ">
      <i class="fa fa-reorder"></i> Postal Dispatch
  </NavLink>
-                             <NavLink to={ '/receptionist/complain'} activeClassName='active' class="btn btn-light text-xs  btn-xs ml-1"><i class="fa fa-reorder"></i> Complain</NavLink> 
+                             <NavLink to={ '/admin/complain'} activeClassName='active' class="btn btn-light text-xs  btn-xs ml-1"><i class="fa fa-reorder"></i> Complain</NavLink> 
 </div>
   </li>
   </ol>
-  </nav>
+  </nav> 
 
   <div className='px-5 pb-5'>
     <AppTable id='appointment' col={column} dataSrc={dataSrc} columnDefs={columnDefs}/>

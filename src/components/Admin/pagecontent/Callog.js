@@ -40,7 +40,7 @@ export default function Callog(props)
     </nav>
     <div className='px-5 pb-5'>
       <Table id='Calllog' col={column} dataSrc={dataSrc} columnDefs={columnDefs}/>
-      <CallLog data={index}/>
+      <CallLog data={index} setdataSrc={setdataSrc}/>
       <DisplayForm data={index}/>
     </div>
  </>

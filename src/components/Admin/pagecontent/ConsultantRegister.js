@@ -10,7 +10,7 @@ export default function ConsultantRegister(props)
 {
     const {patientId}=useParams();
     const [index,setindex]=React.useState({});
-    const column=[{data:'appliedDate',title:'Date',render:( data, type, row, meta ) =>new Date(data).toLocaleDateString()+" "+new Date(data).toLocaleTimeString()},{data:'doctorName',title:'Doctor'},{data:'instruction',title:'Instruction'},{data:'instructionDate',title:'Instruction Date',render:( data, type, row, meta ) =>new Date(data).toUTCString()},{data:'',title:'Action'}]
+    const column=[{data:'appliedDate',title:'Date',render:( data, type, row, meta ) =>new Date(data).toUTCString()},{data:'adminId',title:'Doctor'},{data:'instruction',title:'Instruction'},{data:'instructionDate',title:'Instruction Date',render:( data, type, row, meta ) =>new Date(data).toUTCString()},{data:'',title:'Action'}]
     const [dataSrc,setdataSrc]=React.useState([]);
     const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(
     <BrowserRouter><button onClick={()=>setindex(rowData)} data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
@@ -25,15 +25,17 @@ export default function ConsultantRegister(props)
           <div className='btn-group p-0'>
           <button className={'btn btn-xs  btn-light ml-1 ' } style={{marginLeft:'0.5px !important',opacity:0}} data-toggle="modal" data-target="#AddipdPatient">dfgh</button>
    
-    <NavLink to={ '/receptionist/ipd1/diagnosis/'+patientId} activeClassName='active' class="btn btn-light text-xs  btn-xs ml-1 ">
+    <NavLink to={ '/admin/ipd1/diagnosis/'+patientId} activeClassName='active' class="btn btn-light text-xs  btn-xs ml-1 ">
      <i class="fa fa-reorder"></i> Diagnosis
     </NavLink>             
-    <NavLink to={ '/receptionist/ipd1/ipdPresciption/'+patientId} activeClassName='active' class="btn btn-light text-xs  btn-xs ml-1 ">
+    <NavLink to={ '/admin/ipd1/ipdPresciption/'+patientId} activeClassName='active' class="btn btn-light text-xs  btn-xs ml-1 ">
      <i class="fa fa-reorder"></i> Prescription
     </NavLink> 
-    <NavLink to={ '/receptionist/ipd1/Charges/'+patientId} activeClassName='active' class="btn btn-light text-xs  btn-xs ml-1 ">
+    <NavLink to={ '/admin/ipd1/Charges/'+patientId} activeClassName='active' class="btn btn-light text-xs  btn-xs ml-1 ">
      <i class="fa fa-reorder"></i> Charges
     </NavLink>             
+                
+            <button data-toggle="modal" data-target="#addConsultantInstruction"  class="btn btn-light text-xs  btn-xs  ml-1"> <i class="fa fa-plus"></i> Add Consultant Instruction</button>               
           </div>
         </li>
       </ol>
@@ -41,7 +43,7 @@ export default function ConsultantRegister(props)
     <div className='px-5 pb-5'>
       <Table id='IpdDiagnosis' col={column} dataSrc={dataSrc} columnDefs={columnDefs}/>
       <DisplayForm data={index}/>
-      <AddConsultantinstruction ipdId={patientId} receptionistId={props.receptionistId}/>
+      <AddConsultantinstruction ipdId={patientId} adminId={props.adminId}/>
 
     </div>
   </>
