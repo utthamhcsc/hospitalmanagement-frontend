@@ -5,10 +5,10 @@ import UserProfile from './UserProfile'
 const NavList = () => {
   return (
     <ul className="navbar-nav ml-auto">
-      <li className="nav-item mr-2 ">
-        <href className='nav-link '>
+      <li className="nav-item">
+        
         <NavSearch/>
-        </href>
+        
       </li>
       <li className="nav-item dropdown m-2 text-white" >
         <Notification />

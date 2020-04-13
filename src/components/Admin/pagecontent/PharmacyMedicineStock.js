@@ -32,7 +32,7 @@ export default (props) =>{
       <button onClick={()=>setindex1(rowData)} className={'btn btn-xs btn-warning'} data-toggle='modal' 
       data-target='#viewMedicine'><i className='fa fa-eye'></i></button>
      
-      <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-success'} data-toggle='modal' data-target='#GenerateBill'><i className='fa fa-pencil'></i></button>
+      <button onClick={()=>setindex1(rowData)} className={'btn btn-xs btn-success'} data-toggle='modal' data-target='#addmedicine'><i className='fa fa-pencil'></i></button>
       
       <button onClick={()=>Postdata(`complain/${rowData.id}`,'DELETE',{}).then(data=>data.status==1?window.$('#generateBill').DataTable().row(row).remove().draw():'')} className={'btn btn-xs btn-danger'} ><i className='fa fa-trash'></i></button>
      
@@ -68,8 +68,8 @@ export default (props) =>{
   </nav>
 
   <div className='px-5 pb-5'>
-    <Table id='medicinestock' col={column} dataSrc={dataSrc} columnDefs={columnDefs}/>
-    <AddMedicine medcat={data}/>
+    <Table id='medicineStock' col={column} dataSrc={dataSrc} columnDefs={columnDefs}/>
+    <AddMedicine medcat={data} data={index1.pharmacy}/>
     <ViewMedicine {...index1.medicine} {...index1.pharmacy}/>
   </div>
         </>

@@ -6,7 +6,11 @@ import {Getdata,Postdata} from '../../../../Network/Server'
 import AddVisitor from '../../../../Forms/FrontOffice/AddVisitor'
 import DisplayForm from '../../../../Forms/DisplayForm'
 export default function Visitor(props) {
-    const column=[{data:'purpose',title:'Purpose'},{data:'name',title:'Name'},{data:'phone',title:'Phone'},{data:'date',title:'Date',render:( data, type, row, meta )=>new Date(data).toLocaleDateString()},{data:'inTime',title:'In Time'},{data:'outTime',title:'Out Time'},{data:'action',title:'Action'}]
+    const column=[{data:'purpose',title:'Purpose'},
+    {data:'name',title:'Name'},
+    {data:'phone',title:'Phone'},
+    {data:'date',title:'Date',
+    render:( data, type, row, meta )=>new Date(data)=='Invalid Date'?'':new Date(data).toLocaleDateString()},{data:'inTime',title:'In Time'},{data:'outTime',title:'Out Time'},{data:'action',title:'Action'}]
     const [dataSrc,setdataSrc]=React.useState([]);
     
     const [index,setindex]=React.useState({});

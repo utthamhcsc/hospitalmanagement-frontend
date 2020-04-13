@@ -8,14 +8,12 @@ export default function(props) {
       ...props.data
     },
     onSubmit:values=>Postdata('medicineCat/add','POST',values).then(data=>
-      props.setdataSrc(item=>item.map(
-        (item2)=>{
-          if(item2.id==data.id){
-            return data;
-          }
-          return item2;
-        }
-      )))
+  {
+    if(values.id)
+    props.setdataSrc(item=>item.map(item1=>item1.id==data.id?data:item1))
+else
+    props.setdataSrc(item=>[data,...item])
+  })
   })
       return (
   

@@ -4,7 +4,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Getdata, Postdata, PostFormdata } from "../../Network/Server";
-
 export default props => {
   const [data, setData] = React.useState({});
   const [doctor, setdoctor] = React.useState([]);
@@ -12,8 +11,8 @@ export default props => {
   const [charge,setcharge]=React.useState({});
   const [department,setdepartment]=React.useState([]);
   const formik = useFormik({
-   // enableReinitialize:true,
-    initialValues: {
+    enableReinitialize:true,
+    initialValues: props.data?{...props.data,appointmentDate:''}:{
       department:'',
       patientId: "",
       height: "",
@@ -35,15 +34,12 @@ export default props => {
     },
     onSubmit: values => {
       console.log(JSON.stringify(values, null, 2));
-      Postdata('myopd/add','POST',values).then(data=>
-        {props.setdataSrc(item=>item.map(item=>
-          item.patientId==data.patientId?{...item,lastvistdate:data.appointmentDate,totalVisit:new Number(item.totalVisit)+1}:item))
-  
-          window.$('#AddOpdPatient').modal('hide')
-        }
-          )
-      
-      
+      delete values.opdId
+      Postdata('myopd/add','POST',values).then(data=>{props.setdataSrc(item=>
+[...item,data]
+      )
+      window.$('#AddOpdPatient').modal('hide')
+    })
     },
     validationSchema: Yup.object().shape({
       appointmentDate: Yup.date().required("required"),
@@ -52,7 +48,10 @@ export default props => {
     })
   });
   React.useEffect(() => {
-    Getdata("fetchalluser/patient").then(data => {
+    if(props.data && props.data.department){
+        fetchdoctor(props.data.department)
+      }
+    else{   Getdata("fetchalluser/patient").then(data => {
       setData(data);
       console.log(data);
     });
@@ -62,8 +61,8 @@ export default props => {
       console.log(data);
     });
     Getdata('department/get').then(data=>setdepartment(data)).catch(err=>console.log(err));
-  
-  }, []);
+}
+  }, [props.data]);
   const fetchdoctor=(id)=>{
     Getdata('humanResource/get/doctor/'+id).then(data=>{setdoctor(data)})
    }
@@ -80,10 +79,8 @@ export default props => {
    await Getdata('doctorOpdCharge/get/'+val).then(data=>{
       console.log(data)
       myvar=data;
-      if(val==''|| data==null) formik.setFieldValue('standardCharge','')
-     else {formik.setFieldValue('standardCharge',data.standardCharge) 
-     
-     formik.setFieldValue('appliedCharge',data.standardCharge)}
+      val==''|| data==null? formik.setFieldValue('standardCharge','')
+     : formik.setFieldValue('standardCharge',data.standardCharge)
       setcharge(data);
     })
     //console.log(myvar)

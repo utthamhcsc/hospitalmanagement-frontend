@@ -6,14 +6,12 @@ export default function(props) {
     enableReinitialize:true,
     initialValues:{
       ...props.data
-    },onSubmit:values=>Postdata('item-supplier/add','POST',values).then(data=>props.setdataSrc(item=>item.map(
-      (item2)=>{
-        if(item2.id==data.id){
-          return data;
-        }
-        return item2;
-      }
-    )))
+  },onSubmit:values=>Postdata('item-supplier/add','POST',values).then(data=>{
+    if(values.id)
+    props.setdataSrc(item=>item.map(item1=>item1.id==data.id?data:item1))
+else
+    props.setdataSrc(item=>[data,...item])
+  })
 })
       return (
   

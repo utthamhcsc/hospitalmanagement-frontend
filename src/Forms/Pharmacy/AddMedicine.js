@@ -5,7 +5,8 @@ import * as  Yup from 'yup';
  import {toast} from 'react-toastify'
 export default (props)=>{
     const formik = useFormik({
-         initialValues:
+        enableReinitialize:true,
+         initialValues:props.data||
         {
             medicineName:'',
             medicineCategoryId:'',
@@ -28,30 +29,32 @@ export default (props)=>{
                 if(data.status==1){
                     formik.resetForm()
                     console.log(data)
+                    window.location.reload()
                 }
             }):
             PostFormdata('pharmacy/add/file','POST',values).then(data=>{
                 if(data.status==1){
                     formik.resetForm()
                     console.log(data)
+                    window.location.reload()
                 }
             })
 
          },
           validationSchema:Yup.object().shape({
-            medicineName:Yup.string().required('required'),
-            medicineCategoryId:Yup.string().required('required'),
-            medicineCompany:Yup.string().required('required'),
-            medicineComposition:Yup.string().required('required'),
-            medicineGroup:Yup.string().required('required'),
-            unit:Yup.number('must be number only').required('required'),
-            minLevel:Yup.number('must be number only').required('required'),
-            reOrderLevel:Yup.number('must be number only').required('required'),
-            vat:Yup.string().required('required'),
-            packing:Yup.string().required('required'),
-            note:Yup.string().required('required'),
-           // medicineImage:Yup.string().required(),
-            vatAc:Yup.string().required('required')
+        //     medicineName:Yup.string().required('required'),
+        //     medicineCategoryId:Yup.string().required('required'),
+        //     medicineCompany:Yup.string().required('required'),
+        //     medicineComposition:Yup.string().required('required'),
+        //     medicineGroup:Yup.string().required('required'),
+        //     unit:Yup.number('must be number only').required('required'),
+        //     minLevel:Yup.number('must be number only').required('required'),
+        //     reOrderLevel:Yup.number('must be number only').required('required'),
+        //     vat:Yup.string().required('required'),
+        //     packing:Yup.string().required('required'),
+        //     note:Yup.string().required('required'),
+        //    // medicineImage:Yup.string().required(),
+        //     vatAc:Yup.string().required('required')
           })
       })
     

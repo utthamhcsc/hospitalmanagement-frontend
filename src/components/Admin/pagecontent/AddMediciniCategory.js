@@ -7,8 +7,14 @@ export default function(props) {
     initialValues:{
       ...props.data
     },
-    onSubmit:values=>Postdata('medicineCat/add','POST',values).then(data=>props.setdataSrc(item=>[data,...item]))
+    onSubmit:values=>Postdata('medicineCat/add','POST',values)
+    .then(data=>{
+      if(values.id)
+          props.setdataSrc(item=>item.map(item1=>item1.id==data.id?data:item1))
+      else
+          props.setdataSrc(item=>[data,...item])
   })
+})
       return (
   
         <div className="modal fade in" id="MedicineCategory" >

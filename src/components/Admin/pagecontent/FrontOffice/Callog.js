@@ -8,7 +8,13 @@ import CallLog from '../../../../Forms/FrontOffice/CallLog'
 export default function Callog(props) 
 {
     const [index,setindex]=React.useState({});
-    const column=[{data:'name',title:'Name'},{data:'date',title:'Date',render:( data, type, row, meta )=>new Date(data).toLocaleDateString()},{data:'phone',title:'Phone'},{data:'description',title:'Description'},{data:'nextFallowUpDate',title:'Next Follow Update',render:( data, type, row, meta )=>new Date(data).toLocaleDateString()},{data:'callDuretion',title:'Call Duration'},{data:'callType',title:'Call Type'},{data:'note',title:'Note'},{data:'',title:'Action'}]
+    const column=[{data:'name',title:'Name'},
+    {data:'date',title:'Date',
+    render:( data, type, row, meta )=>new Date(data)=='Invalid Date'?'':new Date(data).toLocaleDateString()},
+    {data:'phone',title:'Phone'},
+    {data:'description',title:'Description'},
+    {data:'nextFallowUpDate',title:'Next Follow Update',
+    render:( data, type, row, meta )=>new Date(data)=='Invalid Date'?'':new Date(data).toLocaleDateString()},{data:'callDuretion',title:'Call Duration'},{data:'callType',title:'Call Type'},{data:'note',title:'Note'},{data:'',title:'Action'}]
     const [dataSrc,setdataSrc]=React.useState([]);
     const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(
       <BrowserRouter>

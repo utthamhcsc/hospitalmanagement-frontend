@@ -9,7 +9,10 @@ import AddDispatch from '../../../../Forms/FrontOffice/AddDispatch'
 export default function PostalDispatch(props) {
   
   const [index,setindex]=React.useState({});
-    const column=[{data:'fromTitle',title:'From Title'},{data:'referenceNo',title:'Reference No'},{data:'toTitle',title:'To Title'},{data:'date',title:'Date',render:( data, type, row, meta )=>new Date(data).toLocaleDateString()},{data:'address',title:'Address'},{data:'attachdDocument',title:'Attach document'},{data:'',title:'Action'}]
+    const column=[{data:'toTitle',title:'To Title'},
+    {data:'referenceNo',title:'Reference No'},
+    {data:'fromTitle',title:'From Title'},
+    {data:'date',title:'Date',render:( data, type, row, meta )=>new Date(data)?'':new Date(data).toLocaleDateString()},{data:'address',title:'Address'},{data:'attachdDocument',title:'Attach document'},{data:'',title:'Action'}]
     const [dataSrc,setdataSrc]=React.useState([]);
     const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(
       <BrowserRouter>

@@ -22,9 +22,8 @@ import OpdBill from './pagecontent/OpdBill'
 import OpdCharges from './pagecontent/OpdCharges'
 import Diagnosis from './pagecontent/Diagnosis'
 import SettingsPharmacy from './pagecontent/SettingsPharmacy'
-
 import SettingsFrontOffice from './pagecontent/SettingsFrontOffice'
-
+import SettingsPatient from './pagecontent/settings/Patient/SettingsPatient'
 import SettingsBed from './pagecontent/settings/Bed/SettingsBed'
 import InventorySettings from './pagecontent/settings/inventory/InventorySettings'
 import FinanceSettings from './pagecontent/settings/Finance/FinanceSettings'
@@ -35,6 +34,7 @@ import Tpa from './pagecontent/Tpa/Tpa'
 import SettingsCharges from './pagecontent/settings/HospitalCharges/SettingsCharges'
 import Staff from './pagecontent/HumanResource/index'
 import Ambulance from './pagecontent/Ambulance'
+import MyOpd from './pagecontent/opd/index'
 export default function Index(props) {
   const [index,setindex]=React.useState({})
     return (
@@ -49,7 +49,7 @@ export default function Index(props) {
     }} >
     <section className="content px-4 mt-4" >
       
- <Route path='/admin/humanResource' render={()=><Staff/>}/>       
+<Route path='/admin/humanResource' render={()=><Staff/>}/>       
 <Route path='/admin/settings/bed' render={()=><SettingsBed/>}/>
 <Route path='/admin/settings/humanResource' render={()=><HumanResourceSetting/>}/>
 <Route path='/admin/settings/pathology' render={()=><PathologySettings/>}/>
@@ -59,8 +59,10 @@ export default function Index(props) {
 <Route path='/admin/settings/inventory' render={()=><InventorySettings/>}/>
 <Route path='/admin/settings/charges' render={()=><SettingsCharges/>}/>
 <Route path='/admin/settings/pharmacy' render={()=><SettingsPharmacy/>}/>
+<Route path='/admin/settings/patient' render={()=><SettingsPatient/>}/>
 <Route path='/admin/appointment' render={()=><FrontOffice/>}/>
 <Route path='/admin/Opd' render={()=><Opd setindex={setindex}/>}/>
+<Route path='/admin/myOpd' render={()=><MyOpd />}/>
 <Route path='/admin/Ipd' render={()=><Ipd setindex={setindex}/>}/>
 <Route path='/admin/pathology' render={()=><Pathology1 setindex={setindex}/>}/>
 <Route path='/admin/radiology' render={()=><Radiology1 setindex={setindex}/>}/>
@@ -84,25 +86,6 @@ export default function Index(props) {
       
 <AddNewPatient data={{}}/>
 <GenerateBill data={{}}/>
-{/* 
-<BookMyAppointment data={index}/>
-    <AddPat data={index} />
-    <Radiology data={index}/> 
-    <Pathology data={index}/> 
-    <PurchaseMedicine data={index}/>
-    <AddMedicine data={index}/>
-    <GenerateBill data={index}/>
-    <IPDAddpat data={index}/>
-    <AddPatient data={index}/>
-    <AddComplain data={index}/>
-    <AddDispatch data={index}/>
-    <AddReceive data={index}/>
-    <CallLog data={index} />
-    <AddVisitor data={index} />
-    <ImportMedicine data={index} />
-    <AddNewPatient data={index}/>
-    <DisplayForm data={index}/> */}
-  
       </section>
       </div>
         </>

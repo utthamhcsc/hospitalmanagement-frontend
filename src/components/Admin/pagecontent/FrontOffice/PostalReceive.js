@@ -9,7 +9,10 @@ import AddReceive from '../../../../Forms/FrontOffice/AddReceive'
 export default function PostalReceive(props) {
   
   const [index,setindex]=React.useState({});
-    const column=[{data:'fromTitle',title:'From Title'},{data:'referenceNo',title:'Reference No'},{data:'toTitle',title:'To Title'},{data:'date',title:'Date',render:( data, type, row, meta )=>new Date(data).toLocaleDateString()},{data:'address',title:'Address'},{data:'attachDocument',title:'Attach document'},{data:'',title:'Action'}]
+    const column=[{data:'fromTitle',title:'From Title'},
+    {data:'referenceNo',title:'Reference No'},
+    {data:'toTitle',title:'To Title'},
+    {data:'date',title:'Date',render:( data, type, row, meta )=>new Date(data)?'':new Date(data).toLocaleDateString()},{data:'address',title:'Address'},{data:'attachDocument',title:'Attach document'},{data:'',title:'Action'}]
     const [dataSrc,setdataSrc]=React.useState([]);
     const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(
       <BrowserRouter>

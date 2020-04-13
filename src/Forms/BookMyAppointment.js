@@ -35,7 +35,6 @@ export default (props)=>
   ...mydata
    },
     onSubmit:values=>{console.log(JSON.stringify(values,null,2))
-    //formik.resetForm();
     Postdata('myappointment/add','POST',values).then(data=>{
       if(data.err){
 formik.setErrors(data)
@@ -45,10 +44,7 @@ formik.setErrors(data)
           if(item1.id==data.id)return data;else return item1;
   
         })):
-        props.setdataSrc(item=>[data,...item]
-          
-  
-        )
+        props.setdataSrc(item=>[data,...item])
         window.$('#bookappointment').modal('hide')
       }
     })
@@ -173,7 +169,7 @@ return(<React.Fragment>
   </div>
   <span className='text-danger d-block mb-3'><span className={'text-light'}>h</span>{formik.errors.department}</span> 
 
-  <DatePicker autoComplete={'off'} selected={new Date(formik.values.date)=='Invalid Date'?'':new Date()} name='date' placeholderText='enter date' onChange={(e)=>formik.setFieldValue('date',e)} className="form-control bg-transparent border-right-0 border-top-0 " />
+  <DatePicker autoComplete={'off'} selected={new Date(formik.values.date)=='Invalid Date'?'':new Date(formik.values.date)} name='date' placeholderText='enter date' onChange={(e)=>formik.setFieldValue('date',e)} className="form-control bg-transparent border-right-0 border-top-0 " />
   <div></div>
   <span className='text-danger'><span className={'text-light'}>h</span>{formik.errors.date}</span> 
   <div className="input-group mb-3">
@@ -183,7 +179,6 @@ return(<React.Fragment>
   </div>
   <span className='text-danger'><span className={'text-light'}>h</span>{formik.errors.message}</span> 
    <button type="submit" className="btn btn-success btn-sm btn-center form-control">Submit</button>
-   
 </form>
 </div>
 </div>

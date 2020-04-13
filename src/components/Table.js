@@ -60,12 +60,12 @@ export default (prop)=>{
 
 <>
 
-<table id={prop.id} className={`table table-striped table-bordered dt-responsive nowrap  `} style={{width:'100%'}}>
-  <thead className='p-0 bg-primary'>
+<table id={prop.id} className={`table table-bordered table-striped table-hover dt-responsive nowrap  `} style={{width:'100%'}}>
+  <thead className=''>
            {<tr>
                 {prop.col.map(
                     (name)=>{
-                    return <th className='text-xs p-2 text-center'>{name.title}</th>
+                    return <th className='text-xs p-0 text-center'>{name.title}</th>
                     }
                 )}
             </tr>}

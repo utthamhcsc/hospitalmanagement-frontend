@@ -1,15 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {NavLink,BrowserRouter} from 'react-router-dom'
+import {BrowserRouter} from 'react-router-dom'
 import Table from '../../../../Table'
 import {Getdata,Postdata} from '../../../../../Network/Server'
-import Radiology1 from '../../../../../Forms/Radiology/Radiology'
 import AddMediciniCategory from '../../AddMediciniCategory'
 import DisplayForm from '../../../../../Forms/DisplayForm'
-
 export default function BedStatus(props)
  {
-   
   const [index1,setindex1]=React.useState({medicineCategory:''});
   const [index,setindex]=React.useState({});
   const column=[{data:'',title:'Sl.No',render:( data, type, row, meta ) =>`<b>${meta.row+1}</b>`},
@@ -39,7 +36,6 @@ export default function BedStatus(props)
       <h6 className='text-sm' style={{letterSpacing:'1px',lineHeight:'100%'}}>Bed Status</h6>
   <div className='btn-group p-0'>
     <button className={'btn btn-xs  btn-light ml-1 ' } style={{marginLeft:'0.5px !important',opacity:0}} data-toggle="modal" data-target="sdf">dfgh</button>
-    <button data-toggle="modal" onClick={()=>setindex({})} data-target="#MedicineCategory" class="btn btn-light text-xs  btn-xs  ml-1"> <i class="fa fa-plus"></i> Add Medicine Category</button>               
                          </div>
   </li>
   </ol>

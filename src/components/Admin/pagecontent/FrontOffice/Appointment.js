@@ -33,7 +33,7 @@ const [department,setdepartment]=React.useState([])
   
 React.useEffect(()=>{
   Getdata('appointment').then(data=>setdataSrc(data));
-  Getdata('department/get').then(data=>setdepartment(data));
+  Getdata('department/get').then(data=>setdepartment(data)).catch(err=>console.log(err));
 },[])
 
 
@@ -56,7 +56,7 @@ React.useEffect(()=>{
  <NavLink to={ '/admin/appointment/postaldispatch'} activeClassName='active' class="btn btn-light text-xs  btn-xs ml-1 ">
      <i class="fa fa-reorder"></i> Postal Dispatch
  </NavLink>
-                             <NavLink to={ '/admin/appointment/complain'} activeClassName='active' class="btn btn-light text-xs  btn-xs ml-1"><i class="fa fa-reorder"></i> Complain</NavLink> 
+<NavLink to={ '/admin/appointment/complain'} activeClassName='active' class="btn btn-light text-xs  btn-xs ml-1"><i class="fa fa-reorder"></i> Complain</NavLink> 
 </div>
   </li>
   </ol>

@@ -1,12 +1,11 @@
 import React from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { Formik } from "formik";
+
 import { useFormik } from "formik";
-import { Postdata, PostFormdata } from "../../../Network/Server";
 import * as Yup from "yup";
-import { toast } from "react-toastify";
 import { useParams } from "react-router-dom";
+import { PostFormdata } from "../../Network/Server";
 export default props => {
   // alert(props.data)
   const { patientId } = useParams();
@@ -16,23 +15,20 @@ export default props => {
       reportDate: "",
       document: "",
       description: "",
-      opdId: ""
+      opdId: "",
+      file:''
     },
     enableReinitialize: true,
     onSubmit: values => {
       console.log(JSON.stringify(values, null, 2));
-      if(typeof(values.document)=='string')
-      delete values.document
       console.log(values)
-      PostFormdata("opdDiagnosis/", "POST", {
+      PostFormdata("myopddiagnosis/add", "POST", {
         ...values,
         opdId: patientId
       }).then(data => {
-        if(values.id){
-props.setdataSrc(item=>item.map(item1=>item1.id==data.id?data:item1))
-        }else{
-          props.setdataSrc(item=>[data,...item])
-        }
+      
+props.setdataSrc(item=>[data])
+       
         window.$('#addDiagnosis').modal('hide')
       });
     },
@@ -110,7 +106,7 @@ props.setdataSrc(item=>item.map(item1=>item1.id==data.id?data:item1))
                     type="file"
                     className="form-control mt-1"
                     onChange={e =>
-                      formik.setFieldValue("document", e.target.files[0])
+                      formik.setFieldValue("file", e.target.files[0])
                     }
                   ></input>
                   <div className="mt-2">Description</div>

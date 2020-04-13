@@ -34,7 +34,7 @@ export default function(props) {
   React.useEffect(() => {
     Getdata("organisation/get").then(data =>
       settpa(
-        data.map(item => {
+        (data||[]).map(item => {
           return {
             organisationId: item.id,
             charges: 0,
@@ -46,7 +46,7 @@ export default function(props) {
     
     Getdata("chargesCategory/get").then(data =>
       setChargeCategory(
-        data.map(item => {
+        (data||[]).map(item => {
           return {
             categoryId: item.id,
             chargeCategory:item.chargeCategory

@@ -21,7 +21,6 @@ export default  (props) => {
     
     enableReinitialize:true,
     initialValues:{
-       
 ...mydata
     }
   ,
@@ -34,6 +33,7 @@ export default  (props) => {
   
         })):
         props.setdataSrc(item=>[data,...item])
+        window.$('#PostalRcv').modal('hide')
       })
       :PostFormdata('postalrecieve/','POST',values).then(data=>{
         values.id?
@@ -43,7 +43,9 @@ export default  (props) => {
         })):
         props.setdataSrc(item=>[data,...item])
         window.$('#PostalRcv').modal('hide')
-      })},
+      })
+     
+    },
       validationSchema:Yup.object().shape({
         fromTitle:Yup.string().required('Required FromTitle'),
         //attachdDocument:null

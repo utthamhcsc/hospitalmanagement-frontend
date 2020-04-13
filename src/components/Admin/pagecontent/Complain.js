@@ -10,7 +10,8 @@ export default function Complain(props)
 {
     
   const [index,setindex]=React.useState({});  
-    const column=[{data:'complainBy',title:'Complain By'},{data:'source',title:'Source'},{data:'date',title:'Date',render:( data, type, row, meta )=>new Date(data).toLocaleDateString()},{data:'phone',title:'Phone'},{data:'description',title:'Description'},{data:'actionTaken',title:'Action Taken'},{data:'assigned',title:'Assigned'},{data:'note',title:'Note'},{data:'attachedDocument',title:'attach Document'},{data:'',title:'Action'}]
+    const column=[{data:'complainBy',title:'Complain By'},
+    {data:'source',title:'Source'},{data:'date',title:'Date',render:( data, type, row, meta )=>new Date(data).toLocaleDateString()},{data:'phone',title:'Phone'},{data:'description',title:'Description'},{data:'actionTaken',title:'Action Taken'},{data:'assigned',title:'Assigned'},{data:'note',title:'Note'},{data:'attachedDocument',title:'attach Document'},{data:'',title:'Action'}]
     const [dataSrc,setdataSrc]=React.useState([]);
     const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(
       <BrowserRouter>

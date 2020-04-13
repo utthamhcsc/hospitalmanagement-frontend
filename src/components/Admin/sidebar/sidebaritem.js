@@ -16,7 +16,7 @@ return (
                </NavLink>
            </li>
            <li className="nav-item has-treeview shadow p-1">
-                <NavLink className="nav-link py-1 text-white" to="/admin/Opd">
+                <NavLink className="nav-link py-1 text-white" to="/admin/myOpd">
                      <i class="text-xs fas fa-stethoscope"></i> 
                      <p className='pl-3 ' style={{letterSpacing:'1px',fontSize:'13px',lineHeight:'100%'}}> OPD - Out Patient</p> 
                 </NavLink>
@@ -129,6 +129,7 @@ return (
                         <i class="fa fa-angle-left pull-right"></i>Setup</p>
                 </Link>
                 <ul className="nav nav-treeview text-dark bg-light" style={{zIndex:-999}}>
+                <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/admin/settings/patient"><i class="text-xs fas fa-angle-right"></i> Patient</NavLink></li>
                     <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/admin/settings/pharmacy"><i class="text-xs fas fa-angle-right"></i> Pharmacy</NavLink></li>
                     <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/admin/settings/bed"><i class="text-xs fas fa-angle-right"></i> Bed</NavLink></li>
                     <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/admin/settings/frontOffice"><i class="text-xs fas fa-angle-right"></i> Front Office</NavLink></li>

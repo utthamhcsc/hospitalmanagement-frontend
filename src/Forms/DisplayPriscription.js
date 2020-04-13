@@ -1,6 +1,14 @@
 import React from 'react'
 import {Formik, FieldArray} from 'formik'
+import { Getdata } from '../Network/Server';
 export default function DisplayPriscription(props) {
+  
+  const [medicianCategory, setMedicineCategory] = React.useState([]);
+  React.useEffect(() => {
+    Getdata("medicineCat/get").then(data => {
+      console.log(data);
+      setMedicineCategory(data || []);
+    });},[])
     return (
         <div class="modal fade" id="viewCaseHistory" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
@@ -28,7 +36,7 @@ export default function DisplayPriscription(props) {
         }, 500)
       }>{({values,getFieldProps,handleSubmit})=><form>
        <div><b className='text-sm'>Header</b></div>
-       <textarea readOnly className="form-control-plaintext mt-2 border-0" rows="4" {...getFieldProps('header')}></textarea>
+       <textarea readOnly className="form-control mt-2 border-0" rows="4" {...getFieldProps('header')}></textarea>
       
    <FieldArray name='medicine'>
        
@@ -48,15 +56,24 @@ export default function DisplayPriscription(props) {
                    {
                        values.medicine && values.medicine.length?
                        values.medicine.map((data,index)=><tr>
-                           <td ><input readOnly     className='form-control-plaintext text-center border-0' {...getFieldProps(`medicine.${index}.medicianCategory`)}/>
+                           <td ><select readOnly     
+                           className='form-control text-center border-0'
+                            value={values.medicine[index].medicianCategory}>
+                             {medicianCategory.map(item => (
+                               
+                                            <option value={item.id}>
+                                              {item.medicineCategory}
+                                            </option>
+                                          ))}
+                                          </select>
                            </td>
-                           <td><input readOnly     className='form-control-plaintext text-center border-0' {...getFieldProps(`medicine.${index}.medicine`)}/>
+                           <td><input readOnly     className='form-control text-center border-0' {...getFieldProps(`medicine.${index}.medicine`)}/>
                           
                                
                           </td>
-                           <td><input readOnly     className='form-control-plaintext text-center border-0' {...getFieldProps(`medicine.${index}.dosage`)}/>
+                           <td><input readOnly     className='form-control text-center border-0' {...getFieldProps(`medicine.${index}.dosage`)}/>
                              </td>
-                           <td><input readOnly     className='form-control-plaintext text-center border-0' {...getFieldProps(`medicine.${index}.instruction`)}></input></td>
+                           <td><input readOnly     className='form-control text-center border-0' {...getFieldProps(`medicine.${index}.instruction`)}></input></td>
                 
                        </tr>)
                        
@@ -70,7 +87,7 @@ export default function DisplayPriscription(props) {
    </table>}
 </FieldArray>
       <div><b className='text-sm'>Footer</b></div>
-       <textarea readOnly     className="form-control-plaintext mt-2 border-0" {...getFieldProps(`footer`)} rows="4"></textarea>
+       <textarea readOnly     className=" form-control mt-2 border-0" {...getFieldProps(`footer`)} rows="4"></textarea>
       </form>
       }
        </Formik>

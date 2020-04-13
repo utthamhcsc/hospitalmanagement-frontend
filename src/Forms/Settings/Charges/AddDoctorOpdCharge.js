@@ -18,10 +18,11 @@ export default function(props) {
          props.setdataSrc(data=>data.map(item=>item.id==res.id?res:item))
         else
           props.setdataSrc(data=>[res,...data])
-          window.$('#addCharge').modal('hide')
+          
       })
       //props.setdataSrc(data=>data.map(item=>item.id==values.id?values:values.id?values))
       //    props.setdataSrc(data=>[...data,values])
+      window.$('#addDoctorCharge').modal('hide')
     }
   });
   const applytoAll = () => {
@@ -37,7 +38,7 @@ export default function(props) {
     Getdata("fetchalluser/doctor").then(data =>{
         setData(data);
         setDoctor(
-          Object.keys(data).map(item => {
+          Object.keys(data||{}).map(item => {
             return {
                 doctorId:item,
               name:data[item],
@@ -47,7 +48,7 @@ export default function(props) {
          } );
     Getdata("organisation/get").then(data =>
       settpa(
-        data.map(item => {
+        (data || []).map(item => {
           return {
             organisationId: item.id,
             charges:0,
