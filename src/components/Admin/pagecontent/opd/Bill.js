@@ -128,7 +128,7 @@ export default function Bill() {
                                     </li>
         
                                     <li class="list-group-item py-2 text-sm border-0">
-                                        <b>Consultant Charges (Paid) ($)</b> <a class="pull-right text-aqua">{opd.appliedCharge}</a>
+                                        <b>Consultant Charges (Paid) ($)</b> <a class="pull-right text-aqua">{opd && opd.appliedCharge}</a>
                                     </li>
         
                                     <li class="list-group-item py-2 text-sm border-0 ">
@@ -145,7 +145,7 @@ export default function Bill() {
                                     <li class="list-group-item py-2 text-sm border-0">
                                         <b>Discount(%)</b> <input type="number" 
                                         onChange={(e)=>{
-                                            setdiscount((mycharge+opd.appliedCharge-e.target.value)/100)
+                                            setdiscount((mycharge+(opd?opd.appliedCharge:0)-e.target.value)/100)
                                         }}
                                         className="pull-right text-aqua border-top-0 border-left-0 border-right-0"/>
                                     </li>
@@ -160,7 +160,7 @@ export default function Bill() {
                                         <b>Tax(%)</b> 
                                         <input type="number" 
                                         onChange={(e)=>{
-                                            settax((mycharge+opd.appliedCharge-discount+e.target.value)/(100))
+                                            settax((mycharge+(opd?opd.appliedCharge:0)-discount+e.target.value)/(100))
                                         }}
                                         className="pull-right text-aqua border-top-0 border-left-0 border-right-0"/>
                                     </li>
@@ -180,7 +180,7 @@ export default function Bill() {
                                     </li>
         
                                     <li class="list-group-item py-2 text-sm border-0">
-                                        <b>Net Payable Amount ($)</b> <a class="pull-right text-aqua">{mycharge+opd.appliedCharge+tax-discount-mypayment}</a>
+                                        <b>Net Payable Amount ($)</b> <a class="pull-right text-aqua">{mycharge+(opd?opd.appliedCharge:0)+tax-discount-mypayment}</a>
                                     </li>
                                  </ul>
                                  </div>
