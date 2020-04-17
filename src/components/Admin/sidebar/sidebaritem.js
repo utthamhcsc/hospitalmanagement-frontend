@@ -22,7 +22,7 @@ return (
                 </NavLink>
            </li>
            <li className="nav-item has-treeview shadow p-1">
-                <NavLink className="nav-link py-1 text-white" to="/admin/Ipd">
+                <NavLink className="nav-link py-1 text-white" to="/admin/myIpd">
                     <i class="text-xs fas fa-procedures" aria-hidden="true"></i> 
                     <p className='pl-3 ' style={{letterSpacing:'1px',fontSize:'13px',lineHeight:'100%'}}> IPD - In Patient</p>
                 </NavLink>

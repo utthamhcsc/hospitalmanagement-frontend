@@ -35,6 +35,7 @@ import SettingsCharges from './pagecontent/settings/HospitalCharges/SettingsChar
 import Staff from './pagecontent/HumanResource/index'
 import Ambulance from './pagecontent/Ambulance'
 import MyOpd from './pagecontent/opd/index'
+import MyIpd from './pagecontent/ipd/index'
 export default function Index(props) {
   const [index,setindex]=React.useState({})
     return (
@@ -63,6 +64,7 @@ export default function Index(props) {
 <Route path='/admin/appointment' render={()=><FrontOffice/>}/>
 <Route path='/admin/Opd' render={()=><Opd setindex={setindex}/>}/>
 <Route path='/admin/myOpd' render={()=><MyOpd />}/>
+<Route path='/admin/myIpd' render={()=><MyIpd/>}/>
 <Route path='/admin/Ipd' render={()=><Ipd setindex={setindex}/>}/>
 <Route path='/admin/pathology' render={()=><Pathology1 setindex={setindex}/>}/>
 <Route path='/admin/radiology' render={()=><Radiology1 setindex={setindex}/>}/>

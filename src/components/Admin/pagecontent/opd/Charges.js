@@ -15,7 +15,8 @@ export default function OpdCharges(props)
     const [index,setindex]=React.useState({});
 const column=[{data:'date',title:'Date',render:
 (data,type,row,meta)=>new Date(data)=='Invalid Date'?'':new Date(data).toLocaleDateString()
-},{data:'chargeType',title:'Charge Type'},{data:'chargeCategory',title:'Charge Category'},
+},{data:'chargeType',title:'Charge Type'}
+,{data:'chargeCategory',title:'Charge Category'},
 {data:'standardCharge',title:'Stardard Charge'},
 {data:'tpaCharge',title:'TPA Charge'},
 {data:'appliedCharge',title:'Applied Charge'},

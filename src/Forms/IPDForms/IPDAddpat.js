@@ -3,14 +3,18 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {useFormik} from 'formik';
 import * as  Yup from 'yup';
- import {Getdata,Postdata,PostFormdata} from '../../Network/Server'
- import {toast} from 'react-toastify'
+import {Getdata,Postdata,PostFormdata} from '../../Network/Server'
+import {toast} from 'react-toastify'
 export default (props) =>{
-    
-   const [data,setData]=React.useState({});
-   const [doctor,setDoctor]=React.useState({});
+    const [data, setData] = React.useState({});
+    const [doctor, setdoctor] = React.useState([]);
+    const [tpa, settpa] = React.useState([]);
+    const [bedGroup,setbedGroup]=React.useState([]);
+    const [bed,setbed]=React.useState([]);
+    const [department,setdepartment]=React.useState([]);
     const formik=useFormik({
-    initialValues:
+      enableReinitialize:true,
+    initialValues:props.data||
     {
         patientId:'',
         reference:'',
@@ -19,20 +23,31 @@ export default (props) =>{
         bp:'',
         symptoms:'',
         note:'',
-        appointmentDate:'',
+        admissionDate:'',
         caseType:'',
         casulity:'',
         tpa:'',
-        doctorName:'',
+        doctorId:'',
         creditLimit:'',
         bedGroup:'',
         bedNumber:'',
-        oldpatient:''
+        oldPatient:''
     },
        onSubmit:values=>{console.log(JSON.stringify(values,null,2))
-         Postdata('inpatient/','POST',values).then(data=>toast.success('successfully added', {
-      position: toast.POSITION.TOP_CENTER
-    }))},
+        Postdata('myIpd/add','POST',values).then(data=>{
+          if(data.err){
+            toast.error(
+              data.err,{autoClose:false,
+              
+              }
+            )
+          }
+          else{
+           window.$('#AddipdPatient').modal('hide') 
+          }
+
+        })
+        },
          validationSchema:Yup.object().shape({
              
         reference:Yup.string().required('required'),
@@ -41,7 +56,7 @@ export default (props) =>{
         bp:Yup.number('must be number only').required('required'),
         symptoms:Yup.string().required('required'),
         note:Yup.string().required('required'),
-        appointmentDate:Yup.date().required('required'),
+        admissionDate:Yup.date().required('required'),
         caseType:Yup.string().required('required'),
         casulity:Yup.string().required('required'),
         tpa:Yup.string().required('required'),
@@ -54,18 +69,37 @@ export default (props) =>{
          })
      })
     
-React.useEffect(()=>{
+
     
-    Getdata('/fetchalluser/patient').then(data=>{setData(data);console.log(data)})
-    Getdata('/fetchalluser/doctor').then(data=>{setDoctor(data);console.log(data)})
+    React.useEffect(() => {
+        Getdata("fetchalluser/patient").then(data => {
+          setData(data);
+          console.log(data);
+        });
+     
+        Getdata("organisation/get").then(data => {
+          settpa(data);
+          console.log(data);
+        });
+        Getdata("bedgroup/get").then(data => {
+            setbedGroup(data||[]);
+            console.log(data);
+          });
+        Getdata('department/get').then(data=>setdepartment(data)).catch(err=>console.log(err));
+      
+      }, []);
+      React.useEffect(() => {
+      if(props.data && props.data.department)
+      fetchdoctor(props.data.department)
+      }, [props.data]);
 
 
-
-
-
-},[])
-
-
+      const fetchdoctor=(id)=>{
+        Getdata('humanResource/get/doctor/'+id).then(data=>{setdoctor(data)})
+       }
+       const fetchbed=(id)=>{
+        Getdata('bed/get/bedgroup/'+id+'/0').then(data=>{setbed(data)})
+       }
     return(
         <div class="modal fade" id="AddipdPatient" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document">
@@ -138,9 +172,10 @@ React.useEffect(()=>{
                             <div class="form-group col-md-6">
                                 <label for="inputState">Admission Date <small class="req text-danger"> *</small></label>
                                 <div className="w-100 ">
-                                   <DatePicker autoComplete={false} className="form-control" value={formik.values.appointmentDate} style={{width:'100% !important'}} selected={formik.values.appointmentDate} customInput={<input className="form-control"/>}  onChange={(data)=>formik.setFieldValue('appointmentDate',data)}/>
+                                   <DatePicker autoComplete={'off'} className="form-control" 
+                                   selected={new Date(formik.values.admissionDate)=='Invalid Date'?'':new Date(formik.values.admissionDate)} style={{width:'100% !important'}}  customInput={<input className="form-control"/>}  onChange={(data)=>formik.setFieldValue('admissionDate',data)}/>
                                 </div> 
-                              <span className='text-danger'>{(formik.touched.appointmentDate && formik.errors.appointmentDate)?formik.errors.appointmentDate:''}</span>
+                              <span className='text-danger'>{(formik.touched.admissionDate && formik.errors.admissionDate)?formik.errors.admissionDate:''}</span>
                             </div>
                             <div className="form-group col-md-6">
                                  <label for="case">Case Type</label>
@@ -150,6 +185,7 @@ React.useEffect(()=>{
                              <div className="form-group col-md-6">
                                  <label for="case">Casualty <small class="req text-danger"> *</small></label>
                                  <select id="input" className="form-control" value={formik.values.casulity} onChange={(e)=>formik.setFieldValue('casulity',e.target.value)}>
+                                 <option></option>
                                  <option>Yes</option>
                                  <option>No</option>
                                  </select>
@@ -157,7 +193,8 @@ React.useEffect(()=>{
                              </div>
                              <div className="form-group col-md-6">
                                  <label for="case">Old Patient</label>
-                                 <select id="input" className="form-control" value={formik.values.oldpatient} onChange={(e)=>formik.setFieldValue('oldPatient',e.target.value)}>
+                                 <select id="input" className="form-control" value={formik.values.oldPatient} onChange={(e)=>formik.setFieldValue('oldPatient',e.target.value)}>
+                                 <option></option>
                                  <option>Yes</option>
                                  <option>No</option>
                                  </select>
@@ -165,11 +202,24 @@ React.useEffect(()=>{
                              </div>
                              <div className="form-group col-md-6">
                                  <label for="case">TPA <small class="req text-danger"> *</small></label>
-                                 <select id="input" className="form-control" value={formik.values.tpa} onChange={(e)=>formik.setFieldValue('tpa',e.target.value)}>
-                                 <option>CGHS</option>
-                                 <option>IDBI Federal</option>
-                                 <option>Star Health Insurance</option>
-                                 </select>
+                                 <select
+                          id="input"
+                          className="form-control"
+                          value={formik.values.tpa}
+                          onChange={e =>{
+                            formik.setFieldValue("tpa", e.target.value);
+                       
+                        }
+                          }
+                        >
+                          <option></option>
+                          {(tpa || []).map(item => (
+                            <option key={item.id} value={item.id}>
+                              {item.organisationName}
+                            </option>
+                          ))}
+                        </select>
+                                 
                                  <span className='text-danger'>{(formik.touched.tpa && formik.errors.tpa)?formik.errors.tpa:''}</span>
                              </div>
                              <div className="from-group col-md-6">
@@ -177,40 +227,75 @@ React.useEffect(()=>{
                                  <input type="text" className="form-control" value={formik.values.creditLimit} onChange={(e)=>formik.setFieldValue('creditLimit',e.target.value)}/>
                                  <span className='text-danger'>{(formik.touched.creditLimit && formik.errors.creditLimit)?formik.errors.creditLimit:''}</span>
                              </div>
-                             <div className="from-group col-md-6">
-                                 <label for="doctor">Consultant Doctor</label>
-                                 <select id="input " className="form-control" value={formik.values.doctorId} onChange={(e)=>formik.setFieldValue('doctorId',e.target.value)}>
-                                 {
-                   doctor?  Object.keys(doctor).map(item=><option value={item}>{doctor[item]}</option>):''
-                 } </select>
-                                     <span className='text-danger'>{(formik.touched.consDoctor && formik.errors.consDoctor)?formik.errors.consDoctor:''}</span>
-                             </div>
-                             <div className="form-group col-md-6">
+                             <div className="form-group col-md-12">
                                  <label for="stdcharge">Referenece</label>
                                  <input type="text" className="form-control" value={formik.values.reference} onChange={(e)=>formik.setFieldValue('reference',e.target.value)}/>
                                  <span className='text-danger'>{(formik.touched.reference && formik.errors.reference)?formik.errors.reference:''}</span>
+                             </div>     
+                      <div className="from-group col-md-6 mb-2">
+                        <label for="doctor">
+                          Department
+                          <small class="req text-danger"> *</small>
+                        </label>
+                        <select
+                          id="input"
+                          className="form-control"
+                          value={formik.values.doctorId}
+                          value={formik.values.department} onChange={(e)=>
+                            {fetchdoctor(e.target.value);formik.setFieldValue('department',e.target.value)
+                        
+                          }}
+                        >
+                         <option > Select Department</option>
+   {
+     (department||[]).map(item=><option value={item.id}>{item.name}</option>)
+   }
+                        </select>
+                        <span className="text-danger">
+                          {formik.touched.doctorName && formik.errors.doctorName
+                            ? formik.errors.doctorName
+                            : ""}
+                        </span>
+                      </div>
+                             <div className="from-group col-md-6">
+                                 <label for="doctor">Consultant Doctor</label>
+                                 <select
+                          id="input"
+                          className="form-control"
+                          value={formik.values.doctorId}
+                          onChange={e =>{
+                            formik.setFieldValue("doctorId", e.target.value);
+                           }
+                          }
+                        >
+                           <option value=''> Select Doctor</option>
+  {
+    (doctor||[]).map(data=><option value={data.doctorId}>{data.firstName+' '+data.lastName}</option>)
+  }                      </select>
+                                     <span className='text-danger'>{(formik.touched.consDoctor && formik.errors.consDoctor)?formik.errors.consDoctor:''}</span>
                              </div>
+                           
                              <div className="form-group col-md-12">
                                  <label for="stdcharge">Bed Group<small class="req text-danger"> *</small></label>
-                                 <select id="input" className="form-control" value={formik.values.bedGroup} onChange={(e)=>formik.setFieldValue('bedGroup',e.target.value)}>
-                                 <option selected="select">Select</option>
-                                 <option>VIP Ward-1st Floor</option>
-                                 <option>Private Ward-2nd Floor</option>
-                                 <option>Generic Ward Male-3rd Floor</option>
-                                 <option>Generic Ward Female-3rd Floor</option>
-                                 <option>ICU-Ground Floor</option>
-                                 <option>NICU-1st Floor</option>
+                                 <select id="input" className="form-control" 
+                                 value={formik.values.bedGroup}
+                                  onChange={(e)=>{formik.setFieldValue('bedGroup',e.target.value)
+                                  fetchbed(e.target.value)
+                                  }}>
+                                 <option > Select Bed Group</option>
+   {
+     (bedGroup||[]).map(item=><option value={item.id}>{item.name+'-'+item.floorName}</option>)
+   }
                                  </select>
                                  <span className='text-danger'>{(formik.touched.bedGroup && formik.errors.bedGroup)?formik.errors.bedGroup:''}</span>
                              </div>
                              <div className="from-group col-md-12">
                                  <label for="doctor">Bed Number <small class="req text-danger"> *</small></label>
                                  <select id="input " className="form-control" value={formik.values.bedNumber} onChange={(e)=>formik.setFieldValue('bedNumber',e.target.value)}>
-                                     <option>1</option>
-                                     <option>2</option>
-                                     <option> 3</option>
-                                     <option>4</option>
-                                     </select>
+                                 <option > Select Bed Number</option>
+   {
+     (bed||[]).map(item=><option value={item.id}>{item.id+'-'+item.name}</option>)
+   }                                     </select>
                                      <span className='text-danger'>{(formik.touched.bedNumber && formik.errors.bedNumber)?formik.errors.bedNumber:''}</span>
                                       </div>
                             </div> 

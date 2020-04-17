@@ -1,30 +1,39 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {BrowserRouter} from 'react-router-dom'
+import {NavLink,BrowserRouter} from 'react-router-dom'
 import Table from '../../../../Table'
 import {Getdata,Postdata} from '../../../../../Network/Server'
+import Radiology1 from '../../../../../Forms/Radiology/Radiology'
 import AddMediciniCategory from '../../AddMediciniCategory'
 import DisplayForm from '../../../../../Forms/DisplayForm'
-export default function BedStatus(props)
+import AddBed from '../../../../../Forms/Settings/Bed/AddBed'
+
+export default function Bed(props)
  {
+   
   const [index1,setindex1]=React.useState({medicineCategory:''});
   const [index,setindex]=React.useState({});
+  const [bedGroup,setBedGroup]=React.useState([]);
+  const [bedType,setBedType]=React.useState([]);
   const column=[{data:'',title:'Sl.No',render:( data, type, row, meta ) =>`<b>${meta.row+1}</b>`},
-  {data:'medicineCategory',title:'Medicine Category'},
+  {data:'name',title:'Name'},
+  {data:'bedTypeName',title:'Bed Type'},
+  {data:'bedGroupName',title:'Bed Group'},
+  {data:'isActive',title:'Availability',render:(data,type,row,meta)=>data==0?'available':'not available'},
   {data:'action',title:'Action'}]
     const [dataSrc,setdataSrc]=React.useState([]);
     const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(
       <BrowserRouter>
       <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-light'} data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
      
-      <button onClick={()=>setindex1(rowData)} className={'btn btn-xs btn-light'} data-toggle='modal' data-target='#MedicineCategory'><i className='fa fa-pencil'></i></button>
+      <button onClick={()=>setindex1(rowData)} className={'btn btn-xs btn-light'} data-toggle='modal' data-target='#bed'><i className='fa fa-pencil'></i></button>
       
-      <button onClick={()=>Postdata(`medicineCat/delete/${rowData.id}`,'DELETE',{}).then(mydata=>mydata?setdataSrc(data=>data.filter(item=>item.id!=mydata.id)):'')} className={'btn btn-xs btn-light'} ><i className='fa fa-trash'></i></button>
+      <button onClick={()=>Getdata(`bed/delete/${rowData.id}`).then(mydata=>mydata?setdataSrc(data=>data.filter(item=>item.id!=mydata)):'')} className={'btn btn-xs btn-light'} ><i className='fa fa-trash'></i></button>
      
       </BrowserRouter>,td)}]
     
     React.useEffect(()=>{
-        Getdata('medicineCat/get').then(data=>setdataSrc(data));
+        Getdata('bed/get').then(data=>setdataSrc(data));
       },[])
 
 
@@ -33,17 +42,17 @@ export default function BedStatus(props)
         <nav aria-label="breadcrumb" >
   <ol class="p-2 px-5" style={{backgroundColor:'#3f51b5'}} >
   <li class="text-white font-weight-bold d-sm-flex justify-content-between align-items-baseline" aria-current="page">
-      <h6 className='text-sm' style={{letterSpacing:'1px',lineHeight:'100%'}}>Bed Status</h6>
+      <h6 className='text-sm' style={{letterSpacing:'1px',lineHeight:'100%'}}>Bed status</h6>
   <div className='btn-group p-0'>
     <button className={'btn btn-xs  btn-light ml-1 ' } style={{marginLeft:'0.5px !important',opacity:0}} data-toggle="modal" data-target="sdf">dfgh</button>
-                         </div>
+             </div>
   </li>
   </ol>
   </nav>
 
   <div className='px-5 pb-5'>
     <Table id='medicineCategory' col={column} dataSrc={dataSrc} columnDefs={columnDefs}/>
-    <AddMediciniCategory data={index1} setdataSrc={setdataSrc}/>
+    <AddBed data={index1} setdataSrc={setdataSrc} bedType={bedType} bedGroup={bedGroup}/>
     <DisplayForm data={index}/>
   </div>
         </>

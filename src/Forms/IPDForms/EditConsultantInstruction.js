@@ -13,12 +13,12 @@ export default (props)=> {
     });
   },[])
     return (
-        <div class="modal fade " id="addConsultantInstruction" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade " id="editConsultantInstruction" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
          <div class="modal-content" role="document"> 
     
     <div className="card ">
-      <div class="card-header text-white bg-primary "> Add Consultant Instruction 
+      <div class="card-header text-white bg-primary "> edit Consultant Instruction 
         <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button> 
@@ -27,7 +27,7 @@ export default (props)=> {
     <div className="card-body">  
       <div className="border-bottom p-2">
       <Formik
-      initialValues={{ ipdId:props.ipdId,
+      initialValues={props.data||{ ipdId:props.ipdId,
     consultantInstruction:[{appliedDate:'',doctorId:'',instruction:'',instructionDate:new Date(),ipdId:patientId}],
     
     }}
@@ -36,10 +36,12 @@ export default (props)=> {
         Postdata('myipdconsultantregister/add','POST',values.consultantInstruction).then(data=>{
           
           
-          props.setdataSrc(item=>[...item,...(data||[]).map(item=>{return {...item,doctorName:mydata[item.doctorId]}})])
-        window.$('#addConsultantInstruction').modal('hide')
-        })
-     
+            props.setdataSrc(item=>item.map(item1=>{if(item1.id==data.id){
+                return {...data,doctorName:mydata[item.doctorId]}
+            }
+                return item}))
+          window.$('#editConsultantInstruction').modal('hide')
+          })  
     }
       }>{({values,getFieldProps,handleSubmit,setFieldValue})=><form>
       
@@ -88,9 +90,7 @@ export default (props)=> {
                             } onChange={(date)=>setFieldValue(`consultantInstruction.${index}.instructionDate`,date)}/>
                          </td>
                           
-                  {index==0? <td onClick={()=>arrayHelpers.push({appliedDate:'',doctorId:props.doctorId,instruction:'',instructionDate:new Date(),ipdId:patientId})}><i className='fa fa-plus fa-lg text-primary'></i></td>
-: <td onClick={() => arrayHelpers.remove(index)}><i className='fa fa-close fa-lg text-danger'></i></td>
-}
+                 
                        </tr>)
                        
                        

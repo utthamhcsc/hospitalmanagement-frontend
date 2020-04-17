@@ -1,6 +1,6 @@
 //const baseurl='http://192.168.0.121:8080/';
-const baseurl='http://hospitalapp.eba-pp3qspjy.ap-southeast-1.elasticbeanstalk.com/';
-//const baseurl='http://localhost:8080/'
+//const baseurl='http://hospitalapp.eba-pp3qspjy.ap-southeast-1.elasticbeanstalk.com/';
+const baseurl='http://localhost:8080/'
 
 const Getdata=async(url='')=>
 {
