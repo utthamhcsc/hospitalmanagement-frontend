@@ -260,7 +260,7 @@ return(
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label classname='text-xs' for="exampleInputEmail1">Date Of Birth</label><small class="req"> *</small>
-                                                <ReactDatePicker selected={formik.values.dateOfBirth} className="form-control" showYearDropdown scrollableYearDropdown onChange={(e)=>formik.setFieldValue('dateOfBirth',e)}/>
+                                                <ReactDatePicker minDate={new Date()} selected={formik.values.dateOfBirth} className="form-control" showYearDropdown scrollableYearDropdown onChange={(e)=>formik.setFieldValue('dateOfBirth',e)}/>
                                                 <span class="text-danger">{formik.touched.dateOfBirth?formik.errors.dateOfBirth:''}</span>
                                             </div>
                                         </div>
@@ -270,7 +270,7 @@ return(
                                         <div class="col-md-3">
                                             <div class="form-group">
                                                 <label classname='text-xs' for="exampleInputEmail1">Date Of Joining</label>
-                                                <ReactDatePicker selected={formik.values.dateOfJoining} className="form-control" showYearDropdown scrollableYearDropdown onChange={(e)=>formik.setFieldValue('dateOfJoining',e)}/>
+                                                <ReactDatePicker minDate={new Date()} selected={formik.values.dateOfJoining} className="form-control" showYearDropdown scrollableYearDropdown onChange={(e)=>formik.setFieldValue('dateOfJoining',e)}/>
                                                 <span class="text-danger">{formik.touched.dateOfJoining?formik.errors.dateOfJoining:''}</span>
                                             </div>
                                         </div>

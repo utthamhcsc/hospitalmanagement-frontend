@@ -27,9 +27,20 @@ export default ()=> {
         
             PostFormdata('humanResource/add','POST',values).then(data=>{
                 console.log(data)
-                toast.success('successfully added', {
-         position: toast.POSITION.TOP_CENTER
-       })})
+                if(data.err){
+                    toast.error(data.err, {
+                        autoClose:false,
+                        position: toast.POSITION.TOP_CENTER
+                        
+                      }) 
+                }
+                else{
+                    formik.resetForm();
+                    toast.success('successfully added', {
+                        position: toast.POSITION.TOP_CENTER
+                      })
+                }
+           })
     },
                 })
 

@@ -24,7 +24,7 @@ import Myshedule from './pagecontent/MySchedule'
 import { Getdata } from '../../Network/Server'
 import OpdPatient from './pagecontent/OpdPatient'
 import Addprescription from '../../Forms/Addprescription'
-import Profile from './pagecontent/Profile'
+import Profile from './pagecontent/Profile/Profile'
 import AddDiagnosis from './pagecontent/AddDiagnosis'
 import ReactTooltip from 'react-tooltip'
 import OpdCharges from './pagecontent/OpdCharges'
@@ -33,8 +33,8 @@ import IpdPatient from './pagecontent/IpdPatient'
 import IpdCharges from './pagecontent/ipdCharges'
 import IpdPrescription from './pagecontent/IpdPrescription'
 import  TestReport from './pagecontent/TestReport'
-
-
+import MyIpd from './pagecontent/ipd/index'
+import MyOpd from './pagecontent/opd/index'
 export default function Index() 
 {
   const [index,setindex]=React.useState({})
@@ -69,9 +69,12 @@ export default function Index()
         }} >
        <section className="content px-4 mt-4 rounded" >
        <div className="card shadow">
-       <Route path='/doctor/appointment' render={()=><Appointment setindex={setindex} doctorId={doctorId}/>}/>
-       <Route path='/doctor/Opd' render={()=><Opd setindex={setindex} doctorId={doctorId}/>}/>
-       <Route path='/doctor/Ipd'  render={()=><Ipd setindex={setindex} doctorId={doctorId}/>}/>
+       <Route path='/doctor/myOpd' render={()=><MyOpd />}/>
+<Route path='/doctor/myIpd' render={()=><MyIpd/>}/>
+         
+         <Route path='/doctor/appointment' render={()=><Appointment setindex={setindex} doctorId={doctorId}/>}/>
+       <Route path='/doctor/Opd' render={()=><MyOpd setindex={setindex} doctorId={doctorId}/>}/>
+       <Route path='/doctor/Ipd'  render={()=><MyIpd setindex={setindex} doctorId={doctorId}/>}/>
        <Route path='/doctor/pathology' render={()=><Pathology1 setindex={setindex} doctorId={doctorId}/>}/>
        <Route path='/doctor/radiology' render={()=><Radiology1 setindex={setindex} doctorId={doctorId}/>}/>
        <Route path='/doctor/pharmacy' render={()=><Pharmacy1 setindex={setindex} doctorId={doctorId}/>}/>

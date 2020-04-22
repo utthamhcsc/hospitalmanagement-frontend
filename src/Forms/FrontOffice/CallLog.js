@@ -80,6 +80,7 @@ export default (props) =>
                          <label for="inputState">Date</label>
                             <div className=" ">
                                <DatePicker 
+                               minDate={new Date()}
                                className="form-control "  
                                style={{width:'100% !important'}} 
                                selected={new Date(formik.values.date)=='Invalid Date'?'':new Date(formik.values.date)} 
@@ -104,7 +105,9 @@ export default (props) =>
                        <div className="form-group col-md-6">
                          <label for="inputState">Next Follow Up Date</label>
                             <div className="w-100 ">
-                               <DatePicker className="form-control "  style={{width:'100% !important'}} 
+                               <DatePicker 
+                               minDate={new Date()}
+                               className="form-control "  style={{width:'100% !important'}} 
                                selected={new Date(formik.values.nextFallowUpDate)=='Invalid Date'?'':new Date(formik.values.nextFallowUpDate)} 
                                customInput={<input className="form-control"/>}  onChange={(data)=>formik.setFieldValue('nextFallowUpDate',data)}/>
                             </div>

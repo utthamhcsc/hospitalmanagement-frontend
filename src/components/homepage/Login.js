@@ -45,6 +45,7 @@ yup.object().shape({
       else
       {
         toast.error(data.msg.msg, {
+          autoClose:false,
         position: toast.POSITION.TOP_CENTER
         }); 
       }

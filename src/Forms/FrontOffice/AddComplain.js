@@ -116,7 +116,9 @@ return(
                     <div class="form-group col-md-6">
                        <label for="inputState">Date</label>
                         <div className="w-100 ">
-                           <DatePicker autoComplete={'off'} 
+                           <DatePicker
+                           minDate={new Date()}
+                           autoComplete={'off'} 
                            selected={new Date(formik.values.date)=='Invalid Date'?'':new Date(formik.values.date)} 
                            name='date' onChange={(e)=>formik.setFieldValue('date',e)}/>
                            

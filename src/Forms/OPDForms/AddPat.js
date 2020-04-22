@@ -122,6 +122,7 @@ export default props => {
                   className="form-group col-md-4 "
                   {...formik.getFieldProps("patientId")}
                 >
+                    <option></option>
                   {data
                     ? Object.keys(data).map(item => (
                         <option value={item}>{data[item]}</option>

@@ -11,7 +11,7 @@ export default function Appointment(props)
   const [index,setindex]=React.useState({});
   const [index1,setindex1]=React.useState({});
     const column=[{data:'aptId',title:'AppointmentNo'},
-    {data:'date',title:'Date'},
+    {data:'date',title:'Date',render:(data,type,row,meta)=>new Date(data)=='Invalid Date'?'':new Date(data).toLocaleDateString()},
    // {data:'doctor',title:'Doctor'},
     {data:'appointmentStatus',title:'Appointment Status'},
     {data:'message',title:'Message'},
@@ -41,13 +41,18 @@ export default function Appointment(props)
 
  }
  const nextnDaysData=(n)=>{
-    //(endD >= startdate && startD <= enddate);
-    let no=n?n:0
-    const previusDate=new Date(new Date().setDate(new Date().getDate()+no));
-    const today=new Date();
-    setdataSrc(data=> mydata.filter((item)=>(new Date(item.date)<=previusDate && new Date(item.date)>=today)));
-    //console.log(dataSrc)
- }
+  let no=n?n:0
+  const previusDate=new Date(new Date().setDate(new Date().getDate()+no));
+  console.log(previusDate)
+  const today=new Date();
+  console.log(today)
+  setdataSrc(data=> mydata.filter((item)=>(previusDate.getDate()>=new Date(item.date).getDate() && today.getDate()<=new Date(item.date).getDate())));
+console.log(mydata.filter((item)=>{
+  console.log(new Date(item.date))
+  console.log(previusDate>=new Date(item.date) && today<=new Date(item.date))
+  return (previusDate>=new Date(item.date) && today<=new Date(item.date))
+}))
+}
     return (
     <>
     <nav aria-label="breadcrumb" >
@@ -57,7 +62,7 @@ export default function Appointment(props)
     <div className='btn-group'>
     <button className={'btn btn-xs btn-light ml-1 ' } style={{marginLeft:'0.5px !important',opacity:0}} data-toggle="modal" data-target="sdf">dfgh</button>
     <button data-toggle="modal" onClick={()=>setindex1({})} data-target="#bookappointment" class="btn btn-light text-xs  btn-xs mr-2"> <i class="fa fa-plus"></i> Add Appointment</button>               
-    <button onClick={()=>setdataSrc(data=>mydata.filter(item=>(new Date(item.date).getMonth()==new Date().getMonth() && new Date(item.date).getFullYear()===new Date().getFullYear() && new Date(item.date).getDate()===new Date().getDate()+1 )))}  class="btn btn-light text-xs  btn-xs mr-2"> Today</button>               
+    <button onClick={()=>setdataSrc(data=>mydata.filter(item=>(new Date(item.date).getMonth()==new Date().getMonth() && new Date(item.date).getFullYear()===new Date().getFullYear() && new Date(item.date).getDate()===new Date().getDate() )))}  class="btn btn-light text-xs  btn-xs mr-2"> Today</button>               
     <button  onClick={()=>nextnDaysData(7)}  class="btn btn-light text-xs  btn-xs mr-2">Next 7 Days</button>               
     <button onClick={()=>nextnDaysData(30)} class="btn btn-light text-xs  btn-xs mr-2">Next 30 Days</button>               
     <button data-toggle='dropdown' className='btn btn-xs dropdown-toggle btn-light'>All</button>
@@ -75,7 +80,7 @@ export default function Appointment(props)
   <div className='px-5 pb-5'>
     <Table id='appointment' col={column} dataSrc={dataSrc} columnDefs={columnDefs}/>
     <DisplayForm data={index}/>
-    <BookMyAppointment data={index1}/>
+    <BookMyAppointment data={index1} setdataSrc={setdataSrc}/>
   </div>
         </>
     )

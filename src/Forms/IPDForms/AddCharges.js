@@ -118,6 +118,7 @@ export default props => {
                           Date <small class="req"> *</small>{" "}
                         </div>
                         <ReactDatePicker
+                        minDate={new Date()}
                           className="form-control"
                           selected={new Date(formik.values.date)=='Invalid Date'?'':new Date(formik.values.date)}
                           onChange={e => formik.setFieldValue("date", e)}

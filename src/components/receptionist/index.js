@@ -4,8 +4,8 @@ import Sidebar from './sidebar/sidebar'
 import Navbar from './navbar/Navbar'
 import FrontOffice from './pagecontent/FrontOffice'
 import Radiology1 from './pagecontent/Radiology'
-import Opd from './pagecontent/Opd'
-import Ipd from './pagecontent/Ipd'
+import MyOpd from './pagecontent/opd/index'
+import MyIpd from './pagecontent/ipd/index'
 import Pathology1 from './pagecontent/Pathology'
 import Pharmacy1 from './pagecontent/Pharmacy'
 import AddVisitor from '../../Forms/FrontOffice/AddVisitor'
@@ -18,7 +18,7 @@ import PostalReceive from './pagecontent/PostalReceive'
 import PostalDispatch from './pagecontent/PostalDispatch'
 import Visitor from './pagecontent/Visitor'
 import Discharge from './pagecontent/Discharge'
-import Profile from './pagecontent/Profile'
+import Profile from './pagecontent/Profile/Profile'
 import IpdCharges from './pagecontent/ipdCharges'
 import IpdDiagnosis from './pagecontent/IpdDiagnosis'
 import IpdPrescription from './pagecontent/IpdPrescription'
@@ -45,8 +45,11 @@ let user=JSON.parse(localStorage.getItem('user'))
     <section className="content px-4 mt-4" >
       <div className="card shadow">
 <Route path='/receptionist/appointment' render={()=><FrontOffice />}/>
-<Route path='/receptionist/Opd' render={()=><Opd setindex={setindex}/>}/>
-<Route path='/receptionist/Ipd' render={()=><Ipd setindex={setindex}/>}/>
+
+<Route path='/receptionist/MyOpd' render={()=><MyOpd setindex={setindex}/>}/>
+<Route path='/receptionist/MyIpd' render={()=><MyIpd setindex={setindex}/>}/>
+<Route path='/receptionist/Opd' render={()=><MyOpd setindex={setindex}/>}/>
+<Route path='/receptionist/Ipd' render={()=><MyIpd setindex={setindex}/>}/>
 <Route path='/receptionist/pathology' render={()=><Pathology1 setindex={setindex}/>}/>
 <Route path='/receptionist/radiology' render={()=><Radiology1 setindex={setindex}/>}/>
 <Route path='/receptionist/pharmacy' render={()=><Pharmacy1 setindex={setindex}/>}/>

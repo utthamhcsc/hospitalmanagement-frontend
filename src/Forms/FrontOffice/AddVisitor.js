@@ -138,7 +138,9 @@ return(
     <div class="form-group col-md-6">
       <label for="inputState" className="text-sm">Date</label>
       <div className="w-100 ">
-          <DatePicker autoComplete='off' className="form-control "  style={{width:'100% !important'}} 
+          <DatePicker
+          minDate={new Date()}
+          autoComplete='off' className="form-control "  style={{width:'100% !important'}} 
           selected={new Date(formik.values.date)=='Invalid Date'?
           '':new Date(formik.values.date)} 
                         

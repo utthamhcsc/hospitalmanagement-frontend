@@ -96,6 +96,7 @@ props.setdataSrc(item=>(item||[]).map(item1=>item1.id==data.id?data:item1))
                   <div className='col-md-6 form-group'>
                     <label>Date</label> 
                     <ReactDatePicker 
+                    minDate={new Date()}
                     autoComplete='off'
                     className='form-control' 
                     selected={new Date(formik.values.date)=='Invalid Date'?'':new Date(formik.values.date)}

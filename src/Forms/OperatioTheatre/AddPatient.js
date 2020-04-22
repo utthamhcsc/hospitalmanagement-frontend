@@ -140,7 +140,9 @@ const formik=useFormik({
                            <div className="form-group col-md-6">
                              <div>Operation Date</div>
                              <div className="w-100 ">
-                                   <DatePicker className="form-control" value={formik.values.operationDate} style={{width:'100% !important'}} selected={formik.values.operationDate} customInput={<input className="form-control"/>}  onChange={(data)=>formik.setFieldValue('operationDate',data)}/>
+                                   <DatePicker 
+                                   minDate={new Date()}
+                                   className="form-control" value={formik.values.operationDate} style={{width:'100% !important'}} selected={formik.values.operationDate} customInput={<input className="form-control"/>}  onChange={(data)=>formik.setFieldValue('operationDate',data)}/>
                                 </div>
                                 <span className='text-danger'>{(formik.touched.operationDate && formik.errors.operationDate)?formik.errors.operationDate:''}</span>
                            </div>

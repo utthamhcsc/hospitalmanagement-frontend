@@ -4,8 +4,8 @@ import Sidebar from './sidebar/sidebar'
 import Navbar from './navbar/Navbar'
 import Appointment from './pagecontent/Appointment'
 import Radiology1 from './pagecontent/Radiology'
-import Opd from './pagecontent/Opd'
-import Ipd from './pagecontent/Ipd'
+import Opd from './pagecontent/opd/index'
+import Ipd from './pagecontent/ipd/index'
 import Pathology1 from './pagecontent/Pathology'
 import Pharmacy1 from './pagecontent/Pharmacy'
 import BookMyAppointment from './pagecontent/bookPatientAppointment'
@@ -20,7 +20,6 @@ import OperatioTheatre from './pagecontent/OperationTheatre'
 import Ambulance from './pagecontent/Ambulance'
 import BloodBank from './pagecontent/BloodBank'
 import Profile from './Profile'
-import { Getdata } from '../../Network/Server'
 import IpdCharges from './pagecontent/ipdCharges'
 import IpdPatient from './pagecontent/IpdPatient'
 import IpdPrescription from './pagecontent/IpdPrescription'
@@ -28,12 +27,11 @@ import IpdPrescription from './pagecontent/IpdPrescription'
 import OpdBill from './pagecontent/OpdBill'
 import OpdCharges from './pagecontent/OpdCharges'
 import OpdPatient from './pagecontent/OpdPatient'
-import Opdpatient from './pagecontent/OpdPatient'
 export default function Index(props) 
 {
   const [index,setindex]=React.useState({})
   
-  const [patientId,setPatientId]=React.useState('USER-20200306125416');
+  const [patientId,setPatientId]=React.useState(window.localStorage.getItem('userId'));
   const [patient,setPatient]=React.useState({
     patientId:'USER-20200306125416',
        address:'asdfghj',
@@ -65,9 +63,12 @@ export default function Index(props)
         }} >
        <section className="content px-4 mt-4" >
        <div className="card shadow">
-       <Route path='/patient/appointment' render={()=><Appointment setindex={setindex} patientId={patientId}/>}/>
-       <Route path='/patient/Opd' render={()=><Opdpatient setindex={setindex} patientId={patientId}/>}/>
+       <Route path='/patient/appointment' render={()=><Appointment/>}/>
+       <Route path='/patient/Opd' render={()=><Opd setindex={setindex} patientId={patientId}/>}/>
        <Route path='/patient/Ipd' render={()=><Ipd setindex={setindex} patientId={patientId}/>}/>
+       <Route path='/patient/MyOpd' render={()=><Opd setindex={setindex} patientId={patientId}/>}/>
+       <Route path='/patient/MyIpd' render={()=><Ipd setindex={setindex} patientId={patientId}/>}/>
+      
        <Route path='/patient/pathology' render={()=><Pathology1 setindex={setindex} patientId={patientId}/>}/>
        <Route path='/patient/radiology' render={()=><Radiology1 setindex={setindex} patientId={patientId}/>}/>
        <Route path='/patient/pharmacy' render={()=><Pharmacy1 setindex={setindex} patientId={patientId}/>}/>
@@ -89,8 +90,6 @@ export default function Index(props)
        <Route path='/patient/diagnosis/:patientId' render={()=><Diagnosis />}/>
        <Route path='/patient/patient/charges/:patientId' render={()=><OpdCharges />}/>
        <Route path='/patient/patient/bill/:patientId' render={()=><OpdBill/>}/>
-  
-       <BookMyAppointment data={index} patientId={patientId}/>
      <Profile data={patient}/>
      <DisplayForm data={index}/>
         </div>

@@ -172,7 +172,9 @@ export default (props) =>{
                             <div class="form-group col-md-6">
                                 <label for="inputState">Admission Date <small class="req text-danger"> *</small></label>
                                 <div className="w-100 ">
-                                   <DatePicker autoComplete={'off'} className="form-control" 
+                                   <DatePicker 
+                                   minDate={new Date()}
+                                   autoComplete={'off'} className="form-control" 
                                    selected={new Date(formik.values.admissionDate)=='Invalid Date'?'':new Date(formik.values.admissionDate)} style={{width:'100% !important'}}  customInput={<input className="form-control"/>}  onChange={(data)=>formik.setFieldValue('admissionDate',data)}/>
                                 </div> 
                               <span className='text-danger'>{(formik.touched.admissionDate && formik.errors.admissionDate)?formik.errors.admissionDate:''}</span>

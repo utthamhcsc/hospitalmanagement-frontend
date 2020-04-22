@@ -61,6 +61,7 @@ console.log(d)
                      <div className='form-group'>
                      <label>Date</label>
                        <ReactDatePicker 
+                       minDate={new Date()}
                        className='form-control'
                        selected={new Date(formik.values.date)=='Invalid Date'?'':new Date(formik.values.date)}
                        

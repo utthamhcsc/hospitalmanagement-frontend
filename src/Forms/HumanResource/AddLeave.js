@@ -48,7 +48,9 @@ React.useEffect(()=>{
                      <div className='col-md-6'>
                      <div className='form-group'>
                        <label>Apply Date</label>
-                       <ReactDatePicker  className='form-control' 
+                       <ReactDatePicker  
+                       minDate={new Date()}
+                       className='form-control' 
                        selected={new Date(formik.values.applyDate)=='Invalid Date'?
                        new Date():new Date(formik.values.applyDate)} 
                         
@@ -72,7 +74,8 @@ React.useEffect(()=>{
                      <div className='col-md-6'>
                      <div className='form-group'>
                        <label>From Date</label>
-                       <ReactDatePicker  className='form-control' 
+                       <ReactDatePicker 
+                       minDate={new Date()} className='form-control' 
                      selected={new Date(formik.values.fromDate)=='Invalid Date'?new Date():new Date(formik.values.fromDate)} 
                       onChange={e=>formik.setFieldValue('fromDate',e)}/>
                      </div>
@@ -80,7 +83,9 @@ React.useEffect(()=>{
                      <div className='col-md-6'>
                      <div className='form-group'>
                        <label>To Date</label>
-                       <ReactDatePicker  className='form-control' 
+                       <ReactDatePicker 
+                       minDate={new Date()}
+                       className='form-control' 
                         selected={new Date(formik.values.toDate)=='Invalid Date'?
                         new Date():new Date(formik.values.toDate)} 
                         
