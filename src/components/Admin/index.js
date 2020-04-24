@@ -36,6 +36,7 @@ import Staff from './pagecontent/HumanResource/index'
 import Ambulance from './pagecontent/Ambulance'
 import MyOpd from './pagecontent/opd/index'
 import MyIpd from './pagecontent/ipd/index'
+import Records from './pagecontent/Records'
 export default function Index(props) {
   const [index,setindex]=React.useState({})
     return (
@@ -49,7 +50,7 @@ export default function Index(props) {
       backgroundRepeat: 'no-repeat'
     }} >
     <section className="content px-4 mt-4" >
-      
+ <Route path='/admin/records' render={()=><Records/>} />     
 <Route path='/admin/humanResource' render={()=><Staff/>}/>       
 <Route path='/admin/settings/bed' render={()=><SettingsBed/>}/>
 <Route path='/admin/settings/humanResource' render={()=><HumanResourceSetting/>}/>

@@ -77,12 +77,12 @@ return(
            total:0,
            discount:0,
           tax:0,
-          netamount:0
+          netAmount:0
    }}
   // validationSchema={myvalidation}
    onSubmit={(values)=>
    {Postdata('pharmacyBillBasic/add','POST',values).then(data=>console.log(data))
-  // console.log(values)
+   console.log(values)
    }}>{({values,handleChange,setFieldValue,handleSubmit,errors,touched})=>(<>
         <div class=" card-header form-inline bg-primary p-2  border-0">
         
