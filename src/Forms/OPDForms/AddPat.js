@@ -247,7 +247,7 @@ export default props => {
                             style={{ width: "100% !important" }}
                             selected={new Date(formik.values.appointmentDate)=='Invalid Date'?'':new Date(formik.values.appointmentDate)}
                             onChange={data =>
-                              formik.setFieldValue("appointmentDate", new Date(data).toLocaleDateString())
+                              formik.setFieldValue("appointmentDate", data)
                             }
                           />
                         </div>

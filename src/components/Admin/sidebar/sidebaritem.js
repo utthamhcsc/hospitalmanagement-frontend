@@ -111,10 +111,10 @@ return (
                     <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to='/admin/records/pharmacybillreport'><i class="text-xs fas fa-angle-right"></i> Pharmacy Bill Report</NavLink></li>
                     
                     <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to='/admin/records/appointmentreport'><i class="text-xs fas fa-angle-right"></i> Appointment Report</NavLink></li>
-                    <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/patient/opd_report"><i class="text-xs fas fa-angle-right"></i> OPD Report</NavLink></li>
-                    <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/patient/ipdreport"><i class="text-xs fas fa-angle-right"></i> IPD Report</NavLink></li>
-                    <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/patient/dischargepatientReport"><i class="text-xs fas fa-angle-right"></i> Discharged Patient</NavLink></li>
-                    <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/pathology/pathologyreport"><i class="text-xs fas fa-angle-right"></i> Pathology Patient Report</NavLink></li>
+                    <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/admin/records/opdreport"><i class="text-xs fas fa-angle-right"></i> OPD Report</NavLink></li>
+                    <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/admin/records/ipdreport"><i class="text-xs fas fa-angle-right"></i> IPD Report</NavLink></li>
+                    <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/admin/records/dischargereport"><i class="text-xs fas fa-angle-right"></i> Discharged Patient</NavLink></li>
+                    <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/admin/records/expiryreport"><i class="text-xs fas fa-angle-right"></i> Expiry Medicine Report</NavLink></li>
                     <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/radio/radiologyreport"><i class="text-xs fas fa-angle-right"></i> Radiology Patient Report</NavLink></li>
                     <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/operationtheatre/otreport"><i class="text-xs fas fa-angle-right"></i> OT Report</NavLink></li>
                     <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/vehicle/ambulancereport"><i class="text-xs fas fa-angle-right"></i> Ambulance Report</NavLink></li>

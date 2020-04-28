@@ -45,7 +45,7 @@ export default (prop)=>{
               className:'btn btn-primary btn-xs py-0 '
             }
         ],
-     responsive:prop.responsive?false:true
+     responsive:false
      
     
 
@@ -60,7 +60,7 @@ export default (prop)=>{
 
 <div >
 
-<table id={prop.id} className={`table table-bordered table-striped table-hover `} style={{width:'100%'}}>
+<table id={prop.id} className={`table table-bordered table-striped table-hover table-responsive`} style={{width:'100%'}}>
   <thead className=''>
            {<tr>
                 {prop.col.map(

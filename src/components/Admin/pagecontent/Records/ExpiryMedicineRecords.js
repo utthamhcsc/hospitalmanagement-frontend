@@ -8,6 +8,7 @@ import filter from './FilterData'
 import { useFormik } from 'formik';
 import ViewBill from '../../../../Forms/Pharmacy/ViewBill';
 import DisplayForm from '../../../../Forms/DisplayForm';
+import RecordsTable from './RecordsTable';
 export default function AppointmentReport() {
     const [data,setData]=React.useState({});
     const [index1,setindex1]=React.useState({});
@@ -19,20 +20,15 @@ export default function AppointmentReport() {
           doctorId:''
       },
       onSubmit:v=>{
-          console.log(v.type)
+          console.log(v)
           if(v.type=='all'){
-              if(v.doctorId==''){
-            Getdata('myappointment/get').then(data=>{setdataSrc(data);
+             
+            Getdata('purchaseMedicine/getall').then(data=>{setdataSrc(data);
                 console.log(data)
-                });}
-                else{
-                   Getdata('myappointment/get/doctor/'+v.doctorId).then(data=>{setdataSrc(data);
-                console.log(data)
-                }); 
-                }
+                });
           }
           else{
-            PostFormdata('myappointment/getbyDate','POST',{doctorId:v.doctorId||'empty',fromDate:v.fromDate.toJSON(),toDate:v.toDate.toJSON()}).then(data=>{setdataSrc(data);
+            PostFormdata('purchaseMedicine/getBydate','POST',{fromDate:v.fromDate.toJSON(),toDate:v.toDate.toJSON()}).then(data=>{setdataSrc(data);
                 console.log(data)
                 });
           }
@@ -40,29 +36,24 @@ export default function AppointmentReport() {
   })
 const [show,setshow]=React.useState(false)
 const [index,setindex]=React.useState({});
-    const column=[{data:'patientName',title:'Patient Name'},
-    {data:'aptId',title:'AppointmentNo'},
-    {data:'date',title:'Date',
-    render:( data, type, row, meta )=>new Date(data).toLocaleDateString()},
-    {data:'mobileNumber',title:'Mobile Number'},
-    {data:'gender',title:'Gender'},
-    {data:'appointmentStatus',title:'Appointment Status'}
-    ,{data:'action',title:'Action'}]
+    const column=[{data:'medicineName',title:'Medicine Name'},
+    {data:'medicineCategory',title:'Medicine Category'},
+    {data:'medicineGroup',title:'Medicine Group'},
+    {data:'batchNum',title:'Batch Num'},
+    {data:'companyName',title:'Company Name'},
+    {data:'supplier',title:'Supplier'},
+    {data:'expiryDate',title:'Expiry Date',render:(data,type,row,meta)=>new Date(data)=='Invalid Date'?'':new Date(data).toLocaleDateString()},
+    {data:'quantity',title:'Quantity'},
+   
+]
     const [dataSrc,setdataSrc]=React.useState([]);
-  const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(
-  <BrowserRouter>
-  <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-warning'} data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
- 
-  </BrowserRouter>,td)},{targets:-2,responsivePriority:2,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(<BrowserRouter>
-  <button   className={`btn btn-xs dropdown ${cellData=='pending'?'btn-danger':cellData=='cancel'?'btn-dark':'btn-success'}`}>{cellData}</button>
- 
-  </BrowserRouter>,td)}]
+  const columnDefs=[]
   
 React.useEffect(()=>{
-    Getdata("fetchalluser/doctor").then(data => {
-        setData(data);
-        console.log(data);
-      });
+    // Getdata("fetchalluser/doctor").then(data => {
+    //     setData(data);
+    //     console.log(data);
+    //   });
 },[])
 
 const change=(val)=>{
@@ -81,10 +72,10 @@ formik.setValues({...formik.values,fromDate,toDate,type:val})
     return (
         <>
         <div className='row bg-primary p-2 px-3'>
-             Appointment Report
+             Expiry Medicine Report
         </div>
         <div className='row border py-2'>
-           <div className="col-md-3">
+           <div className="col-md-4">
                <div className="form-group ">
                    <label htmlFor="id1">Search Type</label>
                    <select id="id1" style={{ width: "100%",padding:'2px' }} onChange={change}>
@@ -104,22 +95,12 @@ formik.setValues({...formik.values,fromDate,toDate,type:val})
                    </select>
                           </div>
            </div>
-           <div className="col-md-3">
-               <div className="form-group ">
-                   <label htmlFor="id1">Select Doctor</label>
-                   <select id="id1" style={{ width: "100%",padding:'2px' }} onChange={e=>formik.setFieldValue('doctorId',e.target.value)}>
-                   <option value=''>select </option>
-                   {
-                   data?  Object.keys(data).map(item=><option value={item}>{data[item]}</option>):''
-                 }
-                   </select>
-                          </div>
-           </div>
+           
           
            {
                show?
                <>
-           <div className="col-md-3">
+           <div className="col-md-4">
            <div className="form-group ">
                    <label htmlFor="id1">Date From</label>
                    <ReactDatePicker 
@@ -128,7 +109,7 @@ formik.setValues({...formik.values,fromDate,toDate,type:val})
                    showMonthDropdown showYearDropdown className='w-100'/>
                </div>
                </div>
-               <div className="col-md-3">
+               <div className="col-md-4">
                <div className="form-group ">
                    <label htmlFor="id1">Date To</label>
                    <ReactDatePicker
@@ -147,8 +128,9 @@ formik.setValues({...formik.values,fromDate,toDate,type:val})
            </div>
            </div>
            <div className='row'>
+             
                <div className="col-md-12 border border-top-0 py-3">
-               <Table id='pharmacyBill' col={column} dataSrc={dataSrc} columnDefs={columnDefs}/>
+               <RecordsTable id='pharmacyBill' responsive={true} col={column} dataSrc={dataSrc} columnDefs={columnDefs}/>
                <DisplayForm data={index}/>
                </div>
            </div>

@@ -252,7 +252,7 @@ export default props => {
                             selected={new Date(formik.values.appointmentDate)=='Invalid Date'?'':new Date(formik.values.appointmentDate)}
                            minDate={new Date()}
                             onChange={data =>
-                              formik.setFieldValue("appointmentDate", new Date(data).toLocaleDateString())
+                              formik.setFieldValue("appointmentDate", data)
                             }
                           />
                         </div>

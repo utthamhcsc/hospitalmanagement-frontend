@@ -8,7 +8,8 @@ import filter from './FilterData'
 import { useFormik } from 'formik';
 import ViewBill from '../../../../Forms/Pharmacy/ViewBill';
 import DisplayForm from '../../../../Forms/DisplayForm';
-export default function AppointmentReport() {
+import RecordsTable from './RecordsTable';
+export default ()=> {
     const [data,setData]=React.useState({});
     const [index1,setindex1]=React.useState({});
   const formik=useFormik({
@@ -16,23 +17,42 @@ export default function AppointmentReport() {
           type:'all',
           fromDate:new Date(),
           toDate:new Date(),
-          doctorId:''
+          doctorId:'',
+          status:'all'
       },
       onSubmit:v=>{
-          console.log(v.type)
+          console.log(v)
           if(v.type=='all'){
               if(v.doctorId==''){
-            Getdata('myappointment/get').then(data=>{setdataSrc(data);
-                console.log(data)
-                });}
+                if(v.status=='all'){
+                    Getdata('myIpd/getall').then(data=>{setdataSrc(data);
+                        console.log(data)
+                        });
+                }else{
+                    Getdata('myIpd/getall/status/'+v.status).then(data=>{setdataSrc(data);
+                        console.log(data)
+                        });
+                }
+                
+            }
                 else{
-                   Getdata('myappointment/get/doctor/'+v.doctorId).then(data=>{setdataSrc(data);
-                console.log(data)
-                }); 
+                    if(v.status=='all'){
+                        Getdata('myIpd/getall/doctor/'+v.doctorId).then(data=>{setdataSrc(data);
+                            console.log(data)
+                            });
+                    }
+                    else{
+                        Getdata('myIpd/getall/doctorstatus/'+v.doctorId+'/'+v.status).then(data=>{setdataSrc(data);
+                            console.log(data)
+                            });
+                    }
+
+                  
+              
                 }
           }
           else{
-            PostFormdata('myappointment/getbyDate','POST',{doctorId:v.doctorId||'empty',fromDate:v.fromDate.toJSON(),toDate:v.toDate.toJSON()}).then(data=>{setdataSrc(data);
+            PostFormdata('myIpd/getall','POST',{doctorId:v.doctorId||'empty',fromDate:v.fromDate.toJSON(),toDate:v.toDate.toJSON(),status:v.status}).then(data=>{setdataSrc(data);
                 console.log(data)
                 });
           }
@@ -40,23 +60,24 @@ export default function AppointmentReport() {
   })
 const [show,setshow]=React.useState(false)
 const [index,setindex]=React.useState({});
-    const column=[{data:'patientName',title:'Patient Name'},
-    {data:'aptId',title:'AppointmentNo'},
-    {data:'date',title:'Date',
-    render:( data, type, row, meta )=>new Date(data).toLocaleDateString()},
-    {data:'mobileNumber',title:'Mobile Number'},
+    const column=[{data:'ipd.admissionDate',title:'Date',render:(data,type,row,meta)=>new Date(data)=='Invalid Date'?'':new Date(data).toLocaleDateString()},
+    {data:'ipd.ipdId',title:'Ipd No'},
+    {data:'ipd.patientId',title:'Patient Id'},
+    {data:'name',title:'Patient Name'},
     {data:'gender',title:'Gender'},
-    {data:'appointmentStatus',title:'Appointment Status'}
-    ,{data:'action',title:'Action'}]
+    {data:'phone',title:'Phone'},
+    {data:'ipd.casuality',title:'Casualty'},
+    {data:'ipd.reference',title:'Reference'},
+    {data:'doctorName',title:'Consultant'},
+    {data:'ipd.status',title:'Patient Status',render:(data,type,row,meta)=>data=='YES'?'Discharged':'On Bed'},
+    {data:'charge',title:'Charge'},
+    {data:'ipd.paymentMode',title:'Payment Mode',render:(data,type,row,meta)=>'cash'},
+    {data:'ipd.amount',title:'Amount'}
+
+
+]
     const [dataSrc,setdataSrc]=React.useState([]);
-  const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(
-  <BrowserRouter>
-  <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-warning'} data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
- 
-  </BrowserRouter>,td)},{targets:-2,responsivePriority:2,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(<BrowserRouter>
-  <button   className={`btn btn-xs dropdown ${cellData=='pending'?'btn-danger':cellData=='cancel'?'btn-dark':'btn-success'}`}>{cellData}</button>
- 
-  </BrowserRouter>,td)}]
+  const columnDefs=[]
   
 React.useEffect(()=>{
     Getdata("fetchalluser/doctor").then(data => {
@@ -81,10 +102,10 @@ formik.setValues({...formik.values,fromDate,toDate,type:val})
     return (
         <>
         <div className='row bg-primary p-2 px-3'>
-             Appointment Report
+             Ipd Patient Report
         </div>
         <div className='row border py-2'>
-           <div className="col-md-3">
+           <div className="col-md-2">
                <div className="form-group ">
                    <label htmlFor="id1">Search Type</label>
                    <select id="id1" style={{ width: "100%",padding:'2px' }} onChange={change}>
@@ -104,7 +125,7 @@ formik.setValues({...formik.values,fromDate,toDate,type:val})
                    </select>
                           </div>
            </div>
-           <div className="col-md-3">
+           <div className="col-md-2">
                <div className="form-group ">
                    <label htmlFor="id1">Select Doctor</label>
                    <select id="id1" style={{ width: "100%",padding:'2px' }} onChange={e=>formik.setFieldValue('doctorId',e.target.value)}>
@@ -115,11 +136,20 @@ formik.setValues({...formik.values,fromDate,toDate,type:val})
                    </select>
                           </div>
            </div>
-          
+           <div className="col-md-2">
+               <div className="form-group ">
+                   <label htmlFor="id1">Patient Status</label>
+                   <select id="id1" style={{ width: "100%",padding:'2px' }} {...formik.getFieldProps('status')}>
+                   <option value="all">All</option>
+                   <option value="NO">On Bed</option>
+                   <option value="YES">Discharged</option>                             
+                   </select>
+                          </div>
+           </div>
            {
                show?
                <>
-           <div className="col-md-3">
+           <div className="col-md-2">
            <div className="form-group ">
                    <label htmlFor="id1">Date From</label>
                    <ReactDatePicker 
@@ -128,7 +158,7 @@ formik.setValues({...formik.values,fromDate,toDate,type:val})
                    showMonthDropdown showYearDropdown className='w-100'/>
                </div>
                </div>
-               <div className="col-md-3">
+               <div className="col-md-2">
                <div className="form-group ">
                    <label htmlFor="id1">Date To</label>
                    <ReactDatePicker
@@ -148,7 +178,7 @@ formik.setValues({...formik.values,fromDate,toDate,type:val})
            </div>
            <div className='row'>
                <div className="col-md-12 border border-top-0 py-3">
-               <Table id='pharmacyBill' col={column} dataSrc={dataSrc} columnDefs={columnDefs}/>
+               <RecordsTable id='pharmacyBill' col={column} dataSrc={dataSrc} columnDefs={columnDefs}/>
                <DisplayForm data={index}/>
                </div>
            </div>
