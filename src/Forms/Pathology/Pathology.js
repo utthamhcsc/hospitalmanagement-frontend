@@ -1,32 +1,40 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {useFormik} from 'formik';
 import * as  Yup from 'yup';
  import {Getdata,Postdata,PostFormdata} from '../../Network/Server'
  import {toast} from 'react-toastify'
-export default ()=>{
+export default (props)=>{
+const [cat,setcat]=useState([]);
+const [chargecat,setchargecat]=useState([])
+const [code,setcode]=useState([])
     const formik = useFormik({
-        initialValues:{
+        initialValues:props.data||{
             testName:'',
             shortName:'',
             testType:'',
-            categoryName:'',
+            category:'',
             unit:'',
             subCategory:'',
             reportDays:'',
             method:'',
-            chargeCategory:'',
+            chargeCategory:'', 
             code:'',
             standardCharge:''
         },
+        enableReinitialize:true,
         onSubmit:values=>{console.log(JSON.stringify(values,null,2))
-          Postdata('pathology/','POST',values).then(data=>toast.success('successfully added', {
-      position: toast.POSITION.TOP_CENTER
-    }))},
+          Postdata('pathology/add','POST',values).then(res=>{
+            if(values.id)
+            props.setdataSrc(data=>data.map(item=>item.p.id==res.id?{p:res,category:item.category}:item))  
+            else
+            props.setdataSrc(data=>[{p:res},...data])
+              window.$('#AddpathologyTest').modal('hide')
+          })},
           validationSchema:Yup.object().shape({
             testName:Yup.string().required('required'),
             shortName:Yup.string().required('required'),
             testType:Yup.string().required('required'),
-            categoryName:Yup.string().required('required'),
+            category:Yup.string().required('required'),
             unit:Yup.number('must be number only').required('required'),
             subCategory:Yup.string().required('required'),
             reportDays:Yup.number('must be number only').required('required'),
@@ -37,6 +45,42 @@ export default ()=>{
   
           })
       })
+React.useEffect(()=>{
+    Getdata('pathologyCategory/get').then(data=>setcat(data||[]))
+    Getdata('chargesCategory/get/Investigations').then(data=>{
+        console.log(data)
+        setchargecat(data||[])})
+        if(props.data && props.data.chargeCategory){
+            Getdata('organisationCharges/get/Investigations/'+props.data.chargeCategory).then(data=>{
+                console.log(data);
+                setcode(data||[])
+            })
+        }
+    
+},[])
+React.useEffect(()=>{
+    
+        if(props.data && props.data.chargeCategory){
+            Getdata('organisationCharges/get/Investigations/'+props.data.chargeCategory).then(data=>{
+                console.log(data);
+                setcode(data||[])
+            })
+        }
+    
+},[props.data])
+const fetchbychargeCat=(val)=>{
+    formik.setFieldValue('chargeCategory',val)
+    Getdata('organisationCharges/get/Investigations/'+val).then(data=>{
+        console.log(data);
+        setcode(data||[])
+    })
+}
+
+
+
+
+
+
 
     return(
         <div class="modal fade" id="AddpathologyTest" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -72,14 +116,13 @@ export default ()=>{
                   
                   <div className="form-group p-2">
                       <div>Category Name<small className="req text-danger">*</small></div>
-                      <select id="input"className="form-control" value={formik.values.categoryName}  onChange={(e)=>formik.setFieldValue('categoryName',e.target.value)}>
-                          <option selected>Select</option>
-                          <option>Clinical Microbiology</option>
-                          <option>Clinical Chemistry</option>
-                          <option>Hemotology</option>
-                          <option>Molecular Diagnostics</option>
+                      <select id="input"className="form-control" value={formik.values.category}  onChange={(e)=>formik.setFieldValue('category',e.target.value)}>
+                          <option value=''>Select</option>
+                          {
+                              cat.map(item=><option value={item.id}>{item.name}</option>)
+                          }
                         </select>  
-                        <span className='text-danger'>{(formik.touched.categoryName && formik.errors.categoryName)?formik.errors.categoryName:''}</span>
+                        <span className='text-danger'>{(formik.touched.category && formik.errors.category)?formik.errors.category:''}</span>
                   </div>
                   
               </div>
@@ -112,31 +155,31 @@ export default ()=>{
               <div className="d-flex justify-content-between border mt-4 bg-light" >
               <div className="form-group p-2">
                       <div>Charge Category<small className="req text-danger">*</small></div>
-                      <select id="input"className="form-control"value={formik.values.chargeCategory}  onChange={(e)=>formik.setFieldValue('chargeCategory',e.target.value)}>
-                          <option selected>Select</option>
-                          <option>Clinical Microbiology</option>
-                          <option>Clinical Chemistry</option>
-                          <option>Hemotology</option>
-                          <option>Molecular Diagnostics</option>
+                      <select id="input"className="form-control"value={formik.values.chargeCategory}  onChange={(e)=>{fetchbychargeCat(e.target.value)}}>
+                          <option value=''>Select</option>
+                         {
+                             chargecat.map(item=><option value={item.chargeCategory}>{item.chargeCategory}</option>)
+                         }
                         </select>  
                         <span className='text-danger'>{(formik.touched.chargeCategory && formik.errors.chargeCategory)?formik.errors.chargeCategory:''}</span>
                   </div>
                   
                   <div className="form-group p-2">
                       <div>Code <small className="req text-danger">*</small></div>
-                      <select id="input"className="form-control" value={formik.values.code} onChange={(e)=>formik.setFieldValue('code',e.target.value)}>
-                          <option selected>Select</option>
-                          <option>Clinical Microbiology</option>
-                          <option>Clinical Chemistry</option>
-                          <option>Hemotology</option>
-                          <option>Molecular Diagnostics</option>
+                      <select id="input"className="form-control" value={formik.values.code} onChange={(e)=>{
+                          formik.setFieldValue('standardCharge',e.target.selectedOptions[0].getAttribute('data-value')||0)
+                          formik.setFieldValue('code',e.target.value)}}>
+                          <option value=''>Select</option>
+                         {
+                             code.map(item=><option data-value={item.standardCharge} value={item.code}>{item.code}</option>)
+                         }
                         </select>
                         <span className='text-danger'>{(formik.touched.code && formik.errors.code)?formik.errors.code:''}</span>
                   </div>
                   
                   <div className="form-group p-2 ">
                       <div>Standard Charge ($)<small className="req text-danger">*</small></div>
-                      <input type="text" class="form-control" value={formik.values.standardCharge}  onChange={(e)=>formik.setFieldValue('standardCharge',e.target.value)}/>
+                      <input type="text" class="form-control" readOnly value={formik.values.standardCharge}  onChange={(e)=>formik.setFieldValue('standardCharge',e.target.value)}/>
                       <span className='text-danger'>{(formik.touched.standardCharge && formik.errors.standardCharge)?formik.errors.standardCharge:''}</span>
                   </div>
                   

@@ -45,7 +45,7 @@ export default (prop)=>{
               className:'btn btn-primary btn-xs py-0 '
             }
         ],
-     responsive:prop.responsive?false:true
+     responsive:true
      
     
 

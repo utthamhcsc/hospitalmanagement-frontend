@@ -63,6 +63,16 @@ return (
                     <p className='pl-3 ' style={{letterSpacing:'1px',fontSize:'13px',lineHeight:'100%'}}>TPA Management</p>
                 </NavLink>
             </li>
+            
+            <li className="nav-item has-treeview shadow p-1">
+                 <NavLink className="nav-link py-1 text-white"to='/admin/birth/#123' ><i class="fa fa-birthday-cake" aria-hidden="true"></i> 
+                     <p className='pl-3 ' style={{letterSpacing:'1px',fontSize:'13px',lineHeight:'100%'}}>Finance<i class="fa fa-angle-left pull-right"></i></p>
+                 </NavLink>
+                 <ul className="nav nav-treeview text-dark bg-light">
+                      <li className="nav-item"><NavLink className="nav-link py-1 " to="/admin/finance/income"><i class="text-xs fas fa-angle-right"></i> Income </NavLink></li>
+                      <li className="nav-item"><NavLink className="nav-link py-1 " to="/admin/finance/expense"><i class="text-xs fas fa-angle-right"></i> Expense</NavLink></li>
+                 </ul>
+            </li>
             <li className="nav-item has-treeview shadow p-1">
                 <NavLink className="nav-link py-1 text-white" to="/admin/vehicle">
                     <i class="text-xs fas fa-ambulance" aria-hidden="true"></i> 
@@ -74,8 +84,8 @@ return (
                      <p className='pl-3 ' style={{letterSpacing:'1px',fontSize:'13px',lineHeight:'100%'}}>Birth & Death Record<i class="fa fa-angle-left pull-right"></i></p>
                  </NavLink>
                  <ul className="nav nav-treeview text-dark bg-light">
-                      <li className="nav-item"><NavLink className="nav-link py-1 text-white" to="/admin/birthordeath"><i class="text-xs fas fa-angle-right"></i> Birth Record </NavLink></li>
-                      <li className="nav-item"><NavLink className="nav-link py-1 text-white" to="/admin/birthordeath/death"><i class="text-xs fas fa-angle-right"></i> Death Record</NavLink></li>
+                      <li className="nav-item"><NavLink className="nav-link py-1 " to="/admin/birthordeath/birth"><i class="text-xs fas fa-angle-right"></i> Birth Record </NavLink></li>
+                      <li className="nav-item"><NavLink className="nav-link py-1 " to="/admin/birthordeath/death"><i class="text-xs fas fa-angle-right"></i> Death Record</NavLink></li>
                  </ul>
             </li>
             <li className="nav-item has-treeview shadow p-1">
@@ -115,14 +125,22 @@ return (
                     <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/admin/records/ipdreport"><i class="text-xs fas fa-angle-right"></i> IPD Report</NavLink></li>
                     <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/admin/records/dischargereport"><i class="text-xs fas fa-angle-right"></i> Discharged Patient</NavLink></li>
                     <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/admin/records/expiryreport"><i class="text-xs fas fa-angle-right"></i> Expiry Medicine Report</NavLink></li>
-                    <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/radio/radiologyreport"><i class="text-xs fas fa-angle-right"></i> Radiology Patient Report</NavLink></li>
-                    <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/operationtheatre/otreport"><i class="text-xs fas fa-angle-right"></i> OT Report</NavLink></li>
-                    <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/vehicle/ambulancereport"><i class="text-xs fas fa-angle-right"></i> Ambulance Report</NavLink></li>
-                    <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/staffattendance/attendancereport"><i class="text-xs fas fa-angle-right"></i> Staff Attendance Report</NavLink></li>
-                    <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/item/itemreport"><i class="text-xs fas fa-angle-right"></i> Inventory Stock Report</NavLink></li>
-                    <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/item/additemreport"><i class="text-xs fas fa-angle-right"></i> Inventory Item Report</NavLink></li>
-                    <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/issueitem/issueinventoryreport"><i class="text-xs fas fa-angle-right"></i> Inventory Issue Report</NavLink></li>
-                </ul> 
+                    <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/admin/records/radiologyreport"><i class="text-xs fas fa-angle-right"></i> Radiology Patient Report</NavLink></li>
+                    <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/admin/records/pathologyreport"><i class="text-xs fas fa-angle-right"></i> Pathology Patient Report</NavLink></li>
+                    <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/admin/records/otpatientreport"><i class="text-xs fas fa-angle-right"></i> OT Patient Report</NavLink></li>
+                    <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/admin/records/bloodissuereport"><i class="text-xs fas fa-angle-right"></i> Blood Issue Report</NavLink></li>
+                    <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/admin/records/blooddonorreport"><i class="text-xs fas fa-angle-right"></i> Blood Donor Report</NavLink></li>
+                    <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/admin/records/tpareport"><i class="text-xs fas fa-angle-right"></i> TPA Patient Report</NavLink></li>
+                    <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/admin/records/incomereport"><i class="text-xs fas fa-angle-right"></i> Income  Report</NavLink></li>
+                    <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/admin/records/incomegroupreport"><i class="text-xs fas fa-angle-right"></i> Income Group Report</NavLink></li>
+                    <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/admin/records/expensereport"><i class="text-xs fas fa-angle-right"></i> Expense  Report</NavLink></li>
+                    <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/admin/records/expensegroupreport"><i class="text-xs fas fa-angle-right"></i> Expense Group Report</NavLink></li>
+                    <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/admin/records/ambulancereport"><i class="text-xs fas fa-angle-right"></i> Ambulance  Report</NavLink></li>
+                    <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/admin/records/birthreport"><i class="text-xs fas fa-angle-right"></i> Birth  Report</NavLink></li>
+                    <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/admin/records/deathreport"><i class="text-xs fas fa-angle-right"></i> Death  Report</NavLink></li>
+                   
+                   
+                   </ul> 
             </li>
             <li className="nav-item has-treeview shadow p-1" >
                 <Link className="nav-link py-1 text-white">
