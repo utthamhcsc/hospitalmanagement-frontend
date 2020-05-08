@@ -10,7 +10,7 @@ export default function Visitor(props) {
     {data:'name',title:'Name'},
     {data:'phone',title:'Phone'},
     {data:'date',title:'Date',
-    render:( data, type, row, meta )=>new Date(data)=='Invalid Date'?'':new Date(data).toLocaleDateString()},{data:'inTime',title:'In Time'},{data:'outTime',title:'Out Time'},{data:'action',title:'Action'}]
+    render:( data, type, row, meta )=>(new Date(data)=='Invalid Date')?'': new Date(data).getFullYear()==new Date('1970-01-01').getFullYear() ?'':new Date(data).toLocaleDateString()},{data:'inTime',title:'In Time'},{data:'outTime',title:'Out Time'},{data:'action',title:'Action'}]
     const [dataSrc,setdataSrc]=React.useState([]);
     
     const [index,setindex]=React.useState({});
@@ -20,7 +20,7 @@ export default function Visitor(props) {
      
       <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-success'} data-toggle='modal' data-target='#Visitor'><i className='fa fa-pencil'></i></button>
       
-      <button onClick={()=>Postdata(`visitorlist/${rowData.id}`,'DELETE',{}).then(data=>data.status==1?window.$('#visitor').DataTable().row(row).remove().draw():'')} className={'btn btn-xs btn-danger'} ><i className='fa fa-trash'></i></button>
+      <button onClick={()=>Postdata(`visitorlist/${rowData.id}`,'DELETE',{}).then(data=>data=>data.status==1?setdataSrc(data=>data.filter(item=>item.id!=rowData.id)):'')} className={'btn btn-xs btn-danger'} ><i className='fa fa-trash'></i></button>
      
       </BrowserRouter>,td)}]
     const Link=<NavLink to='dfgh'/>

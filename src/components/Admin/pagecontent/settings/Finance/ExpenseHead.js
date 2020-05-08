@@ -13,7 +13,7 @@ export default function ExpenseHead(props)
   const [index1,setindex1]=React.useState({expenseHead:'',description:''});
   const [index,setindex]=React.useState({});
   const column=[{data:'',title:'Sl.No',render:( data, type, row, meta ) =>`<b>${meta.row+1}</b>`},
-  {data:'expenseHead',title:'Income Head'},
+  {data:'expenseHead',title:'Expense Head'},
  
   {data:'description',title:'Description'},
   {data:'action',title:'Action'}]

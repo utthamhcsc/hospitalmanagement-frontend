@@ -62,7 +62,7 @@ const fetchusecallback=useCallback(()=>{
 
   <div className='px-5 pb-5'>
     <Table id='medicineDosage' col={column} dataSrc={dataSrc} columnDefs={columnDefs}/>
-    <AddDosage data={index1} medcat={data}/>
+    <AddDosage data={index1} medcat={data} setdataSrc={setdataSrc}/>
     <DisplayForm data={index}/>
   </div>
         </div>

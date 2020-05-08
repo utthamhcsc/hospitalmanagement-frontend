@@ -34,7 +34,7 @@ export default function Pathology(props)
       <button onClick={()=>Getdata(`pathology/delete/${rowData.p.id}`).then(data=>setdataSrc(item=>item.filter(item1=>item1.p.id!=data)))} className={'btn btn-xs btn-danger'} ><i className='fa fa-trash'></i></button>
       <button  className={'btn btn-xs btn-success'}
       onClick={()=>setindex1(rowData.p)}
-      data-toggle='modal' data-target='#addPatient'><i className='fa fa-pencil'></i></button>
+      data-toggle='modal' data-target='#addPatient'><i className='fa fa-plus-circle'></i></button>
       
       </BrowserRouter>,td)}]
     const Link=<NavLink to='dfgh'/>

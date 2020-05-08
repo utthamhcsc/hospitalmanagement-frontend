@@ -69,7 +69,7 @@ export default function OperationTheater(props)
     <Table id='addpathologyTest' col={column} dataSrc={dataSrc} columnDefs={columnDefs}/>
     <ViewPatient data={index1}/>
   <AddConsultantInstruction {...index1}/>
-    <AddPatient {...index1}/>
+    <AddPatient data={index} setdataSrc={setdataSrc}/>
   </div>
         </>
     )

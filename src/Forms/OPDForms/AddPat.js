@@ -35,10 +35,27 @@ export default props => {
     },
     onSubmit: values => {
       console.log(JSON.stringify(values, null, 2));
-      Postdata('myopd/add','POST',values).then(data=>
-        {props.setdataSrc(item=>item.map(item=>
-          item.patientId==data.patientId?{...item,lastvistdate:data.appointmentDate,totalVisit:new Number(item.totalVisit)+1}:item))
-  
+      Postdata('myopd/add','POST',values).then(d=>
+        {props.setdataSrc(item=>
+          {
+            var arr=[];
+            var count=0;
+            item.forEach(item=>{
+              if(item.patientId==d.patientId){
+                arr.push({...item,lastvistdate:d.appointmentDate,totalVisit:new Number(item.totalVisit)+1})
+              count=1
+              }else{
+                arr.push(item)
+              }
+             
+            })
+            if(count==0)
+            return [...arr,{...d,lastvistdate:d.appointmentDate,name:data[d.patientId],totalVisit:1}];
+            else
+            return arr;
+
+          })
+         
           window.$('#AddOpdPatient').modal('hide')
         }
           )
@@ -242,6 +259,7 @@ export default props => {
                         </label>
                         <div className="w-100 ">
                           <DatePicker
+                          minDate={new Date()}
                             className="form-control"
                            // value={formik.values.appointmentDate}
                             style={{ width: "100% !important" }}

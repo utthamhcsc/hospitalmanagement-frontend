@@ -4,7 +4,6 @@ import { Postdata, Getdata } from '../../Network/Server'
 import ReactDatePicker from 'react-datepicker'
 import { useParams } from 'react-router-dom'
 export default (props)=> {
-  const {patientId}=useParams()
   const [mydata,setData]=useState([])
   React.useEffect(()=>{
     Getdata("fetchalluser/doctor").then(data => {

@@ -8,7 +8,14 @@ const formik=useFormik({
   initialValues:{
 ...props.data
   },
-  onSubmit:values=>Postdata('medicinedosage/add','POST',values).then(data=>console.log(data))
+  onSubmit:values=>Postdata('medicinedosage/add','POST',values).then(data=>{
+    if(values.id)
+    props.setdataSrc(item=>item.map(item1=>item1.id==data.id?data:item1))
+else
+    props.setdataSrc(item=>[data,...item])
+
+    window.$('#addDosage').modal('hide');
+  })
 })
 
 

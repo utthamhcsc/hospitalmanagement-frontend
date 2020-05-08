@@ -13,6 +13,8 @@ export default function(props) {
           props.setdataSrc(item=>item.map(item1=>item1.id==data.id?data:item1))
       else
           props.setdataSrc(item=>[data,...item])
+
+          window.$('#MedicineCategory').modal('hide');
   })
 })
       return (

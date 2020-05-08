@@ -23,7 +23,7 @@ const [code,setcode]=useState([])
         },
         enableReinitialize:true,
         onSubmit:values=>{console.log(JSON.stringify(values,null,2))
-          Postdata('pathology/add','POST',values).then(res=>{
+          Postdata('pathology/add','POST',{values}).then(res=>{
             if(values.id)
             props.setdataSrc(data=>data.map(item=>item.p.id==res.id?{p:res,category:item.category}:item))  
             else

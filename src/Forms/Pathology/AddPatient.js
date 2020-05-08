@@ -24,7 +24,7 @@ const [doctor,setdoctor]=useState([])
         },
         enableReinitialize:true,
         onSubmit:values=>{console.log(JSON.stringify(values,null,2))
-          PostFormdata('pathologypatient/add','POST',values).then(res=>{
+          PostFormdata('pathologypatient/add','POST',{...values,date:new Date(values.date)=='Invalid Date'?'':new Date(values.date)}).then(res=>{
             if(values.id){
            // props.setdataSrc(data=>data.map(item=>item.p.id==res.id?{p:res,category:item.category}:item))  
             }else{

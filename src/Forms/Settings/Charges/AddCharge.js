@@ -44,18 +44,20 @@ export default function(props) {
       )
     );
     
-    Getdata("chargesCategory/get").then(data =>
-      setChargeCategory(
-        (data||[]).map(item => {
-          return {
-            categoryId: item.id,
-            chargeCategory:item.chargeCategory
-          };
-        })
-      )
-    );
+   
   }, []);
-
+ const findbychargeType=(v)=>{
+  Getdata("chargesCategory/get/"+v).then(data =>
+    setChargeCategory(
+      (data||[]).map(item => {
+        return {
+          categoryId: item.id,
+          chargeCategory:item.chargeCategory
+        };
+      })
+    )
+  );
+ }
   React.useEffect(() => {
     //alert(JSON.stringify(props.data.organisationCharges,null,2))
     if (props.data.organisationCharges)
@@ -110,10 +112,14 @@ export default function(props) {
                         <small className="req"> *</small>
                         <select
                           name="charge_type"
-                          {...formik.getFieldProps("chargeType")}
+                          value={formik.values.chargeType}
+                          onChange={(e)=>{
+findbychargeType(e.target.value)
+formik.setFieldValue('chargeType',e.target.value)
+                          }}
                           className="form-control"
                         >
-                          <option value>Select</option>
+                          <option value=''>Select</option>
                           <option value="Procedures">Procedures</option>
                           <option value="Investigations">Investigations</option>
                           <option value="Supplier">Supplier</option>

@@ -7,7 +7,7 @@ import {Getdata,Postdata,PostFormdata} from '../../Network/Server'
 
 import {toast} from 'react-toastify'
 
-export default () =>
+export default (props) =>
 {
     const [organisationCharge,setOrganisationCharge]=React.useState([])
     const [chargecat,setchargecat]=useState([])
@@ -17,7 +17,8 @@ const [doctor,setDoctor]=React.useState({})
 const [tpa, settpa] = React.useState([]);
 const [charge,setcharge]=React.useState({});
 const formik=useFormik({
-        initialValues:{
+    enableReinitialize:true,
+        initialValues:props.data||{
               patientId:'',
 	  operationName:'',
 	  operationType:'',
@@ -42,7 +43,13 @@ const formik=useFormik({
 	
        },
        onSubmit:values=>{console.log(JSON.stringify(values,null,2))
-            Postdata('operationtheater/add','POST',values).then(data=>console.log(data))
+            Postdata('operationtheater/add','POST',values).then(res=>{
+                if(values.id)
+                props.setdataSrc(data=>data.map(item=>item.o.id==res.id?{...item,o:res}:item))  
+                else
+                props.setdataSrc(data=>[{o:res,patientName:patient[res.patientId],doctorName:doctor[res.doctorId]},...data])
+                  window.$('#AddOTPatient').modal('hide')
+            })
         },
            })
            React.useEffect(()=>{

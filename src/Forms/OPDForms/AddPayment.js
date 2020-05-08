@@ -13,7 +13,7 @@ export default props => {
   const formik = useFormik({
     initialValues: props.data || {
       amount: '',
-  paymentMode: "cash",
+      paymentMode: "cash",
   date: "",
   file:'',
   note: "",
@@ -88,6 +88,7 @@ props.setdataSrc(item=>(item||[]).map(item1=>item1.id==data.id?data:item1))
                             formik.setFieldValue("paymentMode", e.target.value)
                           }
                         >
+                           <option></option>
                           <option>Cash</option>
                           <option>Check</option>
                           <option>Net Banking</option>

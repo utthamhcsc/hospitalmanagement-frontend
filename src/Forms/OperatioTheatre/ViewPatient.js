@@ -30,7 +30,7 @@ export default (props)=>{
         <button onClick={()=>setindex1(rowData.o)} className={'btn btn-xs btn-warning'} data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
        
         <button onClick={()=>setindex(rowData.o)} className={'btn btn-xs btn-success'}
-         data-toggle='modal' data-target='#addConsultantInstruction'><i className='fa fa-pencil'></i></button>
+         data-toggle='modal' data-target='#editConsultant'><i className='fa fa-pencil'></i></button>
         
         <button onClick={()=>Getdata(`otconsutantregister/delete/${rowData.o.id}`).then(data=>setdataSrc(item=>item.filter(item1=>item1.o.id!=data)))} className={'btn btn-xs btn-danger'} ><i className='fa fa-trash'></i></button>
        
