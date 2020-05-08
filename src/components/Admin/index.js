@@ -39,6 +39,8 @@ import OperationTheater from './pagecontent/OperationTheater/index'
 import BloodBank from './pagecontent/BloodBank/index'
 import Finance from './pagecontent/Finance/index'
 import BirthOrDeath from './pagecontent/BirthRecords/index'
+import ItemStock from './pagecontent/inventary/index'
+
 export default function Index(props) {
   const [index,setindex]=React.useState({})
     return (
@@ -52,6 +54,7 @@ export default function Index(props) {
       backgroundRepeat: 'no-repeat'
     }} >
     <section className="content px-4 mt-4" >
+      <Route path='/admin/itemstock' render={()=><ItemStock/>}/>
     <Route path='/admin/birthordeath' render={()=><BirthOrDeath/>} /> 
     <Route path='/admin/finance' render={()=><Finance/>} /> 
     <Route path='/admin/bloodbankstatus' render={()=><BloodBank/>} /> 

@@ -19,6 +19,8 @@ import OtPatientReport from './OtPatientReport'
 import BirthReport from './BirthReport'
 import DeathReport from './DeathReport'
 import TpaPatientReport from './TpaPatientReport'
+import PatientCredential from './PatientCrediantial'
+import UserLogReport from './UserLogReport'
 export default function index() {
     return (
         <Switch>
@@ -41,6 +43,8 @@ export default function index() {
            <Route path='/admin/records/birthreport' render={()=><BirthReport/>}></Route>
            <Route path='/admin/records/deathreport' render={()=><DeathReport/>}></Route>
            <Route path='/admin/records/tpareport' render={()=><TpaPatientReport/>}></Route>
+           <Route path='/admin/records/patientcredentialreport' render={()=><PatientCredential/>}></Route>
+           <Route path='/admin/records/userlogreport' render={()=><UserLogReport/>}></Route>
         </Switch>
     )
 }

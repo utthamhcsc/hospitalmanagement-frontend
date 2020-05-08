@@ -138,7 +138,9 @@ return (
                     <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/admin/records/ambulancereport"><i class="text-xs fas fa-angle-right"></i> Ambulance  Report</NavLink></li>
                     <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/admin/records/birthreport"><i class="text-xs fas fa-angle-right"></i> Birth  Report</NavLink></li>
                     <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/admin/records/deathreport"><i class="text-xs fas fa-angle-right"></i> Death  Report</NavLink></li>
-                   
+                    <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/admin/records/userlogreport"><i class="text-xs fas fa-angle-right"></i> User  Log</NavLink></li>
+                    <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/admin/records/patientcredentialreport"><i class="text-xs fas fa-angle-right"></i> Patient Credential  Report</NavLink></li>
+                    <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/admin/records/emailsmsreport"><i class="text-xs fas fa-angle-right"></i> Email/Sms sent  Report</NavLink></li>
                    
                    </ul> 
             </li>

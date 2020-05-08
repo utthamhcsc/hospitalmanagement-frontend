@@ -64,7 +64,7 @@ export default function Ipd(props) {
             <button
               className={"btn btn-link"}
               onClick={() =>
-                history.push(`/admin/myIpd/consultantRegister/${rowData.ipd.ipdId}`)
+                history.push(`/receptionist/myIpd/consultantRegister/${rowData.ipd.ipdId}`)
               }
             >
               {cellData}

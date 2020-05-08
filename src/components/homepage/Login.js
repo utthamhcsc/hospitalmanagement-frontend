@@ -17,11 +17,13 @@ export default (prop)=>
   pharmacist:'pharmacist/pharmacy'          
   }
     const formik=useFormik({
-    initialValues:{ email:'',
+    initialValues:{ 
+      signupDate:new Date(),
+      name:'',
     password:''},
   validationSchema:()=>
 yup.object().shape({
-  email:yup.string().required(),
+  name:yup.string().required(),
   password:yup.string().required()
 })
   ,
@@ -68,9 +70,9 @@ return(
           <div className="m-4 p-4 ">
           <div class="form-group d-flex align-items-baseline">
           <i class="fa fa-user " aria-hidden="true"></i>
-         <input type="text" class={`form-control  border-top-0 border-left-0  border-right-0 bg-transparent pl-2 ${formik.errors.email?'border-danger':''}`} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="UserName" onChange={(e)=>formik.setFieldValue('email',e.target.value)}/>
+         <input type="text" class={`form-control  border-top-0 border-left-0  border-right-0 bg-transparent pl-2 ${formik.errors.name?'border-danger':''}`} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="UserName" onChange={(e)=>formik.setFieldValue('name',e.target.value)}/>
         </div>
-        <span className='text-danger'>{formik.errors.email}</span>
+        <span className='text-danger'>{formik.errors.name}</span>
   <div class="form-group d-flex align-items-baseline">
     <i class="fa fa-key " aria-hidden="true"></i>
      <input type="password" class={`form-control  border-top-0 border-left-0  border-right-0 bg-transparent pl-2 ${formik.errors.password?'border-danger':''}`} id="exampleInputPassword1" placeholder="Password" onChange={(e)=>formik.setFieldValue('password',e.target.value)}/>
