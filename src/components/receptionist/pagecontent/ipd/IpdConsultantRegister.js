@@ -1,4 +1,4 @@
- import React from "react";
+import React from "react";
 import ReactDOM from "react-dom";
 import { NavLink, BrowserRouter, Link, useHistory, useParams } from "react-router-dom";
 import Table from "../../../Table";
@@ -19,16 +19,7 @@ export default (props) =>{
     { data: "instructionDate", title: "Instruction Date" ,render:(data,type,row,meta)=>new Date(data)=='Invalid Date'?'':new Date(data).toLocaleDateString()},
     { data: "action", title: "Action" }
   ];
-  const [dataSrc, setdataSrc] = React.useState([
-    {
-      name: "Rama",
-      patientId: "P-20200212115220",
-      gender: "male",
-      mobileNumber: "8861129756",
-      appointmentDate: "2020/02/04",
-      totalVisit: 2
-    }
-  ]);
+  const [dataSrc,setdataSrc]=React.useState([]);
   const columnDefs = [
     {
       targets: -1,
@@ -38,7 +29,8 @@ export default (props) =>{
         ReactDOM.render(<BrowserRouter>
           <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-light'} title='view Details' data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
          
-        
+         
+         
           </BrowserRouter>,
           td
         )
@@ -117,7 +109,7 @@ export default (props) =>{
                 {" "}
                 <i class="fa fa-reorder"></i> Payment
               </button>
-             
+              
             </div>
           </li>
         </ol>
@@ -129,8 +121,7 @@ export default (props) =>{
           dataSrc={dataSrc}
           columnDefs={columnDefs}
         />
-        <AddConsultantInstruction data={index} setdataSrc={setdataSrc}/>
-        <EditConsultantInstruction data={index} setdataSrc={setdataSrc}/>
+       
       </div>
     </>
   );

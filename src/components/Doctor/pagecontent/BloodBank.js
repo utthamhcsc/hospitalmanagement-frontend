@@ -6,13 +6,27 @@ import {Getdata} from '../../../Network/Server'
 
 export default function BloodBank(props)
  {
-    const column=[{data:'billNo',title:'Bill No'},{data:'dateOfIssue',title:'Issue Date'},{data:'recieveTo',title:'Recieved To'},{data:'bloodGroup',title:'Boold Group'},{data:'donorName',title:'Donor Name'},{data:'bagNo',title:'Bag No'},{data:'amount',title:'Amount'},{data:'action',title:'Action'}]
+     
+  const [index,setindex]=React.useState({});
+  const [index1,setindex1]=React.useState({});
+ 
+    const column=[{data:'bloodGroup',title:'Blood Group'},
+    {data:'status',title:'Status(in bags)'}
+    ,{data:'',title:'Action'}]
     const [dataSrc,setdataSrc]=React.useState([]);
-    const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(<BrowserRouter><button onClick={()=>props.setindex(rowData)} data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
-    </BrowserRouter>,td)}]
-    
-    React.useEffect(()=>{Getdata('bloodissue').then(data=>setdataSrc(data));},[])
-    
+    const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(
+      <BrowserRouter>
+      <button onClick={()=>setindex1(rowData)} className={'btn btn-xs btn-warning'} data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
+     
+      
+      </BrowserRouter>,td)}]
+    const Link=<NavLink to='dfgh'/>
+
+    React.useEffect(()=>{
+        Getdata('bloodstatus/get').then(data=>setdataSrc(data));
+      },[])
+
+
     return (
       <>
         <nav aria-label="breadcrumb" >

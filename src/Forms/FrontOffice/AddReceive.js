@@ -25,7 +25,7 @@ export default  (props) => {
     }
   ,
     onSubmit:values=>{console.log(JSON.stringify(values,null,2))
-      typeof(values.attachDocument)=='string'?
+      typeof(values.attachDocument||values.attachdocument)=='string'?
       Postdata('postalrecieve/iffileisnull','POST',values).then(data=>{
         values.id?
         props.setdataSrc(item=>item.map(item1=>{

@@ -4,7 +4,6 @@ import { NavLink, BrowserRouter, Link, useHistory, useParams } from "react-route
 import Table from "../../../Table";
 import { Getdata, Postdata } from "../../../../Network/Server";
 import DisplayForm from "../../../../Forms/DisplayForm";
-import AddDiagnosis from "../../../../Forms/IPDForms/AddDiagnosis";
 
 export default (props)=> {
   const [index1, setindex1] = React.useState({});
@@ -20,6 +19,8 @@ export default (props)=> {
   const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(
   <BrowserRouter>
   <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-light'} title='view Details' data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
+ 
+ 
   </BrowserRouter>,td)}]
   
   React.useEffect(()=>{Getdata('myipddiagnosis/get/'+patientId).then(data=>setdataSrc(data));},[])
@@ -90,7 +91,7 @@ export default (props)=> {
                 {" "}
                 <i class="fa fa-reorder"></i> Payment
               </button>
-            
+           
             </div>
           </li>
         </ol>
@@ -103,7 +104,6 @@ export default (props)=> {
           columnDefs={columnDefs}
         />
         <DisplayForm data={index} />
-        <AddDiagnosis data={index} setdataSrc={setdataSrc}/>
       </div>
     </>
   );

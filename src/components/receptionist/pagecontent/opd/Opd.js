@@ -4,7 +4,6 @@ import {NavLink,BrowserRouter,Link,useHistory} from 'react-router-dom'
 import Table from '../../../Table'
 import {Getdata,Postdata} from '../../../../Network/Server'
 import DisplayForm from '../../../../Forms/DisplayForm'
-import AddPat from '../../../../Forms/OPDForms/AddPat'
 
 export default function Opd(props)
 {
@@ -15,7 +14,9 @@ export default function Opd(props)
     const column=[{data:'name',title:'Name'},
     {data:'patientId',title:'patient Id'},
     {data:'gender',title:'Gender'},{data:'mobileNo',title:'Phone'},
-    {data:'lastvistdate',title:'Last Visit'},{data:'totalVisit',title:'Total Visit'},{data:'action',title:'Action'}]
+    {data:'lastvistdate',title:'Last Visit',
+  render:(data,type,row,meta)=>new Date(data)=='Invalid Date'?'':new Date(data).toLocaleDateString()
+  },{data:'totalVisit',title:'Total Visit'},{data:'action',title:'Action'}]
     const [dataSrc,setdataSrc]=React.useState([{name:'Rama',patientId:'P-20200212115220',gender:'male',mobileNumber:'8861129756',appointmentDate:'2020/02/04',totalVisit:2}]);
     const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,
       createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(
@@ -46,7 +47,6 @@ return (
 <div className='px-5 pb-5'>
 <Table id='addOpdPatient' col={column} dataSrc={dataSrc} columnDefs={columnDefs}/>
 <DisplayForm data={index}/>
-<AddPat data={index} setdataSrc={setdataSrc}/>
 </div>
 </>
 )

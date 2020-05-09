@@ -3,8 +3,6 @@ import { BrowserRouter, Route, Switch, useLocation, Link } from 'react-router-do
 import Supplier from './Supplier'
 import MedicineDosage from './MedicineDosage'
 import MedicineCategory from './MedicineCategory'
-
-
 export default function SettingsPharmacy(props) {
      
     return (

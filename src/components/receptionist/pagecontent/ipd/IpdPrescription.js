@@ -4,7 +4,6 @@ import { NavLink, BrowserRouter, Link, useHistory, useParams } from "react-route
 import Table from "../../../Table";
 import { Getdata, Postdata } from "../../../../Network/Server";
 import DisplayForm from "../../../../Forms/DisplayForm";
-import Addprescription from "../../../../Forms/IPDForms/Addprescription";
 import ViewTestPrescription from "../../../../Forms/IPDForms/ViewTestPrescription";
 import DisplayPriscription from "../../../../Forms/DisplayPriscription";
 
@@ -22,16 +21,7 @@ export default (props)=> {
     { data: "footer", title: "Footer" },
     { data: "action", title: "Action" }
   ];
-  const [dataSrc, setdataSrc] = React.useState([
-    {
-      name: "Rama",
-      patientId: "P-20200212115220",
-      gender: "male",
-      mobileNumber: "8861129756",
-      appointmentDate: "2020/02/04",
-      totalVisit: 2
-    }
-  ]);
+  const [dataSrc,setdataSrc]=React.useState([]);
   const columnDefs = [
     {
       targets: -1,
@@ -48,7 +38,7 @@ export default (props)=> {
             >
               <i className="fa fa-eye"></i>
             </button>
-         
+     
           </BrowserRouter>,
           td
         )
@@ -128,7 +118,7 @@ export default (props)=> {
                 {" "}
                 <i class="fa fa-reorder"></i> Payment
               </button>
-           
+             
             </div>
           </li>
         </ol>
@@ -141,7 +131,6 @@ export default (props)=> {
           columnDefs={columnDefs}
         />
       <DisplayPriscription {...index1}/>
-        <Addprescription data={index} setdataSrc={setdataSrc}/>
       </div>
     </>
   );

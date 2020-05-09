@@ -14,7 +14,10 @@ export default (prop)=>
   receptionist:'receptionist/appointment',
   doctor:'doctor/appointment',
   admin:'admin/appointment',
-  pharmacist:'pharmacist/pharmacy'          
+  pharmacist:'pharmacist/pharmacy' ,
+  pathologist:'phathologist/phathology',
+  radiologist: 'radiologist/radiology',
+  accountant:'accountant/finance/income'        
   }
     const formik=useFormik({
     initialValues:{ 

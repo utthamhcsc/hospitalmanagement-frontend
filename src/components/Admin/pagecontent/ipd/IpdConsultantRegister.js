@@ -19,16 +19,7 @@ export default (props) =>{
     { data: "instructionDate", title: "Instruction Date" ,render:(data,type,row,meta)=>new Date(data)=='Invalid Date'?'':new Date(data).toLocaleDateString()},
     { data: "action", title: "Action" }
   ];
-  const [dataSrc, setdataSrc] = React.useState([
-    {
-      name: "Rama",
-      patientId: "P-20200212115220",
-      gender: "male",
-      mobileNumber: "8861129756",
-      appointmentDate: "2020/02/04",
-      totalVisit: 2
-    }
-  ]);
+  const [dataSrc,setdataSrc]=React.useState([]);
   const columnDefs = [
     {
       targets: -1,

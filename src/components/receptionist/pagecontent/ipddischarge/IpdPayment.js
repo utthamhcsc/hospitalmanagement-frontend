@@ -108,7 +108,6 @@ Getdata('myipdpayment/get/'+patientId).then(data=>{setdataSrc(data);console.log(
           columnDefs={columnDefs}
         />
         <DisplayForm data={index} />
-    <AddPayment data={index} setdataSrc={setdataSrc}/>
       </div>
     </>
   );

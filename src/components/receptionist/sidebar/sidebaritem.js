@@ -1,5 +1,5 @@
 import React from 'react';
-import {NavLink} from 'react-router-dom'
+import {NavLink, Link} from 'react-router-dom'
 import Userprofile from './userprofile';
 
 const sidebaritem = (props) =>
@@ -16,13 +16,13 @@ return (
                </NavLink>
            </li>
            <li className="nav-item has-treeview shadow p-1">
-                <NavLink className="nav-link py-1 text-white" to="/receptionist/Opd">
+                <NavLink className="nav-link py-1 text-white" to="/receptionist/myOpd">
                      <i class="text-xs fas fa-stethoscope"></i> 
                      <p className='pl-3 ' style={{letterSpacing:'1px',fontSize:'13px',lineHeight:'100%'}}> OPD - Out Patient</p> 
                 </NavLink>
            </li>
            <li className="nav-item has-treeview shadow p-1">
-                <NavLink className="nav-link py-1 text-white" to="/receptionist/Ipd">
+                <NavLink className="nav-link py-1 text-white" to="/receptionist/myIpd">
                     <i class="text-xs fas fa-procedures" aria-hidden="true"></i> 
                     <p className='pl-3 ' style={{letterSpacing:'1px',fontSize:'13px',lineHeight:'100%'}}> IPD - In Patient</p>
                 </NavLink>
@@ -58,10 +58,20 @@ return (
                 </NavLink>
             </li>
             <li className="nav-item has-treeview shadow p-1">
-                <NavLink className="nav-link py-1 text-white" to="/receptionist/tpamanagement">
+                <NavLink className="nav-link py-1 text-white" to="/receptionist/tpa">
                     <i class="text-xs fas fa-umbrella"></i> 
                     <p className='pl-3 ' style={{letterSpacing:'1px',fontSize:'13px',lineHeight:'100%'}}>TPA Management</p>
                 </NavLink>
+            </li>
+            
+            <li className="nav-item has-treeview shadow p-1">
+                 <NavLink className="nav-link py-1 text-white"to='/receptionist/birth/#123' ><i class="fa fa-birthday-cake" aria-hidden="true"></i> 
+                     <p className='pl-3 ' style={{letterSpacing:'1px',fontSize:'13px',lineHeight:'100%'}}>Finance<i class="fa fa-angle-left pull-right"></i></p>
+                 </NavLink>
+                 <ul className="nav nav-treeview text-dark bg-light">
+                      <li className="nav-item"><NavLink className="nav-link py-1 " to="/receptionist/finance/income"><i class="text-xs fas fa-angle-right"></i> Income </NavLink></li>
+                      <li className="nav-item"><NavLink className="nav-link py-1 " to="/receptionist/finance/expense"><i class="text-xs fas fa-angle-right"></i> Expense</NavLink></li>
+                 </ul>
             </li>
             <li className="nav-item has-treeview shadow p-1">
                 <NavLink className="nav-link py-1 text-white" to="/receptionist/vehicle">
@@ -74,12 +84,12 @@ return (
                      <p className='pl-3 ' style={{letterSpacing:'1px',fontSize:'13px',lineHeight:'100%'}}>Birth & Death Record<i class="fa fa-angle-left pull-right"></i></p>
                  </NavLink>
                  <ul className="nav nav-treeview text-dark bg-light">
-                      <li className="nav-item"><NavLink className="nav-link py-1 text-white" to="/receptionist/birthordeath"><i class="text-xs fas fa-angle-right"></i> Birth Record </NavLink></li>
-                      <li className="nav-item"><NavLink className="nav-link py-1 text-white" to="/receptionist/birthordeath/death"><i class="text-xs fas fa-angle-right"></i> Death Record</NavLink></li>
+                      <li className="nav-item"><NavLink className="nav-link py-1 " to="/receptionist/birthordeath/birth"><i class="text-xs fas fa-angle-right"></i> Birth Record </NavLink></li>
+                      <li className="nav-item"><NavLink className="nav-link py-1 " to="/receptionist/birthordeath/death"><i class="text-xs fas fa-angle-right"></i> Death Record</NavLink></li>
                  </ul>
             </li>
             <li className="nav-item has-treeview shadow p-1">
-                <NavLink className="nav-link py-1 text-white" to="/receptionist/staff">
+                <NavLink className="nav-link py-1 text-white" to="/receptionist/humanResource">
                     <i class="text-xs fas fa-sitemap"></i> 
                     <p className='pl-3 ' style={{letterSpacing:'1px',fontSize:'13px',lineHeight:'100%'}}>Human Resource</p> 
                 </NavLink>
@@ -102,43 +112,7 @@ return (
                     <p className='pl-3 ' style={{letterSpacing:'1px',fontSize:'13px',lineHeight:'100%'}}>Inventory</p> 
                 </NavLink>
             </li>
-            <li className="nav-item has-treeview shadow p-1">
-                <NavLink className="nav-link py-1 text-white" to="#ertyu">
-                    <i class="text-xs fas fa-line-chart"></i> 
-                    <p className='pl-3 ' style={{letterSpacing:'1px',fontSize:'13px',lineHeight:'100%'}}>Reports <i class="fa fa-angle-left pull-right"></i></p> 
-                </NavLink>
-                <ul className="nav nav-treeview text-dark bg-light">
-                    <li className="nav-item"><NavLink className="nav-link py-1 text-white" to="/appointment/appointmentReport"><i class="text-xs fas fa-angle-right"></i> Appointment Report</NavLink></li>
-                    <li className="nav-item"><NavLink className="nav-link py-1 text-white" to="/patient/opd_report"><i class="text-xs fas fa-angle-right"></i> OPD Report</NavLink></li>
-                    <li className="nav-item"><NavLink className="nav-link py-1 text-white" to="/patient/ipdreport"><i class="text-xs fas fa-angle-right"></i> IPD Report</NavLink></li>
-                    <li className="nav-item"><NavLink className="nav-link py-1 text-white" to="/patient/dischargepatientReport"><i class="text-xs fas fa-angle-right"></i> Discharged Patient</NavLink></li>
-                    <li className="nav-item"><NavLink className="nav-link py-1 text-white" to="/pathology/pathologyreport"><i class="text-xs fas fa-angle-right"></i> Pathology Patient Report</NavLink></li>
-                    <li className="nav-item"><NavLink className="nav-link py-1 text-white" to="/radio/radiologyreport"><i class="text-xs fas fa-angle-right"></i> Radiology Patient Report</NavLink></li>
-                    <li className="nav-item"><NavLink className="nav-link py-1 text-white" to="/operationtheatre/otreport"><i class="text-xs fas fa-angle-right"></i> OT Report</NavLink></li>
-                    <li className="nav-item"><NavLink className="nav-link py-1 text-white" to="/vehicle/ambulancereport"><i class="text-xs fas fa-angle-right"></i> Ambulance Report</NavLink></li>
-                    <li className="nav-item"><NavLink className="nav-link py-1 text-white" to="/staffattendance/attendancereport"><i class="text-xs fas fa-angle-right"></i> Staff Attendance Report</NavLink></li>
-                    <li className="nav-item"><NavLink className="nav-link py-1 text-white" to="/item/itemreport"><i class="text-xs fas fa-angle-right"></i> Inventory Stock Report</NavLink></li>
-                    <li className="nav-item"><NavLink className="nav-link py-1 text-white" to="/item/additemreport"><i class="text-xs fas fa-angle-right"></i> Inventory Item Report</NavLink></li>
-                    <li className="nav-item"><NavLink className="nav-link py-1 text-white" to="/issueitem/issueinventoryreport"><i class="text-xs fas fa-angle-right"></i> Inventory Issue Report</NavLink></li>
-                </ul>
-            </li>
-            <li className="nav-item has-treeview shadow p-1">
-                <NavLink className="nav-link py-1 text-white" to="#sdfghj">
-                    <i class="text-xs fas fa-cogs"></i> 
-                    <p className='pl-3 ' style={{letterSpacing:'1px',fontSize:'13px',lineHeight:'100%'}}><i class="fa fa-angle-left pull-right"></i>Setup</p>
-                </NavLink>
-                <ul className="nav nav-treeview text-dark bg-light">
-                    <li className="nav-item"> 
-                       <NavLink className="nav-link py-1 text-white" to=""><i class="text-xs fas fa-angle-right"></i> Patient</NavLink>
-                    </li>
-                                                        <li className="nav-item"><NavLink className="nav-link py-1 text-white" to="/charges"><i class="text-xs fas fa-angle-right"></i> Hospital Charges</NavLink></li>
-                                                            <li className="nav-item"><NavLink className="nav-link py-1 text-white" to="/setup/bed/status"><i class="text-xs fas fa-angle-right"></i> Bed</NavLink></li>
-                                                                <li className="nav-item"><NavLink className="nav-link py-1 text-white" to="/visitorspurpose"><i class="text-xs fas fa-angle-right"></i> Front Office</NavLink></li>
-                                
-
-                    </ul>
-
-                </li>
+            
         </ul>
       </nav>
     </div>

@@ -17,11 +17,14 @@ const column=[{data:'date',title:'Date',render:
 {data:'paymentMode',title:'Payment Mode'},
 {data:'attachDocument',title:'Document'},
 {data:'action',title:'Action'}]
-const [dataSrc,setdataSrc]=React.useState([{name:'opd123',patientId:'2019/12/12',gender:'Dr Covinda',mobileNumber:'Refe123',appointmentDate:'corona',totalVisit:2}]);
-const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(
+const [dataSrc,setdataSrc]=React.useState([]);const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(
   <BrowserRouter>
   <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-warning'} title='view Details' data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
  
+  <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-success'} title='add prescription'  data-toggle='modal' data-target='#addPayment'><i className='fa fa-pencil' data-tip='hello'></i></button>
+  
+  <button onClick={()=>Getdata(`myipdpayment/delete/${rowData.id}`).then(data=>setdataSrc(item=>item.filter(item1=>item1.id!=data)))} className={'btn btn-xs btn-danger'} ><i className='fa fa-trash'></i></button>
+
   </BrowserRouter>,td)}
 ]
 const Link=<NavLink to='dfgh'/>
@@ -96,7 +99,16 @@ Getdata('myipdpayment/get/'+patientId).then(data=>{setdataSrc(data);console.log(
                 {" "}
                 <i class="fa fa-reorder"></i> Diagnoses
               </button>
-           
+            
+              <button
+                data-toggle="modal"
+                data-target="#addPayment"
+                
+                class="btn btn-light text-xs  btn-xs  ml-1"
+              >
+                {" "}
+                <i class="fa fa-plus"></i> Add Payment
+              </button>
             </div>
           </li>
         </ol>

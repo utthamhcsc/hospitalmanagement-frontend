@@ -76,7 +76,7 @@ export default function Ipd(props) {
   ];
   const link = <NavLink to="dfgh" />;
   React.useEffect(() => {
-    Getdata("myIpd/get/patient/"+window.localStorage.getItem('userId')+"YES").then(data => {
+    Getdata("myIpd/get/patient/"+window.localStorage.getItem('userId')+"/YES").then(data => {
       console.log(data);
     setdataSrc(data);
     });

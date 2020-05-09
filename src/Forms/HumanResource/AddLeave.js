@@ -17,7 +17,10 @@ const formik=useFormik({
     let item=data.find(item=>item.id=e.leaveTypeId);
     let leaveType=item?item.name:'';
     console.log({...e,staffId,role})
-    PostFormdata('humanResource/leave/add','POST',e).then(res=>{
+    PostFormdata('humanResource/leave/add','POST',{...e,staffId,role,
+      
+      fromDate:e.fromDate||new Date(),toDate:e.toDate||new Date(),applyDate:e.applyDate||new Date()}).then(res=>{
+      console.log(res)
       if(e.id)
       props.setdataSrc(f=>f.map(item=>item.id==res.id?{...res,leaveType}:item))  
       else

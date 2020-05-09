@@ -24,16 +24,7 @@ export default function Ipd(props) {
     { data: "ipd.creditLimit", title: "Credit Limit" },
     { data: "action", title: "Action" }
   ];
-  const [dataSrc, setdataSrc] = React.useState([
-    {
-      name: "Rama",
-      patientId: "P-20200212115220",
-      gender: "male",
-      mobileNumber: "8861129756",
-      appointmentDate: "2020/02/04",
-      totalVisit: 2
-    }
-  ]);
+  const [dataSrc,setdataSrc]=React.useState([]);
   const columnDefs = [
     {
       targets: -1,
@@ -50,6 +41,7 @@ export default function Ipd(props) {
             >
               <i className="fa fa-eye"></i>
             </button>
+           
           </BrowserRouter>,
           td
         )
@@ -105,7 +97,8 @@ export default function Ipd(props) {
               >
                 dfgh
               </button>
-               <button
+            
+              <button
                 onClick={() =>history.push('/receptionist/myIpd/discharge') }
                 class="btn btn-light text-xs  btn-xs  ml-1"
               >
@@ -125,7 +118,7 @@ export default function Ipd(props) {
           columnDefs={columnDefs}
         />
         <DisplayForm data={index.ipd} />
-        <AddIpdPat data={index1.ipd}/>
+     
       </div>
     </>
   );

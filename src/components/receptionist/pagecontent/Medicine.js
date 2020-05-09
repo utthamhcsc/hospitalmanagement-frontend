@@ -1,21 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import {NavLink} from 'react-router-dom'
+import {NavLink, BrowserRouter,Link} from 'react-router-dom'
 import Table from '../../Table'
-export default function Medicine() {
+export default function Medicine(props) {
     const column=[{data:'apptId'}]
     const dataSrc=[{patientId:'12345'}]
-    const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(
-      <BrowserRouter>
-      <button onClick={()=>props.setindex(rowData)} className={'btn btn-xs btn-warning'} data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
-     
-      <button onClick={()=>props.setindex(rowData)} className={'btn btn-xs btn-success'} data-toggle='modal' data-target='#Complain'><i className='fa fa-pencil'></i></button>
-      
-      <button onClick={()=>Postdata(`complain/${rowData.id}`,'DELETE',{}).then(data=>data.status==1?window.$('#Complain').DataTable().row(row).remove().draw():'')} className={'btn btn-xs btn-danger'} ><i className='fa fa-trash'></i></button>
-     
-      </BrowserRouter>,td)}]
-    const Link=<NavLink to='dfgh'/>
-
+    const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(<BrowserRouter><button onClick={()=>props.setindex(rowData)} data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
+    <button onClick={()=>props.setindex(rowData)} data-toggle='modal' data-target='#bookappointment'><i className='fa fa-pencil'></i></button>
+    </BrowserRouter>,td)}]
+    
     React.useEffect(()=>{
         Getdata('visitorlist').then(data=>setdataSrc(data));
       },[])
@@ -31,7 +24,7 @@ export default function Medicine() {
     <button data-toggle="modal" data-target="#AddipdPatient" class="btn btn-light text-xs  btn-xs  ml-1"> <i class="fa fa-plus"></i> Add Patient</button>               
            
  <NavLink to={ '/receptionist/discharge'} activeClassName='active' class="btn btn-light text-xs  btn-xs ml-1 ">
-     <i class="fa fa-reorder"></i> Di
+     <i class="fa fa-reorder"></i> Discahrge
  </NavLink>             
                          </div>
   </li>

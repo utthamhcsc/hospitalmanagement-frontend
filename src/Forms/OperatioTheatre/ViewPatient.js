@@ -3,12 +3,10 @@ import ReactDOM from 'react-dom'
 import {useFormik} from 'formik';
 import * as  Yup from 'yup';
  import {Getdata,Postdata,PostFormdata} from '../../Network/Server'
- import {toast} from 'react-toastify'
-import ReactDatePicker from 'react-datepicker';
+
 import { BrowserRouter } from 'react-router-dom';
 import Table from '../../components/Table';
 import DisplayForm from '../DisplayForm';
-import EditConsultantInstruction from './EditConsultantInstruction';
 export default (props)=>{
     const data=props.data;
     const [index,setindex]=React.useState({});
@@ -147,7 +145,6 @@ export default (props)=>{
            <Table id='gdgd' col={column} dataSrc={dataSrc} columnDefs={columnDefs}/>
   </div> 
   <DisplayForm data={index1}/>
-  <EditConsultantInstruction data={index}/>
          </div>
      </div>
      </div>

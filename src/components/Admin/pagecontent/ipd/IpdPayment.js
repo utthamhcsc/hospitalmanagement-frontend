@@ -17,8 +17,7 @@ const column=[{data:'date',title:'Date',render:
 {data:'paymentMode',title:'Payment Mode'},
 {data:'attachDocument',title:'Document'},
 {data:'action',title:'Action'}]
-const [dataSrc,setdataSrc]=React.useState([{name:'opd123',patientId:'2019/12/12',gender:'Dr Covinda',mobileNumber:'Refe123',appointmentDate:'corona',totalVisit:2}]);
-const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(
+const [dataSrc,setdataSrc]=React.useState([]);const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(
   <BrowserRouter>
   <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-warning'} title='view Details' data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
  

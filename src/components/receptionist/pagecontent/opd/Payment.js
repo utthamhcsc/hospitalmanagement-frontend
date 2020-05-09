@@ -22,6 +22,7 @@ const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(
     <BrowserRouter>
     <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-warning'} title='view Details' data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
    
+   
    <ReactTooltip/>
     </BrowserRouter>,td)}
   ]
@@ -44,6 +45,7 @@ return (
     class="btn btn-light text-xs  btn-xs  ml-1"><i className='fa fa-reorder'/>  Charges</NavLink>  
     <NavLink to={`/receptionist/myopd/bill/${patientId}`} 
     class="btn btn-light text-xs  btn-xs  ml-1"><i className='fa fa-reorder'/>  Bill</NavLink>  
+   
            
 </div>
 </li>

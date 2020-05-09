@@ -21,6 +21,7 @@ export default (props)=> {
   <BrowserRouter>
   <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-light'} title='view Details' data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
  
+ 
   </BrowserRouter>,td)}]
   
   React.useEffect(()=>{Getdata('myipddiagnosis/get/'+patientId).then(data=>setdataSrc(data));},[])
@@ -104,7 +105,7 @@ export default (props)=> {
           columnDefs={columnDefs}
         />
         <DisplayForm data={index} />
-        <AddDiagnosis data={index} setdataSrc={setdataSrc}/>
+      
       </div>
     </>
   );

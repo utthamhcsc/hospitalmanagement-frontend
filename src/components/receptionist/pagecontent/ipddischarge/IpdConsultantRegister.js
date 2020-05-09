@@ -38,7 +38,6 @@ export default (props) =>{
         ReactDOM.render(<BrowserRouter>
           <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-light'} title='view Details' data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
          
-         
           </BrowserRouter>,
           td
         )
@@ -129,8 +128,6 @@ export default (props) =>{
           dataSrc={dataSrc}
           columnDefs={columnDefs}
         />
-        <AddConsultantInstruction data={index} setdataSrc={setdataSrc}/>
-        <EditConsultantInstruction data={index} setdataSrc={setdataSrc}/>
       </div>
     </>
   );

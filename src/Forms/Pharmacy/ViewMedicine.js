@@ -10,6 +10,9 @@ const [stock,setstock]=React.useState([]);
 const fetchmedidicinestock=(id)=>{
   Getdata('medicineBatchDetails/fetchbypharmacyId/'+id).then(data=>setstock(data));
 }
+const deletestock=(id)=>{
+  Getdata('medicineBatchDetails/delete/'+id).then(data=>setstock(item=>item.filter(item1=>item1.id!=data)));
+}
     return (
 
       <div className="modal fade in" id="viewMedicine" tabIndex={-1} role="dialog" aria-labelledby="myModalLabel" aria-hidden="false" >
@@ -153,7 +156,7 @@ stock.map((data)=><tr>
 <td>{data.quantity}</td>
 <td>{data.mrp}</td>
 <td>{data.saleprice}</td>
-<td><button className={'btn btn-xs'}><i className='fa fa-trash'/></button></td>
+<td><button onClick={()=>deletestock(data.id)} className={'btn btn-xs'}><i className='fa fa-trash'/></button></td>
 </tr>)
   :''}
   </tbody>

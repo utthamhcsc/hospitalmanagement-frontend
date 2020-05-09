@@ -79,12 +79,14 @@ const schema=Yup.object().shape({
                 if(data.status==1){
                     //resetForm()
                     console.log(data)
+                    window.location.reload()
                 }
             }):
             PostFormdata('purchaseMedicine/add/file','POST',{...values,medicine:JSON.stringify(values.medicine)}).then(data=>{
                 if(data.status==1){
                    // resetForm()
                     console.log(data)
+                    window.location.reload()
                 }
             })
         }

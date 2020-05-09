@@ -26,7 +26,10 @@ const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(
     <BrowserRouter>
     <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-warning'} title='view Details' data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
    
+    <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-success'} title='add prescription'  data-toggle='modal' data-target='#add_chargeModal'><i className='fa fa-pencil' data-tip='hello'></i></button>
     
+    <button onClick={()=>Getdata(`myopdcharges/delete/${rowData.id}`).then(data=>setdataSrc(item=>item.filter(item1=>item1.id!=data)))} className={'btn btn-xs btn-danger'} ><i className='fa fa-trash'></i></button>
+   
    <ReactTooltip/>
     </BrowserRouter>,td)}
   ]
@@ -49,7 +52,9 @@ return (
     class="btn btn-light text-xs  btn-xs  ml-1"><i className='fa fa-reorder'/>  Payment</NavLink>  
     <NavLink to={`/receptionist/myopd/bill/${patientId}`} 
     class="btn btn-light text-xs  btn-xs  ml-1"><i className='fa fa-reorder'/>  Bill</NavLink>  
-          
+   
+<button data-toggle="modal" data-target="#add_chargeModal" onClick={()=>setindex({})} class="btn btn-light text-xs  btn-xs  ml-1"> <i class="fa fa-plus"></i> Add Charges</button>   
+           
 </div>
 </li>
 </ol>

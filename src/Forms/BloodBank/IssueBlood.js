@@ -35,7 +35,7 @@ export default (props) =>{
     }))},
          validationSchema:Yup.object().shape({
 
-            issueDate:Yup.date().required('Required'),
+           // issueDate:Yup.date().required('Required'),
             doctorName:Yup.string().required('Required'),
             amount:Yup.string().required('Required'),
             donorId:Yup.string().required('Required'),

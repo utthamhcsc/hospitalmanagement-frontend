@@ -24,7 +24,6 @@ const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(
   <BrowserRouter>
   <button onClick={()=>setindex1(rowData)} className={'btn btn-xs btn-warning'} title='view Details' data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
  
- 
   </BrowserRouter>,td)}
 ]
 const Link=<NavLink to='dfgh'/>
@@ -111,7 +110,7 @@ Getdata('myipdcharges/get/'+patientId).then(data=>{setdataSrc(data);console.log(
           columnDefs={columnDefs}
         />
         <DisplayForm data={index1} />
-        <AddCharges data={index} setdataSrc={setdataSrc}/>
+    
       </div>
     </>
   );

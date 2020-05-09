@@ -48,7 +48,10 @@ export default (props)=> {
             >
               <i className="fa fa-eye"></i>
             </button>
-         
+            <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-light'} 
+data-toggle='modal' data-target='#addPriscription'>
+    <i className='fa fa-pencil' data-tip='hello'></i></button>
+  
           </BrowserRouter>,
           td
         )
@@ -141,7 +144,6 @@ export default (props)=> {
           columnDefs={columnDefs}
         />
       <DisplayPriscription {...index1}/>
-        <Addprescription data={index} setdataSrc={setdataSrc}/>
       </div>
     </>
   );

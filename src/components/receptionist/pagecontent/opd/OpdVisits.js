@@ -25,6 +25,8 @@ const [dataSrc,setdataSrc]=React.useState([{name:'opd123',patientId:'2019/12/12'
 const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(
     <BrowserRouter>
     <button onClick={()=>setindex(rowData.opd)} className={'btn btn-xs btn-warning'} title='view Details' data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
+   
+   
     <button onClick={()=>fetchbyopdId(rowData.opd.opdId)} className={'btn btn-xs btn-primary'} title='view Case History' data-toggle='modal' data-target='#viewCaseHistory'><i className='fa fa-eye'></i></button>
    
    <ReactTooltip/>
@@ -84,7 +86,7 @@ style={{marginLeft:'0.5px !important'}} ><i className='fa fa-reorder'/> All</but
     <NavLink to={`/receptionist/myopd/bill/${myopdId}`} 
     class="btn btn-light text-xs  btn-xs  ml-1"><i className='fa fa-reorder'/>  Bill</NavLink>  
     
-   </>  :<></>
+     </>  :<></>
 }
                
 </div>
@@ -94,8 +96,6 @@ style={{marginLeft:'0.5px !important'}} ><i className='fa fa-reorder'/> All</but
 <div className='px-5 pb-5'>
 <Table id='addOpdPatient' col={column} dataSrc={dataSrc} columnDefs={columnDefs}/>
 <DisplayForm data={index}/>
-<AddPat data={index} setdataSrc={setdataSrc}/>
-<Addprescription opdId={opdId} data={caseHistory}/>
 <DisplayPriscription {...caseHistory}/>
 </div>
 </>

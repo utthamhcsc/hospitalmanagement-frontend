@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom'
 import {NavLink, BrowserRouter,Link, useParams} from 'react-router-dom'
 import Table from '../../../Table'
 import {Getdata,Postdata} from '../../../../Network/Server'
-import AddDiagnosis from '../../../../Forms/OPDForms/AddDiagnosis'
 import DisplayForm from '../../../../Forms/DisplayForm'
 export default function Diagnosis(props) 
 {
@@ -18,7 +17,8 @@ export default function Diagnosis(props)
     const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(
     <BrowserRouter>
     <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-light'} title='view Details' data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
-    
+   
+   
     </BrowserRouter>,td)}]
     
     React.useEffect(()=>{Getdata('myopddiagnosis/get/'+patientId).then(data=>setdataSrc(data));},[])
@@ -37,14 +37,14 @@ export default function Diagnosis(props)
     class="btn btn-light text-xs  btn-xs  ml-1"><i className='fa fa-reorder'/>  Payment</NavLink>  
     <NavLink to={`/receptionist/myopd/bill/${patientId}`} 
     class="btn btn-light text-xs  btn-xs  ml-1"><i className='fa fa-reorder'/>  Bill</NavLink>  
-        </div>
+         </div>
         </li>
       </ol>
     </nav>
     <div className='px-5 pb-5'>
       <Table id='opdDiagnosis' col={column} dataSrc={dataSrc} columnDefs={columnDefs}/>
       <DisplayForm data={index}/>
-      <AddDiagnosis data={index} setdataSrc={setdataSrc}/>
+  
     </div>
   </>
   )

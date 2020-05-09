@@ -81,7 +81,11 @@ return(
    }}
   // validationSchema={myvalidation}
    onSubmit={(values)=>
-   {Postdata('pharmacyBillBasic/add','POST',values).then(data=>console.log(data))
+   {Postdata('pharmacyBillBasic/add','POST',values).then(data=>{
+if(data.status==1){
+   window.location.reload();
+}
+   })
    console.log(values)
    }}>{({values,handleChange,setFieldValue,handleSubmit,errors,touched})=>(<>
         <div class=" card-header form-inline bg-primary p-2  border-0">
@@ -102,15 +106,11 @@ return(
         <div className='form-group'>
         <button class=" form-control ml-2" data-toggle='modal' data-target='#addnewpatient'><i class="fas fa-plus "></i>New Patient</button>
           </div>  
-       <div class="form-inline">
-       <label class="f" for="inlineFormCheck">  Bill No</label>
-       <input type="number" className="form-control ml-1 p-0 " value={values.billNo} onChange={(e)=>setFieldValue('billNo',e.target.value)}/>
-       <span className='text-danger text-sm'>{touched.billNo?errors.billNo:''}</span>      
-       </div>
+       
        <div className='form-group ml-auto'>
        <label class="" for="inlineFormCheck"> Date</label>
        <div className="mx-2">
-         <DatePicker className="form-control" selected={values.date} onChange={(e)=>setFieldValue('date',e)}/>
+         <DatePicker className="form-control" selected={new Date(values.date)=='Invalid Date'?'':new Date(values.date)} onChange={(e)=>setFieldValue('date',e)}/>
         </div> 
        </div>
        <button type="button" class="close mx-1" data-dismiss="modal" aria-label="Close">

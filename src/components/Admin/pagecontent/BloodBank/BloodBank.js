@@ -4,8 +4,6 @@ import {NavLink,BrowserRouter} from 'react-router-dom'
 import Table from '../../../Table'
 import {Getdata,Postdata} from '../../../../Network/Server'
 import DisplayForm from '../../../../Forms/DisplayForm'
-import Pathology1 from '../../../../Forms/Pathology/Pathology'
-import AddPatient from '../../../../Forms/Pathology/AddPatient'
 import AddBloodStatus from '../../../../Forms/BloodBank/AddBloodStatus'
 export default function BloodBank(props)
  {

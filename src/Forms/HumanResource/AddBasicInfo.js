@@ -26,7 +26,8 @@ export default function AddBasicInfo(props) {
                                                                             <option value="accountant">Accountant</option>
                                                                             <option value="doctor">Doctor</option>
                                                                             <option value="pharmacist">Pharmacist</option>
-                                                                            <option value="labtechnician">Pathologist</option>
+                                                                            <option value="radiologist">Radiologist</option>
+                                                                            <option value="pathologist">Pathologist</option>
                                                                             <option value="receptionist">Receptionist</option>
                                                                     </select>
                 <span class="text-danger">{formik.touched.role?formik.errors.role:''}</span>
