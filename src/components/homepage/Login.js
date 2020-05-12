@@ -15,7 +15,7 @@ export default (prop)=>
   doctor:'doctor/appointment',
   admin:'admin/appointment',
   pharmacist:'pharmacist/pharmacy' ,
-  pathologist:'phathologist/phathology',
+  pathologist:'phathologist/pathology',
   radiologist: 'radiologist/radiology',
   accountant:'accountant/finance/income'        
   }
