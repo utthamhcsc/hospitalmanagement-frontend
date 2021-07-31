@@ -27,13 +27,16 @@ export default function(props) {
         <div className="modal fade in" id="addTpa" >
           <div className="modal-dialog modal-mid" role="document">
             <div className="modal-content modal-media-content">
-              <div className="modal-header modal-media-header pb-1">
-              <h6 className="box-title"> Add Tpa</h6> 
-                <button type="button" className="close" data-dismiss="modal">×</button>
-                
-              </div>
+             
            
                 <div className="modal-body pt0 pb0">  
+                <div className="card  ">
+            
+            <div className="card-body login-card-body">
+            <button type="button" class="close " data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button> 
+                  <h5 className="login-box-msg">Add Tpa</h5> 
                 <div className='row'>
                   <div className="col-md-4">
                     <div className="form-group">
@@ -82,10 +85,11 @@ export default function(props) {
                 </div>
                 </div>{/*./modal-body*/} 
 
-                <div className="box-footer">
-                  <button type="submit" id="formaddbtn" onClick={formik.handleSubmit} className="btn btn-primary pull-right">Save</button>
+                <div className="">
+                  <button type="submit" id="formaddbtn" onClick={formik.handleSubmit} className="btn btn-primary btn-block">Save</button>
                 </div>
-            
+                </div>
+                </div>
             </div>{/*./row*/} 
           </div>
         </div>

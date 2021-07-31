@@ -15,9 +15,11 @@ export default (prop)=>{
    
   window.$.fn.dataTable.ext.errMode='none';
   window.$('#'+prop.id).DataTable( {
+    
     data:prop.dataSrc,
     columns:prop.col,
     columnDefs:prop.columnDefs,
+    scrollX: true,
      dom: '<"d-sm-flex flex-row justify-content-between align-items-center border-primary m-0 p-0"<l><"text-center mb-3"B><f>>t<"d-sm-flex justify-content-between align-items-center p-2"ip>',
         buttons: [
             {
@@ -45,7 +47,7 @@ export default (prop)=>{
               className:'btn btn-primary btn-xs py-0 '
             }
         ],
-     responsive:true
+    
      
     
 
@@ -60,12 +62,12 @@ export default (prop)=>{
 
 <div >
 
-<table id={prop.id} className={`table table-bordered table-striped table-hover `} style={{width:'100%'}}>
+<table id={prop.id} className={`table  table-hover text-xs text-capitalize text-nowrap text-left over-flow-auto`} style={{width:'100%'}}>
   <thead className=''>
            {<tr>
                 {prop.col.map(
                     (name)=>{
-                    return <th className='text-xs p-0 text-center'>{name.title}</th>
+                    return <td className=''>{name.title}</td>
                     }
                 )}
             </tr>}

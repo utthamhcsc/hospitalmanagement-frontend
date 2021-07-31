@@ -6,9 +6,23 @@ import {Getdata,Postdata} from '../../../../Network/Server'
 import AddBloodDonor from '../../../../Forms/BloodBank/AddBloodDonor'
 import AddDonate from '../../../../Forms/BloodBank/AddDonate'
 import ViewDonar from '../../../../Forms/BloodBank/ViewDonar'
+import swal from 'sweetalert'
 export default function BloodDonar(props)
  {
-   
+  const deletealert=(url,val)=>{
+    swal({
+      title: "Are you sure?",
+    
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        Getdata(url+'/'+val).then(setdataSrc(data=>data.filter(item=>item.id!=val)))
+      
+      } 
+    });
+   }
   const [index,setindex]=React.useState({});
   const [index1,setindex1]=React.useState({});
  
@@ -24,14 +38,14 @@ export default function BloodDonar(props)
     const [dataSrc,setdataSrc]=React.useState([]);
     const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(
       <BrowserRouter>
-      <button onClick={()=>setindex1(rowData)} className={'btn btn-xs btn-warning'} data-toggle='modal' data-target='#viewdonar'><i className='fa fa-eye'></i></button>
+      <button onClick={()=>setindex1(rowData)} className={'btn btn-xs btn-info'} data-toggle='modal' data-target='#viewdonar'><i className='fa fa-eye'></i></button>
      
-      <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-success'}
+      <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-warning'}
        data-toggle='modal' data-target='#Addblooddonor'><i className='fa fa-pencil'></i></button>
       
-      <button onClick={()=>Getdata(`blooddonar/delete/${rowData.id}`).then(data=>setdataSrc(item=>item.filter(item1=>item1.id!=data)))} className={'btn btn-xs btn-danger'} ><i className='fa fa-trash'></i></button>
+      <button onClick={()=>deletealert(`blooddonar/delete`,`${rowData.id}`)} className={'btn btn-xs btn-danger'} ><i className='fa fa-trash'></i></button>
       <button onClick={()=>setindex1(rowData)} className={'btn btn-xs btn-success'}
-       data-toggle='modal' data-target='#adddonorblood'>
+       data-toggle='modal' data-target='#adddonorblood' title='View Donar'>
          <i className='fa fa-plus-square'/>
          Donate</button>
     
@@ -45,14 +59,16 @@ export default function BloodDonar(props)
 
     return (
         <>
-        <nav aria-label="breadcrumb" >
-  <ol class="p-2 px-5" style={{backgroundColor:'#3f51b5'}} >
-  <li class="text-white font-weight-bold d-sm-flex justify-content-between align-items-baseline" aria-current="page">
-      <h6 className='text-sm' style={{letterSpacing:'1px',lineHeight:'100%'}}>Donor Details</h6>
-  <div className='btn-group p-0'>
-    <button className={'btn btn-xs  btn-light ml-1 ' } style={{marginLeft:'0.5px !important',opacity:0}} data-toggle="modal" data-target="sdf">dfgh</button>
+       <div className='card elevation-1 '>
+        <nav aria-label="breadcrumb"  >
+  <ol class="p-2 px-5 overflow-auto border   bg-white " style={{backgroundColor:'#ffffff !important'}} >
+
+  <li class=" font-weight-bold d-flex justify-content-between align-items-center p-0" aria-current="page">
+      <h5  >Blood Donar</h5>
+<div className='btn-group '>
+    <button className={'btn btn-xs  btn-primary ml-1 ' } style={{marginLeft:'0.5px !important',opacity:0}} data-toggle="modal" data-target="sdf">dfgh</button>
     <button data-toggle="modal" onClick={()=>setindex('')} 
-    data-target="#Addblooddonor" class="btn btn-light text-xs  btn-xs  ml-1"> 
+    data-target="#Addblooddonor" class="btn btn-primary text-xs  btn-xs  ml-1"> 
     <i class="fa fa-plus"></i> Add Blood Donar</button>                        
                          </div>
   </li>
@@ -65,6 +81,7 @@ export default function BloodDonar(props)
   <ViewDonar {...index1}/>
     <AddBloodDonor data={index} setdataSrc={setdataSrc}/>
     <AddDonate data={index1}/>
+  </div>
   </div>
         </>
     )

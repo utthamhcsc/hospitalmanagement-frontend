@@ -22,12 +22,14 @@ window.$('#addambulance').modal('hide')
       <div id="addambulance" className="modal fade in" role="dialog" aria-hidden="false">
   <div className="modal-dialog modal-dialog2 modal-lg">
     <div className="modal-content">
-      <div className="modal-header bg-primary">
-      <h6 className="modal-title">Add&nbsp;Ambulance</h6>
-        <button type="button" className="close" data-dismiss="modal" autoComplete="off">×</button>
-       
-      </div>
-      <div className="modal-body">
+    <div className="card  ">
+            
+            <div className="card-body login-card-body">
+            <button type="button" class="close " data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button> 
+                  <h5 className="login-box-msg">Add Ambulance</h5> 
+      
         <div className="row">
         <div className='col-md-4'>
                      <div className='form-group'>
@@ -98,11 +100,12 @@ window.$('#addambulance').modal('hide')
                      </div> 
                       
                          
-                     <div className='col-md-12 border-top pt-3'>
+                     <div className='col-md-12 pt-3'>
                      <div className='form-group text-right'>
-                       <button className='btn btn-sm bg-primary' onClick={formik.handleSubmit}>save</button>
+                       <button className='btn  btn-primary btn-block' onClick={formik.handleSubmit}>save</button>
                      </div>
                      </div> 
+                     </div>
         </div>
       </div>
     </div>

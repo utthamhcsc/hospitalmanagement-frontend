@@ -55,7 +55,7 @@ const [doctor,setdoctor]=useState([])
          <div class="modal-content" role="document">
 
         <div class="card ">
-            <div class="card-header bg-primary"> 
+            <div class="modal-header "> 
             <select className='w-25' {...formik.getFieldProps('patientId')}>
                 <option value=''>Select Patient</option>
                 {patient

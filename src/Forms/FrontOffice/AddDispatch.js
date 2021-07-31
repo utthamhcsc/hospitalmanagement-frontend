@@ -61,17 +61,18 @@ return(
   <div class="modal fade" id="PostalDsp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-md" role="document">
       <div class="modal-content p-0" role="document">
-        <div className="card p-0">
-         <div class="card-header bg-primary  "> Add Dispatch
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button> 
-          </div>
-       <div className="card-body m-0">     
+       
+    <div className="card  ">
+            
+            <div className="card-body login-card-body">
+            <button type="button" class="close " data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button> 
+                  <h5 className="login-box-msg">Add Dispatch</h5>      
        <form  onSubmit={formik.handleSubmit}>
-       <div className="border bg-light">
+       <div className="">
 
-        <div class="form-row p-2">
+        <div class="form-row ">
 
          <div class="form-group col-md-6">
            <label for="fromtitle">To Title <small class="req text-danger"> *</small></label>
@@ -86,9 +87,9 @@ return(
         </div>
      </div>
    </div>
-       <div className="border bg-light mt-2"> 
+       <div className=" mt-2"> 
 
-        <div className="form-row p-2">
+        <div className="form-row ">
 
           <div className="form-group col-md-6">
             <label for="address">Address</label>
@@ -106,9 +107,9 @@ return(
         </div>
       </div>
       
-      <div className="border bg-light mt-2">
+      <div className=" mt-2">
 
-      <div className="form-row p-2">
+      <div className="form-row ">
 
         <div className="form-group col-md-6">
           <label for="totitle">From Title</label>
@@ -130,8 +131,8 @@ return(
         </div>
       </div>
     </div>
-       <div className="border bg-light mt-2">
-      <div class="form-group p-2">
+       <div className=" mt-2">
+      <div class="form-group ">
       <label for="inputCity">Attach Document</label>
       <input type="file" class="custom-file" id="inputCity" onChange={(e)=>formik.setFieldValue('attachdDocument',e.target.files[0])} />
       <span className='text-danger'>{(formik.touched.attachdDocument && formik.errors.attachdDocument)?formik.errors.attachdDocument:''}</span>
@@ -139,7 +140,7 @@ return(
     </div>
     </div>
     
-        <button type="submit" class="btn btn-primary mt-2">Save</button>
+        <button type="submit" class="btn btn-primary mt-2 btn-block">Save</button>
   </form>
 </div>
 </div>

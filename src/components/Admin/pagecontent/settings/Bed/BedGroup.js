@@ -3,13 +3,30 @@ import ReactDOM from 'react-dom'
 import {NavLink,BrowserRouter} from 'react-router-dom'
 import Table from '../../../../Table'
 import {Getdata,Postdata} from '../../../../../Network/Server'
-import Radiology1 from '../../../../../Forms/Radiology/Radiology'
-import AddMediciniCategory from '../../AddMediciniCategory'
 import DisplayForm from '../../../../../Forms/DisplayForm'
 import AddBedGroup from '../../../../../Forms/Settings/Bed/AddBedGroup'
+import swal from 'sweetalert'
 
 export default function BedGroup(props)
  {
+  const deletealert=(url,val)=>{
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this imaginary file!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        Getdata(url+'/'+val).then(setdataSrc(data=>data.filter(item=>item.id!=val)))
+        swal("Poof! Your imaginary file has been deleted!", {
+          icon: "success",
+        
+        });
+      } 
+    });
+   }
    
   const [index1,setindex1]=React.useState({});
   const [index,setindex]=React.useState({});
@@ -26,7 +43,7 @@ export default function BedGroup(props)
      
       <button onClick={()=>setindex1(rowData)} className={'btn btn-xs btn-light'} data-toggle='modal' data-target='#bedGroup'><i className='fa fa-pencil'></i></button>
       
-      <button onClick={()=>Getdata(`bedgroup/delete/${rowData.id}`).then(mydata=>mydata?setdataSrc(data=>data.filter(item=>item.id!=mydata)):'')} className={'btn btn-xs btn-light'} ><i className='fa fa-trash'></i></button>
+      <button onClick={()=>deletealert(`bedgroup/delete`,`${rowData.id}`)} className={'btn btn-xs btn-light'} ><i className='fa fa-trash'></i></button>
      
       </BrowserRouter>,td)}]
     

@@ -38,7 +38,7 @@ window.$('#adddonorblood').modal('hide');
          <div class="modal-content" role="document">
 
         <div class="card ">
-            <div class="card-header bg-primary">  Donor Blood Details
+            <div class="modal-header "> <h5> Donor Blood Details</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button> 

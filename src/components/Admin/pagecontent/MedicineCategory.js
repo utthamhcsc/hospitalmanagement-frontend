@@ -6,10 +6,29 @@ import {Getdata,Postdata} from '../../../Network/Server'
 import Radiology1 from '../../../Forms/Radiology/Radiology'
 import AddMediciniCategory from './AddMediciniCategory'
 import DisplayForm from '../../../Forms/DisplayForm'
+import swal from 'sweetalert'
 
 export default function MedicineCategory(props)
  {
-   
+  const deletealert=(url,val)=>{
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this imaginary file!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        Postdata(url+'/'+val,'DELETE',{}).then(setdataSrc(data=>data.filter(item=>item.id!=val)))
+        swal("Poof! Your imaginary file has been deleted!", {
+          icon: "success",
+        
+        });
+      } 
+    });
+   }
+  
   const [index1,setindex1]=React.useState({medicineCategory:''});
   const [index,setindex]=React.useState({});
   const column=[{data:'',title:'Sl.No',render:( data, type, row, meta ) =>`<b>${meta.row+1}</b>`},
@@ -22,7 +41,7 @@ export default function MedicineCategory(props)
      
       <button onClick={()=>setindex1(rowData)} className={'btn btn-xs btn-light'} data-toggle='modal' data-target='#MedicineCategory'><i className='fa fa-pencil'></i></button>
       
-      <button onClick={()=>Postdata(`medicineCat/delete/${rowData.id}`,'DELETE',{}).then(mydata=>mydata?setdataSrc(data=>data.filter(item=>item.id!=mydata.id)):'')} className={'btn btn-xs btn-light'} ><i className='fa fa-trash'></i></button>
+      <button onClick={()=>deletealert(`medicineCat/delete`,`${rowData.id}`)} className={'btn btn-xs btn-light'} ><i className='fa fa-trash'></i></button>
      
       </BrowserRouter>,td)}]
     

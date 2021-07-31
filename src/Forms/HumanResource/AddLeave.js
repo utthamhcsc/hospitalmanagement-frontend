@@ -38,8 +38,8 @@ React.useEffect(()=>{
       <div id="addleave" className="modal fade in" role="dialog" aria-hidden="false">
   <div className="modal-dialog modal-dialog2 modal-lg">
     <div className="modal-content">
-      <div className="modal-header bg-primary">
-      <h6 className="modal-title">Add&nbsp;Details</h6>
+      <div className="modal-header ">
+      <h5 className="modal-title">Add&nbsp;Details</h5>
         <button type="button" className="close" data-dismiss="modal" autoComplete="off">×</button>
        
       </div>

@@ -6,9 +6,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <link rel="manifest" href="/manifest.json">
-    <base href="/" />
-    <!-- Bootstrap CSS -->
-
+<base href='/'>    
+    <!-- Bootstrap CSS
+<link rel="stylesheet" href="bmd.css"> -->
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
@@ -17,6 +17,7 @@
   <!-- iCheck -->
   <link rel="stylesheet" href="plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- JQVMap -->
+  
   <link rel="stylesheet" href="plugins/jqvmap/jqvmap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
@@ -29,10 +30,9 @@
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
   <link href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-  <link rel="stylesheet" href="https://demo.smart-hospital.in/backend/datepicker/css/bootstrap-datetimepicker.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-    
+  
   <!-- jQuery UI 1.11.4 -->
   <script src="plugins/jquery-ui/jquery-ui.min.js"></script>
   <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -66,6 +66,7 @@
   <!-- AdminLTE for demo purposes -->
   <script src="dist/js/demo.js"></script>
    <script src="plugins/popper.js"></script>
+   <!-- <script src='bmd.js'></script> -->
   <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css"/>
 <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css"/>
   <script src="plugins/datatables/jquery.dataTables.min.js"></script>
@@ -80,7 +81,10 @@
 <script src="plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 <script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
 
-   
+<!-- <link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"
+/> -->
 
 
 
@@ -96,15 +100,20 @@
 
     <title>Hospital management</title>
   </head>
-  <body class="hold-transition sidebar-mini layout-fixed bg-light" >
-    
+  <body class="hold-transition sidebar-mini sidebar-mini control-sidebar-slide-open  layout-fixed " >
+    <div class="wrapper">
    <div id="root"></div>
-    
+  </div>
 
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script>$('.carousel').carousel({
+    <script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
+    <script>
+   
+  
+
+    $('.carousel').carousel({
       interval:3000
     });
     $(function () {
@@ -119,9 +128,7 @@
   trigger: 'focus'
 })
 
-$(document).ready(function(){
-  $('[data-toggle="tooltip"]').tooltip();
-});
+
 </script>
   </body>
 </html>

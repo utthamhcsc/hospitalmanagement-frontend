@@ -7,8 +7,22 @@ import DisplayForm from "../../../../Forms/DisplayForm";
 import Addprescription from "../../../../Forms/IPDForms/Addprescription";
 import ViewTestPrescription from "../../../../Forms/IPDForms/ViewTestPrescription";
 import DisplayPriscription from "../../../../Forms/DisplayPriscription";
-
+import swal from 'sweetalert'
 export default (props)=> {
+  const deletealert=(url,val)=>{
+    swal({
+      title: "Are you sure?",
+     
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        Getdata(url+'/'+val).then(setdataSrc(data=>data.filter(item=>item.id!=val)))
+      
+      } 
+    });
+   }
   const [index1, setindex1] = React.useState({});
   const history = useHistory();
   const {patientId}=useParams();
@@ -33,17 +47,17 @@ export default (props)=> {
           <BrowserRouter>
             <button
               onClick={() => setindex1(rowData)}
-              className={"btn btn-xs btn-light"}
+              className={"btn btn-xs btn-info"}
               data-toggle="modal"
               data-target="#viewCaseHistory"
             >
               <i className="fa fa-eye"></i>
             </button>
-            <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-light'} 
+            <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-warning'} 
 data-toggle='modal' data-target='#addPriscription'>
     <i className='fa fa-pencil' data-tip='hello'></i></button>
   
-  <button onClick={()=>Getdata(`myipdprescription/delete/${rowData.id}`).then(data=>setdataSrc(item=>item.filter(item=>item.id!=data.id)))} className={'btn btn-xs btn-light'} ><i className='fa fa-trash'></i></button>
+  <button onClick={()=>deletealert(`myipdprescription/delete`,`${rowData.id}`)} className={'btn btn-xs btn-danger'} ><i className='fa fa-trash'></i></button>
  
           </BrowserRouter>,
           td
@@ -74,7 +88,7 @@ data-toggle='modal' data-target='#addPriscription'>
             </h6>
             <div className="btn-group p-0">
               <button
-                className={"btn btn-xs  btn-light ml-1 "}
+                className={"btn btn-xs  btn-primary ml-1 "}
                 style={{ marginLeft: "0.5px !important", opacity: 0 }}
                 data-toggle="modal"
                 data-target="sdf"
@@ -89,7 +103,7 @@ data-toggle='modal' data-target='#addPriscription'>
                 onClick={() =>
                 history.push(`/admin/myIpd/charges/${patientId}`)
               }
-                class="btn btn-light text-xs  btn-xs  ml-1"
+                class="btn btn-primary text-xs  btn-xs  ml-1"
               >
                 {" "}
                 <i class="fa fa-reorder"></i> Charges
@@ -99,7 +113,7 @@ data-toggle='modal' data-target='#addPriscription'>
                 onClick={() =>
                 history.push(`/admin/myIpd/consultantRegister/${patientId}`)
               }
-                class="btn btn-light text-xs  btn-xs  ml-1"
+                class="btn btn-primary text-xs  btn-xs  ml-1"
               >
                 {" "}
                 <i class="fa fa-reorder"></i> Consutant Register
@@ -109,7 +123,7 @@ data-toggle='modal' data-target='#addPriscription'>
                 onClick={() =>
                 history.push(`/admin/myIpd/diagnosis/${patientId}`)
               }
-                class="btn btn-light text-xs  btn-xs  ml-1"
+                class="btn btn-primary text-xs  btn-xs  ml-1"
               >
                 {" "}
                 <i class="fa fa-reorder"></i> Diagnoses
@@ -119,7 +133,7 @@ data-toggle='modal' data-target='#addPriscription'>
                 onClick={() =>
                 history.push(`/admin/myIpd/payment/${patientId}`)
               }
-                class="btn btn-light text-xs  btn-xs  ml-1"
+                class="btn btn-primary text-xs  btn-xs  ml-1"
               >
                 {" "}
                 <i class="fa fa-reorder"></i> Payment
@@ -128,7 +142,7 @@ data-toggle='modal' data-target='#addPriscription'>
                 data-toggle="modal"
                 data-target="#addPriscription"
                 onClick={() => setindex()}
-                class="btn btn-light text-xs  btn-xs  ml-1"
+                class="btn btn-primary text-xs  btn-xs  ml-1"
               >
                 {" "}
                 <i class="fa fa-plus"></i> Add Prescription

@@ -62,18 +62,18 @@ React.useEffect(()=>{
         <div class="modal fade" id="adddeath" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
   <div class="modal-content" role="document">
-  <div class="card ">
-            <div class="card-header bg-primary"> Add Death Record
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button> 
-            </div>
-                    <div className="card-body">
+  <div className="card text-bold">
+            
+            <div className="card-body login-card-body">
+            <button type="button" class="close " data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button> 
+                  <h5 className="login-box-msg">Add Death</h5> 
                 <form onSubmit={formik.handleSubmit}>
                  <div className="form-row">
                      <div className="col-3">
                      <div> Patient Name <small class="req text-danger"> *</small>
-                     <select id="input" className="form-control mt-1" value={formik.values.patientId} onChange={(e)=>formik.setFieldValue('patientId',e.target.value)}>
+                     <select id="input" className="form-control form-CONTROL" value={formik.values.patientId} onChange={(e)=>formik.setFieldValue('patientId',e.target.value)}>
                              <option>Select</option>
                             {
                                 data?Object.keys(data).map(item=><option value={item}>{data[item]}</option>):''
@@ -85,7 +85,7 @@ React.useEffect(()=>{
 
                      <div className="col-3">
                      <div className="ml-2">IPD/OPD No
-                     <input type="text" className="form-control mt-1" value={formik.values.ipdopdNo} onChange={(e)=>formik.setFieldValue('ipdopdNo',e.target.value)}/> 
+                     <input type="text" className="form-control form-CONTROL" value={formik.values.ipdopdNo} onChange={(e)=>formik.setFieldValue('ipdopdNo',e.target.value)}/> 
                      </div>
                      </div>
 
@@ -105,7 +105,7 @@ React.useEffect(()=>{
                      </div>
                      <div className="col-3">
                      <div  className="ml-2">Guardian Name<small class="req text-danger"> *</small>
-                         <input type="text" className="form-control mt-1" value={formik.values.guardianName} onChange={(e)=>formik.setFieldValue('guardianName',e.target.value)}/>
+                         <input type="text" className="form-control form-CONTROL" value={formik.values.guardianName} onChange={(e)=>formik.setFieldValue('guardianName',e.target.value)}/>
                          <span className='text-danger'>{(formik.touched.guardianName && formik.errors.guardianName)?formik.errors.guardianName:''}</span>
                      </div>
                      </div>
@@ -116,18 +116,18 @@ React.useEffect(()=>{
                  
                  <div className="mt-2">
                  <div>Report</div>
-                 <textarea id="input" rows="2" className="form-control mt-1" value={formik.values.report} onChange={(e)=>formik.setFieldValue('report',e.target.value)}/>
+                 <textarea id="input" rows="2" className="form-control form-CONTROL" value={formik.values.report} onChange={(e)=>formik.setFieldValue('report',e.target.value)}/>
                  </div> 
 
                  <div className="mt-2">
                  <div>Reciever Name</div>
-                 <input type="text" className="form-control mt-1" value={formik.values.receiverName} onChange={(e)=>formik.setFieldValue('receiverName',e.target.value)}/>
+                 <input type="text" className="form-control form-CONTROL" value={formik.values.receiverName} onChange={(e)=>formik.setFieldValue('receiverName',e.target.value)}/>
                  </div> 
                     
-                             <div className="d-flex float-right  mt-3">
+                             <div className=" mt-3">
                             
                             
-                             <button type="submit" class="ml-4 btn btn-outline-primary form-control mt-1">Save</button>
+                             <button type="submit" class=" btn btn-primary btn-block">Save</button>
                             
                              </div>
                            

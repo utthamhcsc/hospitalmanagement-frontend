@@ -56,16 +56,17 @@ return(
         <div class="modal-dialog modal-md" role="document">
          <div class="modal-content" role="document">
 
-        
-<div className="card ">
-   <div class="card-header bg-primary "> Add Receive
-   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button> 
-    </div>
-  <div className="card-body">     
+     
+   
+<div className="card  ">
+            
+            <div className="card-body login-card-body">
+            <button type="button" class="close " data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button> 
+                  <h5 className="login-box-msg">Add Receive</h5>    
   <form onSubmit={formik.handleSubmit}>
-    <div className="border bg-light">
+    <div className="">
       <div class="form-row p-2">
 
          <div class="form-group col-md-6">
@@ -83,7 +84,7 @@ return(
       </div>
     </div>
 
-    <div className="border bg-light mt-2"> 
+    <div className=" "> 
       <div className="form-row p-2">
         <div className="form-group col-md-6">
           <label for="address">Address</label>
@@ -102,7 +103,7 @@ return(
       </div>
       </div>
 
-      <div className="border bg-light mt-2">
+      <div className=" ">
       <div className="form-row p-2">
         <div className="form-group col-md-6">
           <label for="totitle">To Title</label>
@@ -125,15 +126,15 @@ return(
       </div>
       </div>
 
-      <div className="border bg-light mt-2">
-      <div class="form-group p-2 mt-2">
+      <div className=" ">
+      <div class="form-group p-2 ">
       <label for="inputCity">Attach Document</label>
       <input type="file" class="custom-file" id="inputCity" placeholder="Attach Document" onChange={(e)=>formik.setFieldValue('attachDocument',e.target.files[0])}/>
     </div>
     
     <span className='text-danger'>{(formik.touched.attachDocument && formik.errors.attachDocument)?formik.errors.attachDocument:''}</span>
     </div>
-    <button type="submit" class="btn btn-primary mt-2">Save</button>
+    <button type="submit" class="btn btn-primary  btn-block">Save</button>
   </form>
 </div>
 </div>

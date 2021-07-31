@@ -7,9 +7,28 @@ import AddMediciniCategory from '../../AddMediciniCategory'
 import DisplayForm from '../../../../../Forms/DisplayForm'
 import AddDoctorOpdCharge from '../../../../../Forms/Settings/Charges/AddDoctorOpdCharge'
 import ViewCharges from '../../../../../Forms/Settings/Charges/ViewDoctorCharges'
+import swal from 'sweetalert'
 
 export default function DoctorOpdCharges(props)
  {
+  const deletealert=(url,val)=>{
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this imaginary file!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        Getdata(url+'/'+val).then(setdataSrc(data=>data.filter(item=>item.id!=val)))
+        swal("Poof! Your imaginary file has been deleted!", {
+          icon: "success",
+        
+        });
+      } 
+    });
+   }
    
   const [index1,setindex1]=React.useState({ 
   standardCharge: "",
@@ -28,7 +47,7 @@ export default function DoctorOpdCharges(props)
      
       <button onClick={()=>setindex1(rowData)} className={'btn btn-xs btn-light'} data-toggle='modal' data-target='#addDoctorCharge'><i className='fa fa-pencil'></i></button>
       
-      <button onClick={()=>Getdata(`doctorOpdCharge/delete/${rowData.id}`).then(mydata=>mydata?setdataSrc(data=>data.filter(item=>item.id!=mydata)):'')} className={'btn btn-xs btn-light'} ><i className='fa fa-trash'></i></button>
+      <button onClick={()=>deletealert(`doctorOpdCharge/delete`,`${rowData.id}`)} className={'btn btn-xs btn-light'} ><i className='fa fa-trash'></i></button>
      
       </BrowserRouter>,td)}]
     

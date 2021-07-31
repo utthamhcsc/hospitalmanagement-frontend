@@ -27,8 +27,8 @@ export default function(props) {
         <div className="modal fade in" id="addpurpose" >
           <div className="modal-dialog modal-mid" role="document">
             <div className="modal-content modal-media-content">
-              <div className="modal-header modal-media-header pb-1">
-              <h6 className="box-title"> Add Purpose</h6> 
+              <div className="modal-header ">
+              <h5 className="box-title"> Add Purpose</h5> 
                 <button type="button" className="close" data-dismiss="modal">×</button>
                 
               </div>

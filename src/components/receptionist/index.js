@@ -1,5 +1,5 @@
 import React from 'react'
-import {Route} from 'react-router-dom'
+import {Route,Switch} from 'react-router-dom'
 import Sidebar from './sidebar/sidebar'
 import Navbar from './navbar/Navbar'
 import FrontOffice from './pagecontent/FrontOffice'
@@ -31,6 +31,10 @@ import BloodBank from './pagecontent/BloodBank/index'
 import Finance from './pagecontent/Finance/index'
 import BirthOrDeath from './pagecontent/BirthRecords/index'
 import ItemStock from './pagecontent/inventary/index'
+import NoticeBoard from './pagecontent/Messaging/index'
+import NewMassege from './pagecontent/Messaging/NewMessage'
+import SendEmail from './pagecontent/Messaging/SendEmail'
+import Home from './pagecontent/home'
 
 export default function Index(props) {
   const [index,setindex]=React.useState({})
@@ -45,6 +49,7 @@ export default function Index(props) {
       backgroundRepeat: 'no-repeat'
     }} >
     <section className="content px-4 mt-4" >
+      <Switch>
       <Route path='/receptionist/itemstock' render={()=><ItemStock/>}/>
     <Route path='/receptionist/birthordeath' render={()=><BirthOrDeath/>} /> 
     <Route path='/receptionist/finance' render={()=><Finance/>} /> 
@@ -74,6 +79,11 @@ export default function Index(props) {
  <Route path='/receptionist/diagnosis/:patientId' render={()=><Diagnosis />}/>
  <Route path='/receptionist/patient/charges/:patientId' render={()=><OpdCharges />}/>
  <Route path='/receptionist/patient/bill/:patientId' render={()=><OpdBill/>}/>
+ <Route path='/receptionist/messaging' render={()=><NoticeBoard/>}/>
+       <Route path='/receptionist/messaging/newmessage' render={()=><NewMassege/>}/>
+       <Route path='/receptionist/messaging/sendemail' render={()=><SendEmail/>}/>
+       <Route path='/receptionist' render={()=><Home/>}/>
+       </Switch>
       
        
   

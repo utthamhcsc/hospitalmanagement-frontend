@@ -38,16 +38,15 @@ export default (props)=>{
         <div class="modal fade" id="Addblooddonor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document">
          <div class="modal-content" role="document">
-
-        <div class="card ">
-            <div class="card-header bg-primary"> Add Donor Details
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button> 
-            </div>
-           <div class="card-body ">
+         <div className="card  ">
+            
+            <div className="card-body login-card-body">
+            <button type="button" class="close " data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button> 
+                  <h5 className="login-box-msg">Add Blood Donar</h5> 
                <form onSubmit={formik.handleSubmit}>
-               <div className="form-row border bg-light">
+               <div className="form-row ">
                   <div className="col-8"> 
                   <div className="form-group p-2">
                       <div>Donor Name <small className="req text-danger">*</small></div>
@@ -109,7 +108,7 @@ export default (props)=>{
                   
                   
               </div>
-              <div className=" border form-row mt-4 bg-light">
+              <div className=" form-row mt-4 ">
                   <div className="col-6">
               <div className="form-group p-2">
                       <div>Father Name</div>
@@ -134,12 +133,9 @@ export default (props)=>{
                       <span className='text-danger'>{(formik.touched.address && formik.errors.reportDays)?formik.errors.reportDays:''}</span>
                   </div>
                   </div>
-            
-                   
-                  
               </div>
-              <div className="form-group float-right mt-4">
-                      <button type="submit"className="form-control bg-primary ">Save</button>
+              <div className="">
+                      <button type="submit"className="btn btn-primary btn-block">Save</button>
                   </div>
                   </form>
          </div>

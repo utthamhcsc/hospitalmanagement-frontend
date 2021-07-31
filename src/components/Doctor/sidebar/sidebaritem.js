@@ -34,13 +34,7 @@ return (
                     <p className='pl-3 ' style={{letterSpacing:'1px',fontSize:'13px',lineHeight:'100%'}}> IPD - In Patient</p>
                 </NavLink>
            </li>
-            <li className="nav-item has-treeview shadow p-1">
-                <NavLink className="nav-link py-1 text-white" to="/doctor/pharmacy">
-                     <i class="text-xs fas fa-mortar-pestle"></i> 
-                     <p className='pl-3 ' style={{letterSpacing:'1px',fontSize:'13px',lineHeight:'100%'}}> Pharmacy</p>
-                </NavLink>
-            </li>
-            <li className="nav-item has-treeview shadow p-1">
+   <li className="nav-item has-treeview shadow p-1">
                 <NavLink className="nav-link py-1 text-white" to="/doctor/pathology">
                     <i class="text-xs fas fa-flask"></i> 
                     <p className='pl-3 ' style={{letterSpacing:'1px',fontSize:'13px',lineHeight:'100%'}}>Pathology</p>
@@ -56,6 +50,12 @@ return (
                 <NavLink className="nav-link py-1 text-white" to="/doctor/operationtheatre">
                     <i class="text-xs fas fa-cut"></i> 
                     <p className='pl-3 ' style={{letterSpacing:'1px',fontSize:'13px',lineHeight:'100%'}}>Operation Theatre</p>
+                </NavLink>
+            </li>
+            <li class="treeview  ">
+                <NavLink className="nav-link py-1 text-white" to="/doctor/messaging">
+                    <i class="text-xs fas fa-bullhorn"></i> 
+                    <p className='pl-3 ' style={{letterSpacing:'1px',fontSize:'13px',lineHeight:'100%'}}>Messaging</p>
                 </NavLink>
             </li>
             <li className="nav-item has-treeview shadow p-1">

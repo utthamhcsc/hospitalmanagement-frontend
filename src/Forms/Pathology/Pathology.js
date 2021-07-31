@@ -29,6 +29,7 @@ const [code,setcode]=useState([])
             else
             props.setdataSrc(data=>[{p:res},...data])
               window.$('#AddpathologyTest').modal('hide')
+              window.location.reload();
           })},
           validationSchema:Yup.object().shape({
             testName:Yup.string().required('required'),
@@ -87,35 +88,35 @@ const fetchbychargeCat=(val)=>{
         <div class="modal-dialog modal-xl" role="document">
          <div class="modal-content" role="document">
 
-        <div class="card ">
-            <div class="card-header bg-primary"> Add Test Details
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button> 
-            </div>
-           <div class="card-body">
+         <div className="card  ">
+            
+            <div className="card-body login-card-body">
+            <button type="button" class="close " data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button> 
+                  <h5 className="login-box-msg">Add Pathology Test</h5> 
                <form onSubmit={formik.handleSubmit}>
-               <div className="d-flex justify-content-between border bg-light">
-                  <div className="form-group p-2">
-                      <div>Test Name <small className="req text-danger">*</small></div>
+               <div className="row mb-3">
+                  <div className="form-group col-md-3 text-bold">
+                      <div classname='text-bold'>Test Name <small className="req text-danger">*</small></div>
                       <input type="text" class="form-control" value={formik.values.testName} onChange={(e)=>formik.setFieldValue('testName',e.target.value)}/>
                       <span className='text-danger'>{(formik.touched.testName && formik.errors.testName)?formik.errors.testName:''}</span>
                   </div>
                   
-                  <div className="form-group p-2">
-                      <div>Short Name <small className="req text-danger">*</small></div>
+                  <div className="form-group col-md-3 text-bold">
+                      <div classname='text-bold'>Short Name <small className="req text-danger">*</small></div>
                       <input type="text" class="form-control" value={formik.values.shortName} onChange={(e)=>formik.setFieldValue('shortName',e.target.value)}/>
                       <span className='text-danger'>{(formik.touched.shortName && formik.errors.shortName)?formik.errors.shortName:''}</span>
                   </div>
                   
-                  <div className="form-group p-2">
-                      <div>Test type<small className="req text-danger">*</small></div>
+                  <div className="form-group col-md-3 text-bold">
+                      <div classname='text-bold'>Test type<small className="req text-danger">*</small></div>
                       <input type="text" class="form-control" value={formik.values.testType} onChange={(e)=>formik.setFieldValue('testType',e.target.value)}/>
                       <span className='text-danger'>{(formik.touched.testType && formik.errors.testType)?formik.errors.testType:''}</span>
                   </div>
                   
-                  <div className="form-group p-2">
-                      <div>Category Name<small className="req text-danger">*</small></div>
+                  <div className="form-group col-md-3 text-bold">
+                      <div classname='text-bold'>Category Name<small className="req text-danger">*</small></div>
                       <select id="input"className="form-control" value={formik.values.category}  onChange={(e)=>formik.setFieldValue('category',e.target.value)}>
                           <option value=''>Select</option>
                           {
@@ -126,35 +127,35 @@ const fetchbychargeCat=(val)=>{
                   </div>
                   
               </div>
-              <div className="d-flex justify-content-between border mt-4 bg-light">
-                  <div className="form-group p-2">
-                      <div>Unit</div>
+              <div className="row mb-3">
+                  <div className="form-group col-md-3 text-bold">
+                      <div classname='text-bold'>Unit</div>
                       <input type="text" class="form-control" value={formik.values.unit} onChange={(e)=>formik.setFieldValue('unit',e.target.value)}/>
                       <span className='text-danger'>{(formik.touched.unit && formik.errors.unit)?formik.errors.unit:''}</span>
                   </div>
                   
-                  <div className="form-group p-2">
-                      <div>Sub Category</div>
+                  <div className="form-group col-md-3 text-bold">
+                      <div classname='text-bold'>Sub Category</div>
                       <input type="text" class="form-control" value={formik.values.subCategory}  onChange={(e)=>formik.setFieldValue('subCategory',e.target.value)}/>
                       <span className='text-danger'>{(formik.touched.subCategory && formik.errors.subCategory)?formik.errors.subCategory:''}</span>
                   </div>
                   
-                  <div className="form-group p-2">
-                      <div>Method</div>
+                  <div className="form-group col-md-3 text-bold">
+                      <div classname='text-bold'>Method</div>
                       <input type="text" class="form-control" value={formik.values.method} onChange={(e)=>formik.setFieldValue('method',e.target.value)}/>
                       <span className='text-danger'>{(formik.touched.method && formik.errors.method)?formik.errors.method:''}</span>
                   </div>
                   
-                  <div className="form-group p-2">
-                      <div>Report Days</div>
+                  <div className="form-group col-md-3 text-bold">
+                      <div classname='text-bold'>Report Days</div>
                       <input type="text" class="form-control" value={formik.values.reportDays}  onChange={(e)=>formik.setFieldValue('reportDays',e.target.value)}/>
                       <span className='text-danger'>{(formik.touched.reportDays && formik.errors.reportDays)?formik.errors.reportDays:''}</span>
                   </div>
                   
               </div>
-              <div className="d-flex justify-content-between border mt-4 bg-light" >
-              <div className="form-group p-2">
-                      <div>Charge Category<small className="req text-danger">*</small></div>
+              <div className="row mb-3" >
+              <div className="form-group col-md-3 text-bold">
+                      <div classname='text-bold'>Charge Category<small className="req text-danger">*</small></div>
                       <select id="input"className="form-control"value={formik.values.chargeCategory}  onChange={(e)=>{fetchbychargeCat(e.target.value)}}>
                           <option value=''>Select</option>
                          {
@@ -164,8 +165,8 @@ const fetchbychargeCat=(val)=>{
                         <span className='text-danger'>{(formik.touched.chargeCategory && formik.errors.chargeCategory)?formik.errors.chargeCategory:''}</span>
                   </div>
                   
-                  <div className="form-group p-2">
-                      <div>Code <small className="req text-danger">*</small></div>
+                  <div className="form-group col-md-3 text-bold">
+                      <div classname='text-bold'>Code <small className="req text-danger">*</small></div>
                       <select id="input"className="form-control" value={formik.values.code} onChange={(e)=>{
                           formik.setFieldValue('standardCharge',e.target.selectedOptions[0].getAttribute('data-value')||0)
                           formik.setFieldValue('code',e.target.value)}}>
@@ -177,21 +178,21 @@ const fetchbychargeCat=(val)=>{
                         <span className='text-danger'>{(formik.touched.code && formik.errors.code)?formik.errors.code:''}</span>
                   </div>
                   
-                  <div className="form-group p-2 ">
-                      <div>Standard Charge ($)<small className="req text-danger">*</small></div>
+                  <div className="form-group col-md-3 text-bold ">
+                      <div classname='text-bold'>Standard Charge ($)<small className="req text-danger">*</small></div>
                       <input type="text" class="form-control" readOnly value={formik.values.standardCharge}  onChange={(e)=>formik.setFieldValue('standardCharge',e.target.value)}/>
                       <span className='text-danger'>{(formik.touched.standardCharge && formik.errors.standardCharge)?formik.errors.standardCharge:''}</span>
                   </div>
                   
-                  <div className="form-group p-2" style={{opacity:0}}>
-                      <div>Test Name</div>
+                  <div className="form-group col-md-3 text-bold" style={{opacity:0}}>
+                      <div classname='text-bold'>Test Name</div>
                       <input type="text" class="form-control" value={formik.values.testName} onChange={(e)=>formik.setFieldValue('testName',e.target.value)}/>
                       <span className='text-danger'>{(formik.touched.testName && formik.errors.testName)?formik.errors.testName:''}</span>
                   </div>
                   
               </div>
-              <div className="form-group float-right mt-4">
-                      <button type="submit"className="form-control bg-primary ">Save</button>
+              <div className="">
+                      <button type="submit"className="btn btn-block btn-primary">Save</button>
                   </div>
                   </form>
          </div>

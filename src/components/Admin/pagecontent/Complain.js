@@ -5,10 +5,29 @@ import Table from '../../Table'
 import {Getdata,Postdata} from '../../../Network/Server'
 import AddComplain from '../../../Forms/FrontOffice/AddComplain'
 import DisplayForm from '../../../Forms/DisplayForm'
+import swal from 'sweetalert'
 
 export default function Complain(props) 
 {
-    
+  const deletealert=(url,val)=>{
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this imaginary file!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        Getdata(url+'/'+val).then(setdataSrc(data=>data.filter(item=>item.id!=val)))
+        swal("Poof! Your imaginary file has been deleted!", {
+          icon: "success",
+        
+        });
+      } 
+    });
+   }
+   
   const [index,setindex]=React.useState({});  
     const column=[{data:'complainBy',title:'Complain By'},
     {data:'source',title:'Source'},{data:'date',title:'Date',render:( data, type, row, meta )=>new Date(data).toLocaleDateString()},{data:'phone',title:'Phone'},{data:'description',title:'Description'},{data:'actionTaken',title:'Action Taken'},{data:'assigned',title:'Assigned'},{data:'note',title:'Note'},{data:'attachedDocument',title:'attach Document'},{data:'',title:'Action'}]

@@ -8,7 +8,7 @@ export default function PathologySettings(props) {
 <div className='row'>
 <div className='col-md-2 w-100'>
     <ul className='list-group'>
-    <Link to='/accountant/settings/pathology/category' className='list-group-item'>Pathology Category</Link>
+    <Link to='/pathologist/settings/pathology/category' className='list-group-item'>Pathology Category</Link>
         </ul>
 
 </div>

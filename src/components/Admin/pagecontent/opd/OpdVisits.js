@@ -24,9 +24,9 @@ render:(data,type,row,meta)=>new Date(data)=='Invalid Date'?'':new Date(data).to
 const [dataSrc,setdataSrc]=React.useState([{name:'opd123',patientId:'2019/12/12',gender:'Dr Covinda',mobileNumber:'Refe123',appointmentDate:'corona',totalVisit:2}]);
 const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(
     <BrowserRouter>
-    <button onClick={()=>setindex(rowData.opd)} className={'btn btn-xs btn-warning'} title='view Details' data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
+    <button onClick={()=>setindex(rowData.opd)} className={'btn btn-xs btn-info'} title='view Details' data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
    
-    <button onClick={()=>fetchbyopdId(rowData.opd.opdId)} className={'btn btn-xs btn-success'} title='add prescription'  data-toggle='modal' data-target='#addPriscription'><i className='fa fa-pencil' data-tip='hello'></i></button>
+    <button onClick={()=>fetchbyopdId(rowData.opd.opdId)} className={'btn btn-xs btn-warning'} title='add prescription'  data-toggle='modal' data-target='#addPriscription'><i className='fa fa-pencil' data-tip='hello'></i></button>
     
     <button onClick={()=>Getdata(`myopd/delete/${rowData.opd.opdId}`).then(data=>setdataSrc(item=>item.filter(item=>item.opd.opdId!=data.id))).catch(err=>alert(err))} className={'btn btn-xs btn-danger'} ><i className='fa fa-trash'></i></button>
     <button onClick={()=>fetchbyopdId(rowData.opd.opdId)} className={'btn btn-xs btn-primary'} title='view Case History' data-toggle='modal' data-target='#viewCaseHistory'><i className='fa fa-eye'></i></button>
@@ -68,28 +68,30 @@ setdataSrc([val])
  
 return (
 <>
-<nav aria-label="breadcrumb" >
-<ol class="p-2 px-5" style={{backgroundColor:'#3f51b5'}} >
-<li class="text-white font-weight-bold d-sm-flex justify-content-between align-items-baseline" aria-current="page">
-<h6 className='text-sm' style={{letterSpacing:'1px',lineHeight:'100%'}}>Visits</h6>
-<div className='btn-group p-0'>
-<button className={'btn btn-xs  btn-light ml-1 ' } style={{marginLeft:'0.5px !important',opacity:0}} data-toggle="modal" data-target="sdf">dfgh</button>
+<div className='card elevation-1 '>
+        <nav aria-label="breadcrumb"  >
+  <ol class="p-2 px-5 overflow-auto border   bg-white " style={{backgroundColor:'#ffffff !important'}} >
+
+  <li class=" font-weight-bold d-flex justify-content-between align-items-center p-0" aria-current="page">
+      <h5  >OPD Patient Visit</h5>
+<div className='btn-group '>
+<button className={'btn btn-xs  btn-primary ml-1 ' } style={{marginLeft:'0.5px !important',opacity:0}} data-toggle="modal" data-target="sdf">dfgh</button>
 {(!myopdId=='')?<>
 {/* <button onClick={()=>{setdataSrc(data);setmyOpdId('')}} 
-className={'btn btn-xs  btn-light ml-1 ' } 
+className={'btn btn-xs  btn-primary ml-1 ' } 
 style={{marginLeft:'0.5px !important'}} ><i className='fa fa-reorder'/> All</button>
    */}
     <NavLink to={`/admin/myopd/diagnosis/${myopdId}`}  
-    class="btn btn-light text-xs  btn-xs  ml-1"><i className='fa fa-reorder'/> Diagnosis</NavLink>  
+    class="btn btn-primary text-xs  btn-xs  ml-1"><i className='fa fa-reorder'/> Diagnosis</NavLink>  
     <NavLink to={`/admin/myopd/charges/${myopdId}`} 
-    class="btn btn-light text-xs  btn-xs  ml-1"><i className='fa fa-reorder'/>  Charges</NavLink>  
+    class="btn btn-primary text-xs  btn-xs  ml-1"><i className='fa fa-reorder'/>  Charges</NavLink>  
     <NavLink to={`/admin/myopd/payment/${myopdId}`} 
-    class="btn btn-light text-xs  btn-xs  ml-1"><i className='fa fa-reorder'/>  Payment</NavLink>  
+    class="btn btn-primary text-xs  btn-xs  ml-1"><i className='fa fa-reorder'/>  Payment</NavLink>  
     <NavLink to={`/admin/myopd/bill/${myopdId}`} 
-    class="btn btn-light text-xs  btn-xs  ml-1"><i className='fa fa-reorder'/>  Bill</NavLink>  
+    class="btn btn-primary text-xs  btn-xs  ml-1"><i className='fa fa-reorder'/>  Bill</NavLink>  
     
     
-    <button data-toggle="modal" data-target="#AddOpdPatient" onClick={()=>setindex(dataSrc[0].opd)} class="btn btn-light text-xs  btn-xs  ml-1"> <i class="fa fa-arrow"></i>Re Visit</button>   
+    <button data-toggle="modal" data-target="#AddOpdPatient" onClick={()=>setindex(dataSrc[0].opd)} class="btn btn-primary text-xs  btn-xs  ml-1"> <i class="fas fa-arrow"></i>Re Visit</button>   
   </>  :<></>
 }
                
@@ -103,6 +105,7 @@ style={{marginLeft:'0.5px !important'}} ><i className='fa fa-reorder'/> All</but
 <AddPat data={index} setdataSrc={setdataSrc}/>
 <Addprescription opdId={opdId} data={caseHistory}/>
 <DisplayPriscription {...caseHistory}/>
+</div>
 </div>
 </>
 )

@@ -2,7 +2,27 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import {NavLink, BrowserRouter,Link} from 'react-router-dom'
 import Table from '../../Table'
+import swal from 'sweetalert'
 export default function Medicine(props) {
+  const deletealert=(url,val)=>{
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this imaginary file!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        Getdata(url+'/'+val).then(setdataSrc(data=>data.filter(item=>item.id!=val)))
+        swal("Poof! Your imaginary file has been deleted!", {
+          icon: "success",
+        
+        });
+      } 
+    });
+   }
+  
     const column=[{data:'apptId'}]
     const dataSrc=[{patientId:'12345'}]
     const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(<BrowserRouter><button onClick={()=>props.setindex(rowData)} data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>

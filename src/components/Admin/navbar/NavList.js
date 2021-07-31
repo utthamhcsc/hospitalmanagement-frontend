@@ -3,20 +3,22 @@ import NavSearch from './NavSearch'
 import Notification from './Notification'
 import UserProfile from './UserProfile'
 const NavList = () => {
-  return (
-    <ul className="navbar-nav ml-auto">
+  return (<div className='ml-auto d-flex'>
+    <NavSearch/>
+    <ul className="navbar-nav ">
       <li className="nav-item">
         
-        <NavSearch/>
+        
         
       </li>
-      <li className="nav-item dropdown m-2 text-white" >
+      {/* <li className="nav-item dropdown m-2 text-white" >
         <Notification />
-      </li>
+      </li> */}
       <li class="dropdown user user-menu m-2">
          <UserProfile/>
       </li>
     </ul>
+    </div>
   );
 }
 

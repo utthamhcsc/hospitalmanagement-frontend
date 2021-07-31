@@ -89,12 +89,12 @@ setmedicine(mydata)
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content" role="document">
           <div className="card ">
-            <div class="card-header text-white bg-primary ">
+            <div class="modal-header  ">
               {" "}
-              Add Prescription
+              View Prescription
               <button
                 type="button"
-                class="close text-white"
+                class="close "
                 data-dismiss="modal"
                 aria-label="Close"
               >

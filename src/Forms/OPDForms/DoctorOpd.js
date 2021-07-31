@@ -61,7 +61,7 @@ React.useEffect(()=>{
   <div class="modal-content" role="document">
   <div className="card">
   
-     <div className="card-header bg-primary align-item-center pb-0">
+     <div className="card-header align-item-center pb-0">
      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>   

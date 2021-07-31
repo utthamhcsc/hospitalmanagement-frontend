@@ -59,7 +59,7 @@ formik.setValues({fromDate,toDate})
 
     return (
         <>
-        <div className='row bg-primary p-2 px-3'>
+        <div className='row  p-2 px-3'>
             Ambulance Report
         </div>
         <div className='row border py-2'>

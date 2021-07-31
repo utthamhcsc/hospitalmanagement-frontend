@@ -23,7 +23,7 @@ return (
                 </NavLink>
             </li>
             <li className="nav-item has-treeview shadow p-1">
-                <NavLink className="nav-link py-1 text-white" to= "/pharmacist/notification">
+                <NavLink className="nav-link py-1 text-white" to= "/pharmacist/messaging">
                     <i class = "text-xs fas fa-bullhorn"></i> 
                     <p className='pl-3 ' style={{letterSpacing:'1px',fontSize:'13px',lineHeight:'100%'}}>Messaging</p>
                 </NavLink>
@@ -38,7 +38,7 @@ return (
             <li className="nav-item has-treeview shadow p-1">
                 <Link className="nav-link py-1 text-white" >
                     <i class="text-xs fas fa-line-chart"></i> 
-                    <p className='pl-3 ' style={{letterSpacing:'1px',fontSize:'13px',lineHeight:'100%'}}>Reports <i class="fa fa-angle-left pull-right"></i></p> 
+                    <p className='pl-3 ' style={{letterSpacing:'1px',fontSize:'13px',lineHeight:'100%'}}>Reports <i class="fa fa-angle-left right"></i></p> 
                  </Link>
                 <ul className="nav nav-treeview text-dark bg-light">
                     <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/pharmacist/records/pharmacybillreport"><i class="text-xs fas fa-angle-right"></i> Pharmacy Bill Report</NavLink></li>
@@ -50,7 +50,7 @@ return (
                 <Link className="nav-link py-1 text-white">
                     <i class="text-xs fas fa-cogs"></i> 
                     <p className='pl-3 ' style={{letterSpacing:'1px',fontSize:'13px',lineHeight:'100%'}}>
-                        <i class="fa fa-angle-left pull-right"></i>Setup</p>
+                        <i class="fa fa-angle-left right"></i>Setup</p>
                 </Link>
                 <ul className="nav nav-treeview text-dark bg-light" style={{zIndex:-999}}>
                     <li className="nav-item"><NavLink className="nav-link py-1 text-dark" to="/pharmacist/settings/pharmacy"><i class="text-xs fas fa-angle-right"></i> Pharmacy</NavLink></li>

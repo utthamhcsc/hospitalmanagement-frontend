@@ -33,8 +33,7 @@ export default  React.memo((props)=> {
                             </tr>
                           </tbody>
                           </table>
-                        <hr style={{height: '1px', clear: 'both', marginBottom: '10px', marginTop: '10px'}} />
-                        <table className="table p-0 m-0 border-0" cellSpacing={0} cellPadding={0} width="100%">
+                         <table className="table p-0 m-0 border-0" cellSpacing={0} cellPadding={0} width="100%">
                           <tbody><tr>
                               <th >Name</th>
                         <td >{props.patientName}</td>

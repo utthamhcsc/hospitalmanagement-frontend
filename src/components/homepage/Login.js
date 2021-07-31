@@ -3,21 +3,22 @@ import {useFormik} from 'formik'
 import {Postdata} from '../../Network/Server'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link, NavLink } from 'react-router-dom';
 import * as yup from 'yup'
+import Forgotpassword from './forgot-password';
 
 export default (prop)=>
 {
     const history=useHistory();
     const routedata={
   patient:'patient/appointment',
-  receptionist:'receptionist/appointment',
-  doctor:'doctor/appointment',
-  admin:'admin/appointment',
-  pharmacist:'pharmacist/pharmacy' ,
-  pathologist:'phathologist/pathology',
-  radiologist: 'radiologist/radiology',
-  accountant:'accountant/finance/income'        
+  receptionist:'receptionist',
+  doctor:'doctor',
+  admin:'admin',
+  pharmacist:'pharmacist' ,
+  pathologist:'pathologist',
+  radiologist: 'radiologist',
+  accountant:'accountant'        
   }
     const formik=useFormik({
     initialValues:{ 
@@ -26,7 +27,7 @@ export default (prop)=>
     password:''},
   validationSchema:()=>
 yup.object().shape({
-  name:yup.string().required(),
+  name:yup.string().email().required('error'),
   password:yup.string().required()
 })
   ,
@@ -50,7 +51,7 @@ yup.object().shape({
       else
       {
         toast.error(data.msg.msg, {
-          autoClose:false,
+          autoClose:true,
         position: toast.POSITION.TOP_CENTER
         }); 
       }
@@ -59,44 +60,77 @@ yup.object().shape({
 })
 return(
 <React.Fragment>
-<div className="modal fade"   id="login" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div className="modal-dialog border" role="document">
-    <div className="modal-content ">
-      <div className="card-header bg-success">Login
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-          </button></div>
-      <div className="modal-body " >
-         
-          <form class="text-center p-3" onSubmit={formik.handleSubmit}> 
-        
-          <div className="m-4 p-4 ">
-          <div class="form-group d-flex align-items-baseline">
-          <i class="fa fa-user " aria-hidden="true"></i>
-         <input type="text" class={`form-control  border-top-0 border-left-0  border-right-0 bg-transparent pl-2 ${formik.errors.name?'border-danger':''}`} id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="UserName" onChange={(e)=>formik.setFieldValue('name',e.target.value)}/>
-        </div>
-        <span className='text-danger'>{formik.errors.name}</span>
-  <div class="form-group d-flex align-items-baseline">
-    <i class="fa fa-key " aria-hidden="true"></i>
-     <input type="password" class={`form-control  border-top-0 border-left-0  border-right-0 bg-transparent pl-2 ${formik.errors.password?'border-danger':''}`} id="exampleInputPassword1" placeholder="Password" onChange={(e)=>formik.setFieldValue('password',e.target.value)}/>
-     
-  </div>
+<div className="modal"   id="login" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div className="modal-dialog modal-dialog-centered modal-dialog-zoomin" role="document">
+    <div className="modal-content rounded bg-transparent">
   
-  <span className='text-danger'>{formik.errors.password}</span>
-  </div>
-  <button type="submit" class="btn btn-outline-success w-25 ">Login</button>
-</form>
-{
- // <div class="text-center p-0">
- // <button type="button" class="btn btn-link  text-center ">Forgot Password ?</button>
-  //<span class="d-block mb-3 text-black">- - - - - OR - - - - -</span>
-  //<span class="bg-primary p-1 mr-3"><i class="fab fa-facebook"></i></span> 
-//<span class="bg-danger p-1 mr-3"><i class="fab fa-google-plus"></i></span>
-//</div>
-}
-      </div>
+  
+  {/* /.login-logo */}
+  <div className="card   m-0">
+    <div className="card-body login-card-body">
+    <button type="button" class="close " data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button> 
+      <h5 className="login-box-msg">Sign in </h5>
+      <form onSubmit={formik.handleSubmit} method="post">
+        <div className="input-group mb-3">
+          <input type="email"  className={`form-control ${(formik.touched.name && formik.errors.name)?'is-invalid':''}`} placeholder="Email" {...formik.getFieldProps('name')} autoComplete='off'/>
+          <div className="input-group-append">
+            <div className="input-group-text">
+              <span className="fas fa-envelope" />
+            </div>
+          </div>
+          <div class="invalid-feedback">
+          Please choose a username.
+        </div>
+        </div>
+        <div className="input-group mb-3">
+          <input type="password" className="form-control" placeholder="Password" {...formik.getFieldProps('password')}/>
+          <div className="input-group-append">
+            <div className="input-group-text">
+              <span className="fas fa-lock" />
+            </div>
+          </div>
+        </div>
+        <div className="row">
+          {/* <div className="col-8">
+            <div className="icheck-primary">
+              <input type="checkbox" id="remember" />
+              <label htmlFor="remember">
+                Remember Me
+              </label>
+            </div>
+          </div> */}
+          {/* /.col */}
+          <div className="col-12 mb-3">
+            <button type="submit" className="btn btn-success btn-block">Sign In</button>
+          </div>
+          {/* /.col */}
+        </div>
+      </form>
+      {/* <div className="social-auth-links text-center mb-3">
+        <p>- OR -</p>
+        <a href="#" className="btn btn-block btn-primary">
+          <i className="fab fa-facebook mr-2" /> Sign in using Facebook
+        </a>
+        <a href="#" className="btn btn-block btn-danger">
+          <i className="fab fa-google-plus mr-2" /> Sign in using Google+
+        </a>
+      </div> */}
+      {/* /.social-auth-links */}
+      <p className="mb-1">
+        <Link  onClick={()=>{window.$('#login').modal('hide');window.$('#forgotpassword').modal('show')}}>I forgot my password</Link>
+      </p>
+     
     </div>
+    {/* /.login-card-body */}
   </div>
 </div>
+
+      
+    
+  </div>
+</div>
+<Forgotpassword/>
 </React.Fragment>)
 }

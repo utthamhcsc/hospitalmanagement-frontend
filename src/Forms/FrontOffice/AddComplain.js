@@ -3,8 +3,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {useFormik} from 'formik';
 import * as  Yup from 'yup';
-import {Getdata,PostFormdata, Postdata} from '../../Network/Server'
-import {toast} from 'react-toastify'
+import {PostFormdata, Postdata} from '../../Network/Server'
 export default (props) =>{
 const mydata=(Object.entries(props.data).length === 0 )?
   {  
@@ -59,18 +58,20 @@ return(
         <div class="modal-dialog modal-md" role="document">
          <div class="modal-content" role="document">
 
-    <div className="card ">
-        <div className="card-header bg-primary">Add Complain
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button> 
-        </div>
+    
+    <div className="card  ">
+            
+            <div className="card-body login-card-body">
+            <button type="button" class="close " data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button> 
+                  <h5 className="login-box-msg">Add Complain</h5> 
         
-        <div className="card-body">
+        
             <form onSubmit={formik.handleSubmit}>
-                <div className="border bg-light">
+                <div className="">
 
-                <div className="form-row p-2">
+                <div className="form-row ">
 
                 <div className="form-group col-md-6">
                     <label for="complaintype">Complain Type</label>
@@ -95,8 +96,8 @@ return(
                 </div>
             </div>
             </div>
-            <div className="border bg-light mt-2">
-                <div className="form-row p-2">
+            <div className=" mt-2">
+                <div className="form-row ">
                     <div className="form-group col-md-6">
                         <label for="complainby">Complain By <small class="req text-danger"> *</small></label>
                         <input type="text" className="form-control" id="complain" placeholder="" name='complainBy' {...formik.getFieldProps('complainBy')}/>
@@ -111,12 +112,13 @@ return(
                     </div>
                 </div>
                 </div>
-                <div className="border bg-light mt-2">
-                <div className="form-row p-2">
+                <div className=" mt-2">
+                <div className="form-row ">
                     <div class="form-group col-md-6">
                        <label for="inputState">Date</label>
                         <div className="w-100 ">
                            <DatePicker
+                           className='form-control'
                            minDate={new Date()}
                            autoComplete={'off'} 
                            selected={new Date(formik.values.date)=='Invalid Date'?'':new Date(formik.values.date)} 
@@ -126,24 +128,18 @@ return(
                         <span className='text-danger'>{(formik.touched.date && formik.errors.date)?formik.errors.date:''}</span>
                     </div>  
                     
-                
-                    <div className="form-group col-md-6">
-                        <label for="inputCity">Description</label>
-                        <textarea className="form-control " rows="3" 
-                         name='description' {...formik.getFieldProps('description')}>
-                        </textarea>
-                        <span className='text-danger'>{(formik.touched.description && formik.errors.description)?formik.errors.description:''}</span>
-                    </div>    
-                </div>
-                </div>
-
-                <div className="border bg-light mt-2">
-                <div className="form-row p-2">
                     <div className="form-group col-md-6">
                         <label for="Actiontaken">Action Taken</label>
                         <input type="text" className="form-control" name='actionTaken' {...formik.getFieldProps('actionTaken')}/>
                         <span className='text-danger'>{(formik.touched.actionTaken && formik.errors.actionTaken)?formik.errors.actionTaken:''}</span>
                     </div>
+                     
+                </div>
+                </div>
+
+                <div className=" mt-2">
+                <div className="form-row ">
+                   
                     
                 
                     <div className="form-group col-md-6">
@@ -151,26 +147,33 @@ return(
                         <input type="text" className="form-control" name='assigned' {...formik.getFieldProps('assigned')}/>
                         <span className='text-danger'>{(formik.touched.assigned && formik.errors.assigned)?formik.errors.assigned:''}</span>
                     </div>
-                </div>
-                </div>
-
-                <div className="border bg-light mt-2">
-                <div className="form-row p-2">
-                    <div className="form-group col-md-6">
-                        <label for="note">Note</label>
-                        <textarea className="form-control" row="2" name='note' {...formik.getFieldProps('note')}></textarea>
-                        <span className='text-danger'>{(formik.touched.note && formik.errors.note)?formik.errors.note:''}</span>
-                    </div>
-                    
-                
                     <div className="form-group col-md-6">
                         <label for="choose">Attach Document</label>
                         <input type="file" class="form-group-input"  name='attachedDocument' onChange={(e)=>formik.setFieldValue('attachedDocument',e.target.files[0])}/>
                         <span className='text-danger'>{(formik.touched.attachedDocument && formik.errors.attachedDocument)?formik.errors.attachedDocument:''}</span>
                     </div> 
+                </div>
+                </div>
+
+                <div className=" mt-2">
+                <div className="form-row ">
+                    <div className="form-group col-md-6">
+                        <label for="note">Note</label>
+                        <textarea className="form-control" rows="3" name='note' {...formik.getFieldProps('note')}></textarea>
+                        <span className='text-danger'>{(formik.touched.note && formik.errors.note)?formik.errors.note:''}</span>
+                    </div>
+                    <div className="form-group col-md-6">
+                        <label for="inputCity">Description</label>
+                        <textarea className="form-control " rows="3" 
+                         name='description' {...formik.getFieldProps('description')}>
+                        </textarea>
+                        <span className='text-danger'>{(formik.touched.description && formik.errors.description)?formik.errors.description:''}</span>
+                    </div> 
+                
+                   
                     </div>
                     </div>
-                <button type="submit" class="btn btn-primary mt-2 ">Save</button>
+                <button type="submit" class="btn btn-primary mt-2 btn-block ">Save</button>
             </form>
         </div>
     </div>

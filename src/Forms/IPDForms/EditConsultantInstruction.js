@@ -18,7 +18,7 @@ export default (props)=> {
          <div class="modal-content" role="document"> 
     
     <div className="card ">
-      <div class="card-header text-white bg-primary "> edit Consultant Instruction 
+      <div class="modal-header "> <h5>Edit Consultant Instruction </h5>
         <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button> 

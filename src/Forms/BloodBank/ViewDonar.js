@@ -47,7 +47,7 @@ export default (props)=>{
          <div class="modal-content" role="document">
 
         <div class="card ">
-            <div class="card-header bg-primary">  Donor  Detail
+            <div class="modal-header ">  <h5>Donor  Detail</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button> 

@@ -54,13 +54,13 @@ export default function Profile() {
    <input className='form-control my-1' 
        {...formik.getFieldProps('newPassword')}
    placeholder='new password'/>
-   <button className='btn btn-sm btn-light' onClick={()=>{
+   <button className='btn btn-sm btn-primary' onClick={()=>{
      formik.handleSubmit()
        setShow(!show)
    }}>change</button>
  
    </>
-: <button className='btn btn-sm btn-light' onClick={()=>{
+: <button className='btn btn-sm btn-primary' onClick={()=>{
     setShow(!show)
 }}>change password</button>
   } 
@@ -93,10 +93,10 @@ export default function Profile() {
   </div>
   <div class="card-body p-0">
   <nav class="nav border">
-  <a class="nav-link active border-bottom bg-primary" href="#">Profile</a>
+  {/* <a class="nav-link active border-bottom bg-primary" href="#">Profile</a>
   <a class="nav-link" href="#">Payroll</a>
   <a class="nav-link" href="#">Leaves</a>
-  <a class="nav-link " href="#">Attendence</a>
+  <a class="nav-link " href="#">Attendence</a> */}
 </nav>
 <div className='row'>
     {/* personal details */}

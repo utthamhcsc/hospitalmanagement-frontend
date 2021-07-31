@@ -7,42 +7,60 @@ const UserProfile = (props) => {
         <Link href="/pathologist/profile" class="nav-Link dropdown-toggle text-white" data-toggle="dropdown">
               <img src={'dist/img/user2-160x160.jpg'} class="user-image" alt="User Image" alt='no img'/>
             </Link>
-            <ul class="dropdown-menu dropdown-menu-right">
- 
-              <li class="user-header">
-                <img src={'dist/img/user2-160x160.jpg'} class="img-circle" alt="User Image" alt='no img'/>
-
-                <p>
-                  {localStorage.getItem('name')?localStorage.getItem('name'):'Admin'}
-                  
-                </p>
-                <p>
-                  {localStorage.getItem('userId')?localStorage.getItem('userId'):'AdminId'}
-                  
-                </p>
-              </li>
-              <li class="user-body">
-                <div class="row">
-                </div>
-              </li>
-              <li class="d-flex justify-content-between py-2 px-1">
-                <div class="pull-left">
-                  <Link to="/pathologist/profile" class="btn btn-default btn-flat">Profile</Link>
-                </div>
-                <div class="pull-right">
-                  <button class="btn btn-default btn-flat"
+            <div class="dropdown-menu dropdown-menu-right">
+            <div className="card card-widget widget-user p-0 m-0">
+  {/* Add the bg color to the header using any of the bg-* classes */}
+  <div className="widget-user-header bg-info">
+    <h3 className="widget-user-username">{localStorage.getItem('name')?localStorage.getItem('name'):'Admin'}</h3>
+    <h5 className="widget-user-desc">{localStorage.getItem('role')?localStorage.getItem('role'):'pathologist'}</h5>
+  </div>
+  <div className="widget-user-image">
+    <img className="img-circle elevation-2" src="../dist/img/user1-128x128.jpg" alt="User Avatar" />
+  </div>
+  <div className="card-footer">
+    <div className="row">
+      <div className="col-sm-6 border-right">
+        <div className="description-block">
+          <h5 className="description-header">
+          <button class="btn "
                   onClick={()=>{
-                    localStorage.removeItem('islogin')
-                    localStorage.removeItem('userId')
-                    localStorage.removeItem('name')
+                   
+history.push('/pathologist/profile')
+                  }}
+                  
+                  
+                  >Profile</button>
+          </h5>
+         
+        </div>
+        {/* /.description-block */}
+      </div>
+     
+      {/* /.col */}
+      <div className="col-sm-6">
+        <div className="description-block">
+          <h5 className="description-header">
+          <button class="btn "
+                  onClick={()=>{
+                    
+                    localStorage.clear()
 history.push('/')
                   }}
                   
                   
                   >Sign out</button>
-                </div>
-              </li>
-            </ul>
+          </h5>
+          
+        </div>
+        {/* /.description-block */}
+      </div>
+      {/* /.col */}
+    </div>
+    {/* /.row */}
+  </div>
+</div>
+
+            </div>
           
       </>
   );

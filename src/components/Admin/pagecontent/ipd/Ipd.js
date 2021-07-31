@@ -35,7 +35,7 @@ export default function Ipd(props) {
           <BrowserRouter>
             <button
               onClick={() => setindex(rowData)}
-              className={"btn btn-xs btn-light"}
+              className={"btn btn-xs btn-info"}
               data-toggle="modal"
               data-target="#viewDetails"
             >
@@ -43,7 +43,7 @@ export default function Ipd(props) {
             </button>
             <button
               onClick={() => setindex1(rowData)}
-              className={"btn btn-xs btn-light"}
+              className={"btn btn-xs btn-warning"}
               data-toggle="modal"
               data-target="#AddipdPatient"
             >
@@ -57,7 +57,7 @@ export default function Ipd(props) {
                   setdataSrc(item=>item.filter(item1=>item1.ipd.ipdId!=data.ipdId))
                 }
               )}
-              className={"btn btn-xs btn-light"}
+              className={"btn btn-xs btn-primary"}
              
             >
               Discharge
@@ -96,21 +96,15 @@ export default function Ipd(props) {
 
   return (
     <>
-      <nav aria-label="breadcrumb">
-        <ol class="p-2 px-5" style={{ backgroundColor: "#3f51b5" }}>
-          <li
-            class="text-white font-weight-bold d-sm-flex justify-content-between align-items-baseline"
-            aria-current="page"
-          >
-            <h6
-              className="text-sm"
-              style={{ letterSpacing: "1px", lineHeight: "100%" }}
-            >
-              Ipd Patient
-            </h6>
-            <div className="btn-group p-0">
+      <div className='card elevation-1 '>
+        <nav aria-label="breadcrumb"  >
+  <ol class="p-2 px-5 overflow-auto border   bg-white " style={{backgroundColor:'#ffffff !important'}} >
+
+  <li class=" font-weight-bold d-flex justify-content-between align-items-center p-0" aria-current="page">
+      <h5  >IPD Patients</h5>
+<div className='btn-group '>
               <button
-                className={"btn btn-xs  btn-light ml-1 "}
+                className={"btn btn-xs  btn-primary ml-1 "}
                 style={{ marginLeft: "0.5px !important", opacity: 0 }}
                 data-toggle="modal"
                 data-target="sdf"
@@ -121,14 +115,14 @@ export default function Ipd(props) {
                 data-toggle="modal"
                 data-target="#AddipdPatient"
                 onClick={() => setindex1({ipd:{}})}
-                class="btn btn-light text-xs  btn-xs  ml-1"
+                class="btn btn-primary text-xs  btn-xs  ml-1"
               >
                 {" "}
                 <i class="fa fa-plus"></i> Add Patient
               </button>
               <button
                 onClick={() =>history.push('/admin/myIpd/discharge') }
-                class="btn btn-light text-xs  btn-xs  ml-1"
+                class="btn btn-primary text-xs  btn-xs  ml-1"
               >
                 {" "}
                <i className='fa fa-reorder'/> Discharge Patient
@@ -147,6 +141,7 @@ export default function Ipd(props) {
         />
         <DisplayForm data={index.ipd} />
         <AddIpdPat data={index1.ipd}/>
+      </div>
       </div>
     </>
   );

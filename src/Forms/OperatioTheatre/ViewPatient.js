@@ -46,7 +46,7 @@ export default (props)=>{
          <div class="modal-content" role="document">
 
         <div class="card ">
-            <div class="card-header bg-primary">  Ot Patient  Detail
+            <div class="modal-header "> <h5> Ot Patient  Detail</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button> 

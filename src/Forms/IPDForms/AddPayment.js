@@ -53,8 +53,8 @@ props.setdataSrc(item=>(item||[]).map(item1=>item1.id==data.id?data:item1))
       <div class="modal-dialog modal-md" role="document">
         <div class="modal-content" role="document">
           <div className="card ">
-            <div className="card-header bg-primary">
-              Add Payment
+            <div className="modal-header ">
+             <h5> Add Payment</h5>
               <button
                 type="button"
                 class="close"

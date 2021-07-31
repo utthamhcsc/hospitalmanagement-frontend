@@ -78,15 +78,14 @@ return(
    <div class="modal-content" role="document">
 
 <div className="card  ">
-   <div class="card-header text-white bg-primary"> Add Visitor
-   <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button> 
-    </div>
-  <div className="card-body">     
+<div className="card-body login-card-body">
+<button type="button" class="close " data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button> 
+      <h5 className="login-box-msg">Add Visitor</h5>   
   <form onSubmit={formik.handleSubmit}> 
 
-  <div className="border bg-light">
+ 
   <div class="form-row p-2">
     <div class="form-group col-md-6 ">
       <label for="inputEmail4" className="text-sm">Purpose <small class="req text-danger"> *</small></label>
@@ -106,9 +105,8 @@ return(
     </div>
     
    </div>
-  </div>
+  
 
-  <div className="border bg-light mt-2">
   <div class="form-row p-2">
 
     <div class="form-group col-md-6">
@@ -124,9 +122,9 @@ return(
     </div>
     
     </div>
-  </div>
 
-  <div className="border bg-light mt-2">
+
+  
   <div class="form-row p-2">
     <div class="form-group col-md-6">
       <label for="inputCity" className="text-sm">Number Of Person</label>
@@ -151,9 +149,8 @@ return(
       <span className='text-danger'>{(formik.touched.date && formik.errors.date)?formik.errors.date:''}</span>
     </div>
   </div>
-  </div>
+ 
 
-  <div className="border bg-light mt-2">
   <div class="form-row p-2">
     <div class="form-group col-md-6">
       <label for="inputCity" className="text-sm">In Time</label>
@@ -169,9 +166,8 @@ return(
     </div>
     
     </div>
-    </div>
+   
 
-  <div className="border bg-light mt-2">
    <div className="form-row p-2">
      <div className="form-group mb-2 col-md-6">
        <label for="inputCity" className="text-sm">Note</label>
@@ -186,9 +182,9 @@ return(
       </div>
       <span className='text-danger'>{(formik.touched.attachedDocument && formik.errors.attachedDocument)?formik.errors.attachedDocument:''}</span>
     </div>
-    </div>
-    
-   <div className="d-flex float-right mt-3">
+  
+    <div className="mb-3">
+   
  <button type="submit" class="btn btn-primary form-control">Save</button>
  </div>
 </form>

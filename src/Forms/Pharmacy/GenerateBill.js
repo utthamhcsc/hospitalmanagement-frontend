@@ -88,7 +88,7 @@ if(data.status==1){
    })
    console.log(values)
    }}>{({values,handleChange,setFieldValue,handleSubmit,errors,touched})=>(<>
-        <div class=" card-header form-inline bg-primary p-2  border-0">
+        <div class=" card-header form-inline  p-2  border-0">
         
          <div className='form-group'>   
         <select id="input" class="form-control"  onChange={(e)=>{

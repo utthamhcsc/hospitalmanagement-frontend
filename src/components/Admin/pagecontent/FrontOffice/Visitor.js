@@ -5,7 +5,24 @@ import Table from '../../../Table'
 import {Getdata,Postdata} from '../../../../Network/Server'
 import AddVisitor from '../../../../Forms/FrontOffice/AddVisitor'
 import DisplayForm from '../../../../Forms/DisplayForm'
+import swal from 'sweetalert'
 export default function Visitor(props) {
+  const deletealert=(url,val)=>{
+    swal({
+      title: "Are you sure?",
+     
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        Postdata(url+'/'+val,'DELETE',{}).then(data=>data.status==1?setdataSrc(data=>data.filter(item=>item.id!=val)):'')
+       
+      } else {
+        
+      }
+    });
+   }
     const column=[{data:'purpose',title:'Purpose'},
     {data:'name',title:'Name'},
     {data:'phone',title:'Phone'},
@@ -16,11 +33,12 @@ export default function Visitor(props) {
     const [index,setindex]=React.useState({});
     const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(
       <BrowserRouter>
-      <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-warning'} data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
+      <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-info'} data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
      
-      <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-success'} data-toggle='modal' data-target='#Visitor'><i className='fa fa-pencil'></i></button>
+      <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-warning'} data-toggle='modal' data-target='#Visitor'><i className='fa fa-pencil'></i></button>
       
-      <button onClick={()=>Postdata(`visitorlist/${rowData.id}`,'DELETE',{}).then(data=>data=>data.status==1?setdataSrc(data=>data.filter(item=>item.id!=rowData.id)):'')} className={'btn btn-xs btn-danger'} ><i className='fa fa-trash'></i></button>
+      
+      <button onClick={()=>deletealert(`visitorlist`,rowData.id)} className={'btn btn-xs btn-danger'} ><i className='fa fa-trash'></i></button>
      
       </BrowserRouter>,td)}]
     const Link=<NavLink to='dfgh'/>
@@ -28,15 +46,17 @@ export default function Visitor(props) {
     React.useEffect(()=>{Getdata('visitorlist').then(data=>setdataSrc(data));},[])
     
     return (
-        <>
-        <nav aria-label="breadcrumb" >
-      <ol class="p-2 px-5" style={{backgroundColor:'#3f51b5'}} >
+        
+         <>
+    <div className='card elevation-1 '>
+        <nav aria-label="breadcrumb"  >
+  <ol class="p-2 px-5 overflow-auto border   bg-white " style={{backgroundColor:'#ffffff !important'}} >
 
-      <li class="text-white font-weight-bold d-sm-flex justify-content-between align-items-center p-0" aria-current="page">
-      <h6 classname='text-sm' style={{letterSpacing:'1px'}}>Visitors List</h6>
+  <li class=" font-weight-bold d-flex justify-content-between align-items-center p-0" aria-current="page">
+      <h5  >Visitor</h5>
      <div className='btn-group'>
-    <button className={'btn btn-xs btn-light ml-1 ' } style={{marginLeft:'0.5px !important',opacity:0}} data-toggle="modal" data-target="sdf">dfgh</button>
-    <button data-toggle="modal" data-target="#Visitor" onClick={()=>setindex({})} class="btn btn-light text-xs  btn-xs ml-1"> <i class="fa fa-plus"></i> Add Visitor</button>               
+    <button className={'btn btn-xs btn-primary ml-1 ' } style={{marginLeft:'0.5px !important',opacity:0}} data-toggle="modal" data-target="sdf">dfgh</button>
+    <button data-toggle="modal" data-target="#Visitor" onClick={()=>setindex({})} class="btn btn-primary text-xs  btn-xs ml-1"> <i class="fa fa-plus"></i> Add Visitor</button>               
   
 </div>
   </li>
@@ -47,6 +67,7 @@ export default function Visitor(props) {
     <Table id='visitor' col={column} dataSrc={dataSrc} columnDefs={columnDefs}/>
     <AddVisitor data={index} setdataSrc={setdataSrc}/>
     <DisplayForm data={index}/>
+  </div>
   </div>
         </>
     )

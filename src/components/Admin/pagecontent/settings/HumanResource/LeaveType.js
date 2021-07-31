@@ -6,10 +6,29 @@ import {Getdata,Postdata} from '../../../../../Network/Server'
 
 import DisplayForm from '../../../../../Forms/DisplayForm'
 import AddLeaveType from '../../../../../Forms/Settings/humanresource/AddLeaveType'
+import swal from 'sweetalert'
 
 export default function BedType(props)
  {
-   
+  const deletealert=(url,val)=>{
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this imaginary file!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        Getdata(url+'/'+val).then(setdataSrc(data=>data.filter(item=>item.id!=val)))
+        swal("Poof! Your imaginary file has been deleted!", {
+          icon: "success",
+        
+        });
+      } 
+    });
+   }
+  
   const [index1,setindex1]=React.useState({name:''});
   const [index,setindex]=React.useState({});
   const column=[{data:'',title:'Sl.No',render:( data, type, row, meta ) =>`<b>${meta.row+1}</b>`},
@@ -23,8 +42,8 @@ export default function BedType(props)
       <button onClick={()=>setindex1(rowData)} className={'btn btn-xs btn-light'} 
       data-toggle='modal' data-target='#leaveType'><i className='fa fa-pencil'></i></button>
       
-      <button onClick={()=>Getdata(`leaveType/delete/${rowData.id}`)
-      .then(mydata=>mydata?setdataSrc(data=>data.filter(item=>item.id!=mydata)):'')} 
+      <button onClick={()=>deletealert(`leaveType/delete`,`${rowData.id}`)
+      } 
       className={'btn btn-xs btn-light'} ><i className='fa fa-trash'></i></button>
      
       </BrowserRouter>,td)}]

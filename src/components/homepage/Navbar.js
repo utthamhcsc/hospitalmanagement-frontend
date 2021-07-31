@@ -27,7 +27,7 @@ const navitems=[{
 ];
 export default () => 
 <React.Fragment>
-<nav className="navbar navbar-expand-lg navbar-light bg-success p-0 w-100" >
+<nav className="navbar navbar-expand-lg navbar-light bg-success p-0 w-100 " >
 <div className='container'>
   <Link className="navbar-brand text-white" href="#">Hospital Management</Link>
   <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,8 +35,11 @@ export default () =>
   </button>
 
   <div className="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul className="navbar-nav ml-auto p-0">
-      {navitems.map((item) => <li className="nav-item active ml-4">
+    <ul className="navbar-nav  ml-auto p-0 ">
+      {navitems.map((item,index) =>index==0? <li className="nav-item active   ml-4">
+        <a className="nav-link  text-white" href={'#'+item.link}>{item.name}
+        <span className="sr-only">(current)</span></a>
+      </li>:<li className="nav-item  ml-4">
         <a className="nav-link text-white" href={'#'+item.link}>{item.name}
         <span className="sr-only">(current)</span></a>
       </li>)}

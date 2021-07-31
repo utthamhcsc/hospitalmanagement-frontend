@@ -4,7 +4,7 @@ import ToggleButton from './ToggleButton'
 import NavList from './NavList'
 const Navbar = () => {
   return (
-    <nav className="main-header navbar navbar-expand shadow" style={{backgroundColor:'#3f51b5'}} >
+    <nav className="main-header  navbar navbar-expand navbar-white elevation-2  navbar-light border-bottom"  style={{maxHeight:'60px !important'}}>
       <ToggleButton />
       
       <NavList/>

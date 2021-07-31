@@ -5,8 +5,8 @@ export default function AddIssue() {
 <div className="modal fade in" id="addissue" tabIndex={-1} role="dialog" aria-labelledby="follow_up" aria-hidden="false">
   <div className="modal-dialog modal-xl" role="document">
     <div className="modal-content modal-media-content">
-      <div className="modal-header modal-media-header py-2">
-      <h6 className="box-title">Add Issue Item</h6>
+      <div className="modal-header ">
+      <h5 className="box-title">Add Issue Item</h5>
         <button type="button" className="close" data-dismiss="modal">×</button>
        
       </div>

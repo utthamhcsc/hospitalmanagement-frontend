@@ -6,10 +6,29 @@ import {Getdata,Postdata} from '../../../../../Network/Server'
 
 import DisplayForm from '../../../../../Forms/DisplayForm'
 import AddExpenseHead from '../../../../../Forms/Settings/finance/AddExpenseHead'
+import swal from 'sweetalert'
 
 export default function ExpenseHead(props)
  {
-   
+  const deletealert=(url,val)=>{
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this imaginary file!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        Getdata(url+'/'+val).then(setdataSrc(data=>data.filter(item=>item.id!=val)))
+        swal("Poof! Your imaginary file has been deleted!", {
+          icon: "success",
+        
+        });
+      } 
+    });
+   }
+  
   const [index1,setindex1]=React.useState({expenseHead:'',description:''});
   const [index,setindex]=React.useState({});
   const column=[{data:'',title:'Sl.No',render:( data, type, row, meta ) =>`<b>${meta.row+1}</b>`},
@@ -24,7 +43,7 @@ export default function ExpenseHead(props)
      
       <button onClick={()=>setindex1(rowData)} className={'btn btn-xs btn-light'} data-toggle='modal' data-target='#expenseHead'><i className='fa fa-pencil'></i></button>
       
-      <button onClick={()=>Getdata(`expenseHead/delete/${rowData.id}`).then(mydata=>mydata?setdataSrc(data=>data.filter(item=>item.id!=mydata)):'')} className={'btn btn-xs btn-light'} ><i className='fa fa-trash'></i></button>
+      <button onClick={()=>deletealert(`expenseHead/delete`,`${rowData.id}`)} className={'btn btn-xs btn-light'} ><i className='fa fa-trash'></i></button>
      
       </BrowserRouter>,td)}]
     

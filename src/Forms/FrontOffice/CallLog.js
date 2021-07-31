@@ -49,14 +49,14 @@ export default (props) =>
          <div class="modal-content" role="document">
 
         <div className="card  ">
-            <div className="card-header bg-primary">Call Log
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button> 
-            </div>
-            <div className="card-body">
+            
+<div className="card-body login-card-body">
+<button type="button" class="close " data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button> 
+      <h5 className="login-box-msg">Add Call Log</h5>   
                 <form  onSubmit={formik.handleSubmit}>
-                    <div className=" border bg-light">
+                    <div className=" ">
                     <div className="form-row p-2">
 
                         <div className="form-group col-md-6 ">
@@ -74,7 +74,7 @@ export default (props) =>
                    </div>
                    </div>
 
-                   <div className="border bg-light mt-3">
+                   <div className=" mt-3">
                    <div className="form-row p-2">
                        <div className="form-group col-md-6">
                          <label for="inputState">Date</label>
@@ -90,17 +90,25 @@ export default (props) =>
                             <span className='text-danger'>{(formik.touched.date && formik.errors.date)?formik.errors.date:''}</span>
                        </div>
 
-                       <div className="form-group col-md-6">
-                           <label for="description">Description</label>
-                           <textarea className="form-control" rows="3" placeholder="" value={formik.values.description} onChange={(e)=>formik.setFieldValue('description',e.target.value)}>
-                           </textarea>
-                           <span className='text-danger'>{(formik.touched.description && formik.errors.description)?formik.errors.description:''}</span>
-                       </div>
+                       <div className="form-group ml-2">
+                        <label for="calltype">Call Type <small class="req text-danger"> *</small></label>
+                        <div className="form-check ">
+                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" checked={formik.values.callType=='incomingCall'} onChange={(e)=>formik.setFieldValue('callType','incomingCall')}/>
+                            <label class="form-check-label" for="exampleRadios1">Incoming Call</label>
+                        </div> 
+                        <div className="form-check">
+                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" checked={formik.values.callType=='outgoingCall'} onChange={(e)=>formik.setFieldValue('callType','outgoingCall')}/>
+                            <label class="form-check-label" for="exampleRadios1">Outgoing Call</label>
+                        </div>
+                        <span className='text-danger'>{(formik.touched.callType && formik.errors.callType)?formik.errors.callType:''}</span>
+                        </div>
+                        
+                      
 
                        </div>
                        </div>
 
-                       <div className="border bg-light mt-3">
+                       <div className=" mt-3">
                        <div className="form-row p-2">
                        <div className="form-group col-md-6">
                          <label for="inputState">Next Follow Up Date</label>
@@ -122,7 +130,7 @@ export default (props) =>
                        </div>
                        </div>
 
-                        <div className="border bg-light mt-3">
+                        <div className=" mt-3">
                         <div className="form-row p-2">
                         <div className="form-group col-md-6">
                             <label for="note">Note</label>
@@ -130,24 +138,16 @@ export default (props) =>
                             <span className='text-danger'>{(formik.touched.note && formik.errors.note)?formik.errors.note:''}</span>
                         </div>
                         
-                
-                        <div className="form-group ml-2">
-                        <label for="calltype">Call Type <small class="req text-danger"> *</small></label>
-                        <div className="form-check ">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" checked={formik.values.callType=='incomingCall'} onChange={(e)=>formik.setFieldValue('callType','incomingCall')}/>
-                            <label class="form-check-label" for="exampleRadios1">Incoming Call</label>
-                        </div> 
-                        <div className="form-check">
-                            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" checked={formik.values.callType=='outgoingCall'} onChange={(e)=>formik.setFieldValue('callType','outgoingCall')}/>
-                            <label class="form-check-label" for="exampleRadios1">Outgoing Call</label>
-                        </div>
-                        <span className='text-danger'>{(formik.touched.callType && formik.errors.callType)?formik.errors.callType:''}</span>
-                        </div>
-                        
+                        <div className="form-group col-md-6">
+                           <label for="description">Description</label>
+                           <textarea className="form-control" rows="3" placeholder="" value={formik.values.description} onChange={(e)=>formik.setFieldValue('description',e.target.value)}>
+                           </textarea>
+                           <span className='text-danger'>{(formik.touched.description && formik.errors.description)?formik.errors.description:''}</span>
+                       </div>
                     </div>
                     </div>
-                    <div className="d-flex float-right">
-                    <button type="submit" class="btn bg-primary mt-2">Save</button>
+                    <div className="">
+                    <button type="submit" class="btn bg-primary mt-2 btn-block">Save</button>
                     </div>
                 </form>
             </div>

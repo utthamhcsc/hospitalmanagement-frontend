@@ -4,49 +4,47 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import {Getdata,Postdata} from '../../Network/Server'
 import * as yup from 'yup'
+import { toast } from 'react-toastify';
 
 export default (props)=>
 {
 
   const [doctor,setdoctor]=React.useState([])
-  const [data,setData]=React.useState({});
+  
+  const [data,setData]=React.useState([]);
   const [pid,setPid]=useState(true);
- const mydata=(Object.entries(props.data||{}).length === 0 )?
- {   patientId:'',
- date:'',
- appointmentStatus:'pending',
- patientName:'',
- gender:'',
- email:'',
- mobileNumber:'',
- message:'',
- department:'',
- doctor:'',
- doctorId:'',
- address:''
-}:{...props.data};
 
  const formik = useFormik({
    
  enableReinitialize:true,
  initialValues:{
-      
-  ...mydata
+  patientId:'',
+  date:'',
+  appointmentStatus:'pending',
+  patientName:'',
+  gender:'',
+  email:'',
+  mobileNumber:'',
+  message:'',
+  department:'',
+  doctor:'',
+  doctorId:'',
+  address:''
    },
     onSubmit:values=>{console.log(JSON.stringify(values,null,2))
     Postdata('myappointment/add','POST',values).then(data=>{
       if(data.err){
 formik.setErrors(data)
       }else{
-       
+        toast.success("Successfully Booked...", {
+          position: toast.POSITION.TOP_CENTER
+        });
         window.$('#bookappointment').modal('hide')
       }
     })
   
   }
  // 
-  
-    
     ,
       validationSchema:()=>yup.object().shape({
       date:yup.date().required(),
@@ -59,14 +57,11 @@ formik.setErrors(data)
      // doctor:yup.string().required(),
       address:!pid?yup.string().required():yup.string().notRequired()
     })
-
-
   })
   React.useEffect(()=>{
-    if(!mydata.department=='')
-    fetchdoctor(mydata.department)
+    Getdata('department/get').then(data=>{setData(data)})
     
-  },[props.data])
+  },[])
    const fetchdoctor=(id)=>{
     Getdata('humanResource/get/doctor/'+id).then(data=>{setdoctor(data)})
    }
@@ -149,7 +144,7 @@ return(<React.Fragment>
   name="department" value={formik.values.department} onChange={(e)=>{fetchdoctor(e.target.value);formik.setFieldValue('department',e.target.value)}} placeholder="Department" aria-label="Recipient's username" aria-describedby="basic-addon2">
   <option > Select Department</option>
    {
-     (props.department||[]).map(item=><option value={item.id}>{item.name}</option>)
+     (data||[]).map(item=><option value={item.id}>{item.name}</option>)
    }
   </select>
   </div>

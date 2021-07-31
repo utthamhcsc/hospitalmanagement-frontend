@@ -5,8 +5,8 @@ export default function AddStock() {
         <div className="modal fade in" id="addstock" tabIndex={-1} role="dialog" aria-labelledby="follow_up" aria-hidden="false">
   <div className="modal-dialog modal-xl" role="document">
     <div className="modal-content modal-media-content">
-      <div className="modal-header modal-media-header py-2">
-      <h6 className="box-title">Add Item Stock</h6>
+      <div className="modal-header ">
+      <h5 className="box-title">Add Item Stock</h5>
         <button type="button" className="close" data-dismiss="modal" autoComplete="off">×</button>
         
       </div>

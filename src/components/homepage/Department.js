@@ -1,8 +1,9 @@
 import React from 'react';
+import {Fade} from 'react-reveal'
 const departments= [
    {
      name:'ENT',
-     icon:'https://images.assetsdelivery.com/compings_v2/photoamir/photoamir1709/photoamir170900011.jpg'
+     icon:'images/ent.jpg'
    },
    {
      name:'General Surgery',
@@ -57,9 +58,14 @@ const departments= [
  <div class="h1 text-center pb-4">Our Departments</div>
   
  <div class="row pl-md-5">
- {departments.map((item)=>
-  <div class="col-sm-12 col-md-6 col-lg-4 h4 m-0 p-0" style={{minWidth:300+'px'}}><img class="img-fluid m-3" src={item.icon} style={{height:50+'px',width:50+'px',borderRadius:50+'%'}} onError={(event)=>event.target.setAttribute("src","white.png")}/>{item.name.toUpperCase()}</div>)}
+ {departments.map((item)=><Fade bottom cascade>
+  <div class="col-sm-12 col-md-6 col-lg-4 h4 m-0 p-0" style={{minWidth:300+'px'}}>
+    <img class="img-fluid m-3" src={item.icon} 
+    style={{height:50+'px',width:50+'px',borderRadius:50+'%'}} 
+    onError={(event)=>event.target.setAttribute("src","white.png")}/>
+  {item.name.toUpperCase()}</div></Fade>)}
  </div>
  </div>
+ 
  
 </React.Fragment>

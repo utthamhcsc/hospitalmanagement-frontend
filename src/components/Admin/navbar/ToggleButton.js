@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 const ToggleButton = () => {
   return <ul className="navbar-nav">
     <li className="nav-item">
-      <Link className="nav-link text-white" data-widget="pushmenu" to='#'><i className="fas fa-bars"></i></Link>
+      <Link className="nav-link text-black" data-widget="pushmenu" to='#'><i className="fas fa-bars"></i></Link>
     </li>
   </ul>;
   

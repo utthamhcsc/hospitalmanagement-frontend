@@ -4,11 +4,24 @@ import {NavLink,BrowserRouter} from 'react-router-dom'
 import Table from '../../../Table'
 import {Getdata,Postdata} from '../../../../Network/Server'
 import DisplayForm from '../../../../Forms/DisplayForm'
-import AddPatient from '../../../../Forms/OperatioTheatre/AddPatient'
 import AddBirth from '../../../../Forms/BirthOrDeathRecord/AddBirth'
+import swal from 'sweetalert'
 export default function Birth(props)
  {
-   
+  const deletealert=(url,val)=>{
+    swal({
+      title: "Are you sure?",
+     
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        Getdata(url+'/'+val).then(setdataSrc(data=>data.filter(item=>item.id!=val)))
+        
+      } 
+    });
+   }
   const [index,setindex]=React.useState({});
   const [index1,setindex1]=React.useState({});
  
@@ -25,11 +38,11 @@ render:(data,type,row,meta)=>new Date(data)=='Invalid Date'?'':new Date(data).to
     const [dataSrc,setdataSrc]=React.useState([]);
     const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(
       <BrowserRouter>
-      <button onClick={()=>setindex1(rowData)} className={'btn btn-xs btn-warning'} data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
+      <button onClick={()=>setindex1(rowData)} className={'btn btn-xs btn-info'} data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
      
-      <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-success'} data-toggle='modal' data-target='#addbirth'><i className='fa fa-pencil'></i></button>
+      <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-warning'} data-toggle='modal' data-target='#addbirth'><i className='fa fa-pencil'></i></button>
       
-      <button onClick={()=>Getdata(`mybirthrecord/delete/${rowData.id}`).then(data=>setdataSrc(item=>item.filter(item1=>item1.id!=data)))} className={'btn btn-xs btn-danger'} ><i className='fa fa-trash'></i></button>
+      <button onClick={()=>deletealert(`mybirthrecord/delete`,`${rowData.id}`)} className={'btn btn-xs btn-danger'} ><i className='fa fa-trash'></i></button>
       
       </BrowserRouter>,td)}]
 
@@ -40,15 +53,17 @@ render:(data,type,row,meta)=>new Date(data)=='Invalid Date'?'':new Date(data).to
 
     return (
         <>
-        <nav aria-label="breadcrumb" >
-  <ol class="p-2 px-5" style={{backgroundColor:'#3f51b5'}} >
-  <li class="text-white font-weight-bold d-sm-flex justify-content-between align-items-baseline" aria-current="page">
-      <h6 className='text-sm' style={{letterSpacing:'1px',lineHeight:'100%'}}>Birth Details</h6>
-  <div className='btn-group p-0'>
-    <button className={'btn btn-xs  btn-light ml-1 ' } style={{marginLeft:'0.5px !important',opacity:0}} data-toggle="modal" data-target="sdf">dfgh</button>
+      <div className='card elevation-1 '>
+        <nav aria-label="breadcrumb"  >
+  <ol class="p-2 px-5 overflow-auto border   bg-white " style={{backgroundColor:'#ffffff !important'}} >
+
+  <li class=" font-weight-bold d-flex justify-content-between align-items-center p-0" aria-current="page">
+      <h5  >Birth Records</h5>
+<div className='btn-group '>
+    <button className={'btn btn-xs  btn-primary ml-1 ' } style={{marginLeft:'0.5px !important',opacity:0}} data-toggle="modal" data-target="sdf">dfgh</button>
     <button data-toggle="modal" onClick={()=>setindex('')} 
     data-target="#addbirth" 
-    class="btn btn-light text-xs  btn-xs  ml-1">
+    class="btn btn-primary text-xs  btn-xs  ml-1">
        <i class="fa fa-plus"></i> Add Birth</button>               
     
                         
@@ -62,6 +77,7 @@ render:(data,type,row,meta)=>new Date(data)=='Invalid Date'?'':new Date(data).to
     <DisplayForm data={index1}/>
   
     <AddBirth data={index} setdataSrc={setdataSrc}/>
+  </div>
   </div>
         </>
     )

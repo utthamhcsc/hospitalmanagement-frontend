@@ -17,8 +17,8 @@ export default (props)=> {
          <div class="modal-content" role="document"> 
     
     <div className="card ">
-      <div class="card-header text-white bg-primary "> Add Consultant Instruction 
-        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+      <div class="modal-header  "><h5> Add Consultant Instruction </h5>
+        <button type="button" class="close " data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button> 
       </div>
@@ -71,7 +71,7 @@ export default (props)=> {
                          <select id="input" className="form-control"  {...getFieldProps(`consultantInstruction.${index}.doctorId`)} >
                  <option> select Doctor</option>
                  {
-                   mydata||{}?  Object.keys(mydata).map(item=><option value={item}>{mydata[item]}</option>):''
+                   (mydata)?  Object.keys(mydata||{}).map(item=><option value={item}>{mydata[item]}</option>):''
                  }
                </select>
                          </td>

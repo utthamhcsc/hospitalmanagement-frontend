@@ -5,19 +5,39 @@ import Table from '../../../../Table'
 import {Getdata,Postdata} from '../../../../../Network/Server'
 import DisplayForm from '../../../../../Forms/DisplayForm'
 import BookAppointment from '../../../../../Forms/BookMyAppointment'
+import swal from 'sweetalert'
 export default function Appointment(props)
  {
+  const deletealert=(url,val)=>{
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this imaginary file!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        Getdata(url+'/'+val).then(setdataSrc(data=>data.filter(item=>item.id!=val)))
+        swal("Poof! Your imaginary file has been deleted!", {
+          icon: "success",
+        
+        });
+      } 
+    });
+   }
+  
 const [department,setdepartment]=React.useState([])
   const [index,setindex]=React.useState({});
   const column=[{data:'patientName',title:'Patient Name'},{data:'patientId',title:'Patient ID'},{data:'mobileNumber',title:'Mobile Number'},{data:'email',title:'Email'},{data:'gender',title:'Gender'},{data:'address',title:'Address'},{data:'action',title:'Action'}]
   const [dataSrc,setdataSrc]=React.useState([]);
   const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(
   <BrowserRouter>
-  <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-warning'} data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
+  <button onClick={()=>setindex(rowData)} className={'btn btn-xs '} data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
  
-  <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-success'} data-toggle='modal' data-target='#bookappointment'><i className='fa fa-pencil'></i></button>
+  <button onClick={()=>setindex(rowData)} className={'btn btn-xs '} data-toggle='modal' data-target='#bookappointment'><i className='fa fa-pencil'></i></button>
   
-  <button onClick={()=>Getdata(`delete/patient/${rowData.patientId}`).then(item=>setdataSrc(data=>data.filter(item1=>item1.patientId!=item.id)))} className={'btn btn-xs btn-danger'} ><i className='fa fa-trash'></i></button>
+  <button onClick={()=>deletealert(`delete/patient`,`${rowData.patientId}`)} className={'btn btn-xs '} ><i className='fa fa-trash'></i></button>
  
   </BrowserRouter>,td)}]
   

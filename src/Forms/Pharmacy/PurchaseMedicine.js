@@ -95,12 +95,13 @@ const schema=Yup.object().shape({
         <div class="modal fade" id="purchasemedicine" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl" role="document">
          <div class="modal-content" role="document">
-        <div className="card ">
-        <div class=" card-header bg-primary p-0 align-items-center border-0">
-        <button type="button" class="close mx-4" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button> 
-        
+         <div className="card  ">
+            
+            <div className="card-body login-card-body">
+            <button type="button" class="close " data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button> 
+                  <h5 className="login-box-msg">Purchase Medicine</h5> 
          <div className='d-flex justify-content-between p-0'>   
          <div className='form-inline ml-2'>
         <select id="input" class="form-control"  {...getFieldProps('supplierId')}>
@@ -121,12 +122,12 @@ const schema=Yup.object().shape({
          </div>
         
         </div>
-        <div className="card-body p-0 m-0 bg-light  ">
-         <div className="container-fluid ">
+        <div className="card-body p-0 m-0 ">
+         <div className="container-fluid table-responsive">
          <FieldArray name='medicine'>{arrayhelper=>(
-             <table id="myTable" class="table table-responsive">
+             <table id="myTable" class="table text-nowrap table-borderless">
                  <thead>
-                      <tr>
+                      <tr className='text-bold'>
                          <td>Medicine category</td>
                          <td >Medicine Name </td>
                          <td>Batch No</td>
@@ -158,7 +159,7 @@ const schema=Yup.object().shape({
                          )}><i class="fas fa-plus text-primary border-0"></i></button></td>
                      </tr>
                  </thead>
-                 <tbody className="border-bottom">
+                 <tbody className="">
                      {
                          values.medicine.map((item,index)=> <tr>
                          <td className=" " >

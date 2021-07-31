@@ -103,7 +103,7 @@ export default props => {
       <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content" role="document">
           <div className="card">
-            <div className="card-header bg-primary align-item-center pb-0">
+            <div className="card-header  align-item-center pb-0">
               <button
                 type="button"
                 class="close"

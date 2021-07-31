@@ -1,10 +1,9 @@
 import React from 'react'
-import {Route} from 'react-router-dom'
+import {Route,Switch} from 'react-router-dom'
 import Sidebar from './sidebar/sidebar'
 import Navbar from './navbar/Navbar'
 import Appointment from './pagecontent/Appointment'
 import Radiology1 from './pagecontent/Radiology/index'
-
 import Pathology1 from './pagecontent/Pathology/index'
 import Pharmacy1 from './pagecontent/Pharmacy'
 import BookMyAppointment from './pagecontent/bookPatientAppointment'
@@ -34,6 +33,10 @@ import IpdPrescription from './pagecontent/IpdPrescription'
 import  TestReport from './pagecontent/TestReport'
 import MyIpd from './pagecontent/ipd/index'
 import MyOpd from './pagecontent/opd/index'
+import NoticeBoard from './pagecontent/Messaging/index'
+import NewMassege from './pagecontent/Messaging/NewMessage'
+import SendEmail from './pagecontent/Messaging/SendEmail'
+import Home from './pagecontent/home'
 export default function Index() 
 {
   const [index,setindex]=React.useState({})
@@ -68,10 +71,10 @@ export default function Index()
         }} >
        <section className="content px-4 mt-4 rounded" >
        <div className="card shadow">
+         <Switch>
        <Route path='/doctor/myOpd' render={()=><MyOpd />}/>
-<Route path='/doctor/myIpd' render={()=><MyIpd/>}/>
-         
-         <Route path='/doctor/appointment' render={()=><Appointment setindex={setindex} doctorId={doctorId}/>}/>
+       <Route path='/doctor/myIpd' render={()=><MyIpd/>}/>
+       <Route path='/doctor/appointment' render={()=><Appointment setindex={setindex} doctorId={doctorId}/>}/>
        <Route path='/doctor/Opd' render={()=><MyOpd setindex={setindex} doctorId={doctorId}/>}/>
        <Route path='/doctor/Ipd'  render={()=><MyIpd setindex={setindex} doctorId={doctorId}/>}/>
        <Route path='/doctor/pathology' render={()=><Pathology1 setindex={setindex} doctorId={doctorId}/>}/>
@@ -100,6 +103,12 @@ export default function Index()
        <Route path='/doctor/testreport' render={()=><TestReport setindex={setindex} doctorId={doctorId}/>}/>
        <Route path='/doctor/ipd1/ipdPresciption/:patientId' render={()=><IpdPrescription doctorId={doctorId}/>}/>
        <Route path='/doctor/ipd1/Charges/:patientId' render={()=><IpdCharges doctorId={doctorId}/>}/>
+       
+       <Route path='/doctor/messaging' render={()=><NoticeBoard/>}/>
+       <Route path='/doctor/messaging/newmessage' render={()=><NewMassege/>}/>
+       <Route path='/doctor/messaging/sendemail' render={()=><SendEmail/>}/>
+       <Route path='/doctor' render={()=><Home/>}/>
+       </Switch>
        <BookMyAppointment data={index} doctorId={doctorId}/>
      {/* <Profile data={doctor}/> */}
      

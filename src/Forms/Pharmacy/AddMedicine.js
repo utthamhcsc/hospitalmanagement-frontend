@@ -63,16 +63,15 @@ export default (props)=>{
         <div class="modal-dialog modal-xl" role="document">
          <div class="modal-content" role="document">
 
-        <div class="card ">
-           <h5 class="card-header bg-primary ">
-               <span className="mx-4">Add Medicine Details</span>
-           <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button> 
-            </h5>
-         <div class="card-body ">
+         <div className="card  ">
+            
+            <div className="card-body login-card-body">
+            <button type="button" class="close " data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button> 
+                  <h5 className="login-box-msg">Add Medicine Details</h5> 
              <form onSubmit={formik.handleSubmit}>
-              <div className="row border bg-light m-2 p-2">
+              <div className="row  m-2 p-2">
                 <div className="form-group  col-md-3">
                  <label for="ExampleInputMedicineName">Medicine Name</label>
                  <input type="text" name="" className="form-control" value={formik.values.medicineName}  onChange={(e)=>formik.setFieldValue('medicineName',e.target.value)} />
@@ -104,7 +103,7 @@ export default (props)=>{
                 </div>
                 
              </div>
-             <div className="row border bg-light m-2 p-2">
+             <div className="row  m-2 p-2">
                 <div className="form-group col-md-3">
                  <label for="ExampleInputMedicineName">Medicine Group</label><small className="req ml-2 text-danger">*</small>
                  <input type="text" name="" className="form-control" value={formik.values.medicineGroup}  onChange={(e)=>formik.setFieldValue('medicineGroup',e.target.value)} />
@@ -130,7 +129,7 @@ export default (props)=>{
                  </div>
                  
              </div>
-             <div className="row  border bg-light m-2 p-2">
+             <div className="row   m-2 p-2">
                <div className="form-group col-md-3">
                  <label for="ExampleInputMedicineName">Vat (%)</label>
                  <input type="text" className="form-control" value={formik.values.vat} onChange={(e)=>formik.setFieldValue('vat',e.target.value)}/>
@@ -164,7 +163,7 @@ export default (props)=>{
                 
                  
              </div>
-             <div className="d-flex dodda beku border bg-light m-2 p-4 ">
+             <div className="mb-3">
 
              <div className="col-md-12">
                  <label for="note">Note</label>
@@ -173,8 +172,8 @@ export default (props)=>{
              </div>
             
              </div>
-             <div className="d-flex float-right">
-             <button type="submit" className="btn btn-sm  bg-primary ">Save</button>
+             <div className="">
+             <button type="submit" className="btn btn-primary btn-block ">Save</button>
              </div>
              </form>
           </div>

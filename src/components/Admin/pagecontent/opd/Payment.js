@@ -36,21 +36,23 @@ React.useEffect(()=>{
   Getdata('myopdpayment/get/'+patientId).then(data=>{setdataSrc(data);console.log(data)});},[])
 return (
 <>
-<nav aria-label="breadcrumb" >
-<ol class="p-2 px-5" style={{backgroundColor:'#3f51b5'}} >
-<li class="text-white font-weight-bold d-sm-flex justify-content-between align-items-baseline" aria-current="page">
-<h6 className='text-sm' style={{letterSpacing:'1px',lineHeight:'100%'}}>Opd Payments</h6>
-<div className='btn-group p-0'>
-<button className={'btn btn-xs  btn-light ml-1 ' } style={{marginLeft :'0.5px !important',opacity:0}} data-toggle="modal" data-target="sdf">dfgh</button>
+<div className='card elevation-1 '>
+        <nav aria-label="breadcrumb"  >
+  <ol class="p-2 px-5 overflow-auto border   bg-white " style={{backgroundColor:'#ffffff !important'}} >
+
+  <li class=" font-weight-bold d-flex justify-content-between align-items-center p-0" aria-current="page">
+      <h5  >OPD Payment</h5>
+<div className='btn-group '>
+<button className={'btn btn-xs  btn-primary ml-1 ' } style={{marginLeft :'0.5px !important',opacity:0}} data-toggle="modal" data-target="sdf">dfgh</button>
 <NavLink to={`/admin/myopd/diagnosis/${patientId}`}  
-    class="btn btn-light text-xs  btn-xs  ml-1"><i className='fa fa-reorder'/> Diagnosis</NavLink>  
+    class="btn btn-primary text-xs  btn-xs  ml-1"><i className='fa fa-reorder'/> Diagnosis</NavLink>  
     <NavLink to={`/admin/myopd/charges/${patientId}`} 
-    class="btn btn-light text-xs  btn-xs  ml-1"><i className='fa fa-reorder'/>  Charges</NavLink>  
+    class="btn btn-primary text-xs  btn-xs  ml-1"><i className='fa fa-reorder'/>  Charges</NavLink>  
     <NavLink to={`/admin/myopd/bill/${patientId}`} 
-    class="btn btn-light text-xs  btn-xs  ml-1"><i className='fa fa-reorder'/>  Bill</NavLink>  
+    class="btn btn-primary text-xs  btn-xs  ml-1"><i className='fa fa-reorder'/>  Bill</NavLink>  
    
 
-<button data-toggle="modal" data-target="#addPayment" onClick={()=>setindex({})} class="btn btn-light text-xs  btn-xs  ml-1"> <i class="fa fa-plus"></i> Add Payment</button>   
+<button data-toggle="modal" data-target="#addPayment" onClick={()=>setindex({})} class="btn btn-primary text-xs  btn-xs  ml-1"> <i class="fa fa-plus"></i> Add Payment</button>   
            
 </div>
 </li>
@@ -60,6 +62,7 @@ return (
 <Table id='addOpdPatient' col={column} dataSrc={dataSrc} columnDefs={columnDefs}/>
 <DisplayForm data={index}/>
 <AddPayment patientId={patientId} data={index} setdataSrc={setdataSrc}/>
+</div>
 </div>
 </>
 )

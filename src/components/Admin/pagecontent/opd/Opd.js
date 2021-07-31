@@ -22,11 +22,11 @@ export default function Opd(props)
     const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,
       createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(
     <BrowserRouter>
-    <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-warning'} data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
+    <button onClick={()=>setindex(rowData)} className={'btn btn-xs btn-info'} data-toggle='modal' data-target='#viewDetails'><i className='fa fa-eye'></i></button>
     </BrowserRouter>,td)},
     {targets:0,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(
     <BrowserRouter>
-    <button className={'btn btn-link'} onClick={()=>history.push(`/admin/myopd/visits/${rowData.patientId}`)} >{cellData}</button>
+    <button className={'btn btn-xs btn-link'} onClick={()=>history.push(`/admin/myopd/visits/${rowData.patientId}`)} >{cellData}</button>
     </BrowserRouter>,td)}
   ]
     const link=<NavLink to='dfgh'/>
@@ -35,13 +35,15 @@ export default function Opd(props)
     
 return (
 <>
-<nav aria-label="breadcrumb" >
-<ol class="p-2 px-5" style={{backgroundColor:'#3f51b5'}} >
-<li class="text-white font-weight-bold d-sm-flex justify-content-between align-items-baseline" aria-current="page">
-<h6 className='text-sm' style={{letterSpacing:'1px',lineHeight:'100%'}}>Opd Patient</h6>
-<div className='btn-group p-0'>
-<button className={'btn btn-xs  btn-light ml-1 ' } style={{marginLeft:'0.5px !important',opacity:0}} data-toggle="modal" data-target="sdf">dfgh</button>
-<button data-toggle="modal" data-target="#AddOpdPatient" onClick={()=>setindex({})} class="btn btn-light text-xs  btn-xs  ml-1"> <i class="fa fa-plus"></i> Add Patient</button>               
+<div className='card elevation-1 '>
+        <nav aria-label="breadcrumb"  >
+  <ol class="p-2 px-5 overflow-auto border   bg-white " style={{backgroundColor:'#ffffff !important'}} >
+
+  <li class=" font-weight-bold d-flex justify-content-between align-items-center p-0" aria-current="page">
+      <h5  >Opd Patients</h5>
+<div className='btn-group '>
+<button className={'btn btn-xs  btn-primary ml-1 ' } style={{marginLeft:'0.5px !important',opacity:0}} data-toggle="modal" data-target="sdf">dfgh</button>
+<button data-toggle="modal" data-target="#AddOpdPatient" onClick={()=>setindex({})} class="btn btn-primary text-xs  btn-xs  ml-1"> <i class="fa fa-plus"></i> Add Patient</button>               
 </div>
 </li>
 </ol>
@@ -50,6 +52,7 @@ return (
 <Table id='addOpdPatient' col={column} dataSrc={dataSrc} columnDefs={columnDefs}/>
 <DisplayForm data={index}/>
 <AddPat data={index} setdataSrc={setdataSrc}/>
+</div>
 </div>
 </>
 )

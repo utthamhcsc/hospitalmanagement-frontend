@@ -94,10 +94,10 @@ export default props => {
     >
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content ">
-          <div class="modal-header p-2 bg-primary">
-            <div class="box-title text-sm">
-              <b>Add Charges</b>
-            </div>
+          <div class="modal-header ">
+            <h5 class="box-title ">
+             Add Charges
+            </h5>
             <button type="button" class="close" data-dismiss="modal">
               ×
             </button>

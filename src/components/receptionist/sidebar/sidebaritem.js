@@ -66,7 +66,7 @@ return (
             
             <li className="nav-item has-treeview shadow p-1">
                  <NavLink className="nav-link py-1 text-white"to='/receptionist/birth/#123' ><i class="fa fa-birthday-cake" aria-hidden="true"></i> 
-                     <p className='pl-3 ' style={{letterSpacing:'1px',fontSize:'13px',lineHeight:'100%'}}>Finance<i class="fa fa-angle-left pull-right"></i></p>
+                     <p className='pl-3 ' style={{letterSpacing:'1px',fontSize:'13px',lineHeight:'100%'}}>Finance<i class="fa fa-angle-left right"></i></p>
                  </NavLink>
                  <ul className="nav nav-treeview text-dark bg-light">
                       <li className="nav-item"><NavLink className="nav-link py-1 " to="/receptionist/finance/income"><i class="text-xs fas fa-angle-right"></i> Income </NavLink></li>
@@ -81,7 +81,7 @@ return (
             </li>
             <li className="nav-item has-treeview shadow p-1">
                  <NavLink className="nav-link py-1 text-white"to='/receptionist/birth/#123' ><i class="fa fa-birthday-cake" aria-hidden="true"></i> 
-                     <p className='pl-3 ' style={{letterSpacing:'1px',fontSize:'13px',lineHeight:'100%'}}>Birth & Death Record<i class="fa fa-angle-left pull-right"></i></p>
+                     <p className='pl-3 ' style={{letterSpacing:'1px',fontSize:'13px',lineHeight:'100%'}}>Birth & Death Record<i class="fa fa-angle-left right"></i></p>
                  </NavLink>
                  <ul className="nav nav-treeview text-dark bg-light">
                       <li className="nav-item"><NavLink className="nav-link py-1 " to="/receptionist/birthordeath/birth"><i class="text-xs fas fa-angle-right"></i> Birth Record </NavLink></li>
@@ -95,7 +95,7 @@ return (
                 </NavLink>
             </li>
             <li className="nav-item has-treeview shadow p-1">
-                <NavLink className="nav-link py-1 text-white" to= "/receptionist/notification">
+                <NavLink className="nav-link py-1 text-white" to= "/receptionist/messaging">
                     <i class = "text-xs fas fa-bullhorn"></i> 
                     <p className='pl-3 ' style={{letterSpacing:'1px',fontSize:'13px',lineHeight:'100%'}}>Messaging</p>
                 </NavLink>

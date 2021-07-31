@@ -54,8 +54,13 @@ const [doctor,setdoctor]=useState([])
         <div class="modal-dialog modal-xl" role="document">
          <div class="modal-content" role="document">
 
-        <div class="card ">
-            <div class="card-header bg-primary"> 
+         <div className="card  ">
+            
+            <div className="card-body login-card-body">
+            <button type="button" class="close " data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button> 
+                  <h5 className="login-box-msg">Add Patient</h5> 
             <select className='w-25' {...formik.getFieldProps('patientId')}>
                 <option value=''>Select Patient</option>
                 {patient
@@ -64,11 +69,8 @@ const [doctor,setdoctor]=useState([])
                       ))
                     : ""}
             </select>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button> 
-            </div>
-           <div class="card-body">
+           
+            
               
                    <div className='row'>
                         <div className='col-md-4 form-group'>

@@ -6,7 +6,27 @@ import { Getdata, Postdata } from "../../../../../Network/Server";
 import DisplayForm from "../../../../../Forms/DisplayForm";
 import AddCharge from "../../../../../Forms/Settings/Charges/AddCharge";
 import ViewCharges from "../../../../../Forms/Settings/Charges/ViewCharges";
+import swal from "sweetalert";
 export default function ChargeDetails(props) {
+  const deletealert=(url,val)=>{
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this imaginary file!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        Getdata(url+'/'+val).then(setdataSrc(data=>data.filter(item=>item.id!=val)))
+        swal("Poof! Your imaginary file has been deleted!", {
+          icon: "success",
+        
+        });
+      } 
+    });
+   }
+  
   const [index1, setindex1] = React.useState({
     chargeType: "",
     chargeCategory: "",
@@ -57,15 +77,10 @@ export default function ChargeDetails(props) {
 
             <button
               onClick={() =>
-                Getdata(
-                  `organisationCharges/delete/${rowData.id}`
-                ).then(mydata =>
-                  mydata
-                    ? setdataSrc(data =>
-                        data.filter(item => item.id != mydata)
-                      )
-                    : ""
+                deletealert(
+                  `organisationCharges/delete`,`${rowData.id}`
                 )
+                
               }
               className={"btn btn-xs btn-light"}
             >

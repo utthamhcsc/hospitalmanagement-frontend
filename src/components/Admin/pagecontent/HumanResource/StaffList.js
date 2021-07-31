@@ -1,8 +1,23 @@
 import React, { useEffect, useState, useRef } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import { Getdata } from "../../../../Network/Server";
+import swal from "sweetalert";
 
 export default () => {
+  const deletealert=(url,val)=>{
+    swal({
+      title: "Are you sure?",
+      
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        Getdata(url+'/'+val).then(item2=>setdata(data=>data.filter(item1=>item1.staffId!=val)))
+        
+      } 
+    });
+   }
   const [data,setdata]=useState([])
  // const [role,setrole]=useState('');
   const [mydata,setmydata]=useState([])
@@ -37,25 +52,30 @@ setdata(mydata)
     Getdata('humanResource/get').then((data)=>{console.log(data);setdata(data);setmydata(data)})
   },[])
   return (
-    <div>
-      <div className="row p-0 justify-content-between align-items-center mx-0 px-3 py-2 bg-primary">
-        <div className="h6 text-center">Staff Directory</div>
-        <div>
-          <NavLink type="button" to='/admin/humanResource/addStaff/00' className="btn btn-xs btn-light ml-1">
+    <div className='card elevation-1 '>
+        <nav aria-label="breadcrumb"  >
+  <ol class="p-2 px-5 overflow-auto border   bg-white " style={{backgroundColor:'#ffffff !important'}} >
+
+  <li class=" font-weight-bold d-flex justify-content-between align-items-center p-0" aria-current="page">
+      <h5  >Staff List</h5>
+<div className='btn-group '>
+          <NavLink type="button" to='/admin/humanResource/addStaff/00' className="btn btn-xs btn-primary ml-1">
             <i className="fa fa-plus" /> Add Staff{" "}
           </NavLink>
-          <NavLink type="button" to='/admin/humanResource/staffAttendence' className="btn btn-xs btn-light ml-1">
+          <NavLink type="button" to='/admin/humanResource/staffAttendence' className="btn btn-xs btn-primary ml-1">
             <i className="fa fa-reorder" /> Staff Attendence
           </NavLink>
-          <NavLink type="button" to='/admin/humanResource/payroll' className="btn btn-xs btn-light ml-1">
+          <NavLink type="button" to='/admin/humanResource/payroll' className="btn btn-xs btn-primary ml-1">
             <i className="fa fa-reorder" /> Payroll
           </NavLink>
-          <NavLink type="button" to='/admin/humanResource/leaves' className="btn btn-xs btn-light ml-1">
+          <NavLink type="button" to='/admin/humanResource/leaves' className="btn btn-xs btn-primary ml-1">
             <i className="fa fa-reorder" /> Leaves
           </NavLink>
         </div>
-      </div>
-      <div className="row mx-0 px-3 py-2 border">
+      </li>
+      </ol>
+      </nav>
+      <div className="row mx-0 px-3 py-2 border-bottom">
         <div className="col-md-6">
         <label className='h6'>Role</label><small className='text-danger'>*</small>
           <div className="form-group border">
@@ -110,9 +130,9 @@ setdata(mydata)
         <td className='text-left'> {item.department} </td>
         <td className='text-left'> {item.designation} </td>
         <td className='text-left'> {item.phone} </td>
-        <td className='text-left'> <button onClick={()=>history.push('/admin/humanResource/addStaff/'+item.staffId)} className='btn btn-xs btn-light'><i className='fa fa-pencil'/></button>
-        <button className='btn btn-xs btn-light' onClick={
-          ()=>Getdata('humanResource/delete/'+item.staffId).then(item2=>setdata(data=>data.filter(item1=>item1.staffId!=item.staffId)))
+        <td className='text-left'> <button onClick={()=>history.push('/admin/humanResource/addStaff/'+item.staffId)} className='btn btn-xs btn-primary'><i className='fa fa-pencil'/></button>
+        <button className='btn btn-xs btn-primary' onClick={
+          ()=>deletealert('humanResource/delete',item.staffId)
           }><i className='fa fa-trash'/></button>
          </td>
         </tr>):<tr><td className='text-center' colSpan='7'>No Records found</td></tr>}

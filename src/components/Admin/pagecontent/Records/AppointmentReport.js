@@ -80,10 +80,10 @@ formik.setValues({...formik.values,fromDate,toDate,type:val})
 
     return (
         <>
-        <div className='row bg-primary p-2 px-3'>
+        <div className='row bg-white p-2 px-3 h5'>
              Appointment Report
         </div>
-        <div className='row border py-2'>
+        <div className='row bg-white border-bottom py-2'>
            <div className="col-md-3">
                <div className="form-group ">
                    <label htmlFor="id1">Search Type</label>
@@ -146,7 +146,7 @@ formik.setValues({...formik.values,fromDate,toDate,type:val})
                className="btn btn-primary btn-xs " type="button"><i class="fa fa-search" aria-hidden="true"></i> search</button>
            </div>
            </div>
-           <div className='row'>
+           <div className='row bg-white'>
                <div className="col-md-12 border border-top-0 py-3">
                <Table id='pharmacyBill' col={column} dataSrc={dataSrc} columnDefs={columnDefs}/>
                <DisplayForm data={index}/>

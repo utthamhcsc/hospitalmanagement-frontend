@@ -58,7 +58,7 @@ Getdata('department/get').then(data=>setDepartment(data))
 
 
     return (
-        <>
+        <div className='card login-card-body'>
         <div className='accordian' id='accordian'>
         <h4  class="p-2 border bg-light text-md" data-target='#basicInfo' data-toggle='collapse'>Basic Information </h4>
 
@@ -82,6 +82,6 @@ Getdata('department/get').then(data=>setDepartment(data))
 
         <button type="button" onClick={formik.handleSubmit} className='btn btn-sm bg-primary form-control'>Submit</button>
         </div>    
-        </>
+        </div>
     )
 }

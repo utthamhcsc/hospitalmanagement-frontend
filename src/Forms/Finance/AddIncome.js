@@ -66,13 +66,13 @@ React.useEffect(()=>{
         <div class="modal fade" id="addincome" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
   <div class="modal-content" role="document">
-  <div class="card ">
-            <div class="card-header bg-primary"> Add Income
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button> 
-            </div>
-                    <div className="card-body">
+  <div className="card text-bold ">
+            
+            <div className="card-body login-card-body">
+            <button type="button" class="close " data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button> 
+                  <h5 className="login-box-msg">Add Income</h5> 
                 <form onSubmit={formik.handleSubmit}>
 
                     <div className="form-row">
@@ -146,10 +146,10 @@ React.useEffect(()=>{
                     </div>
             
                     
-                             <div className="d-flex float-right  mt-3">
+                             <div className="  mt-3">
                             
                             
-                             <button type="submit" class="ml-4 btn btn-outline-primary form-control">Save</button>
+                             <button type="submit" class=" btn btn-primary form-control">Save</button>
                             
                              </div>
                            

@@ -122,21 +122,22 @@ export default props => {
     >
       <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content" role="document">
-          <div className="card">
-            <div className="card-header bg-primary align-item-center pb-0">
-              <button
-                type="button"
-                class="close"
-                data-dismiss="modal"
-                aria-label="Close"
-              >
-                <span aria-hidden="true">&times;</span>
-              </button>
+          
+    <div className="card  ">
+            
+            <div className="card-body login-card-body">
+            <button type="button" class="close " data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button> 
+                  <h5 className="login-box-msg">Add Opd Patient</h5> 
+            <div className="">
+             
 
-              <div className="form-row">
+              <div className="form-row mb-3">
+                <label>Select Patient</label>
                 <select
                   id="input"
-                  className="form-group col-md-4 "
+                  className="form-control "
                   {...formik.getFieldProps("patientId")}
                 >
                     <option></option>
@@ -146,19 +147,10 @@ export default props => {
                       ))
                     : ""}
                 </select>
-                <div className="form-group ml-4">
-                  <button
-                    class=" form-inline ml-2"
-                    data-toggle="modal"
-                    data-target="#addnewpatient"
-                  >
-                    <i class="fas fa-plus "></i>New Patient
-                  </button>
-                </div>
+                
               </div>
             </div>
 
-            <div className="card-body">
               <form onSubmit={formik.handleSubmit}>
                 <div className="row">
                   <div className="col-md-8 ">
@@ -250,7 +242,7 @@ export default props => {
                     </div>
                   </div>
 
-                  <div className="col-md-4 bg-light">
+                  <div className="col-md-4 ">
                     <div className="form-row">
                       <div class="form-group col-md-12">
                         <label for="inputState">

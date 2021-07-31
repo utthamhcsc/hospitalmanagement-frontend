@@ -4,7 +4,22 @@ import {NavLink,BrowserRouter} from 'react-router-dom'
 import Table from '../../../Table'
 import { Getdata } from "../../../../Network/Server";
 import AddLeaveRequest from "../../../../Forms/HumanResource/AddLeaveRequest";
+import swal from "sweetalert";
 export default () => {
+  const deletealert=(url,val)=>{
+    swal({
+      title: "Are you sure?",
+     
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        Getdata(url+'/'+val).then(setdataSrc(data=>data.filter(item=>item.id!=val)))
+       
+      } 
+    });
+   }
     const [index1,setindex1]=React.useState({role:'',
     staffId:'',
     applyDate:'',
@@ -35,9 +50,9 @@ export default () => {
     const [dataSrc,setdataSrc]=React.useState([]);
     const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(
       <BrowserRouter>
-      <button onClick={()=>setindex1(rowData)} className={'btn btn-xs btn-light'} data-toggle='modal' data-target='#addleaverequest'><i className='fa fa-pencil'></i></button>
+      <button onClick={()=>setindex1(rowData)} className={'btn btn-xs btn-warning'} data-toggle='modal' data-target='#addleaverequest'><i className='fa fa-pencil'></i></button>
       
-      <button onClick={()=>Getdata(`humanResource/leave/delete/${rowData.id}`).then(mydata=>mydata?setdataSrc(data=>data.filter(item=>item.id!=mydata)):'')} className={'btn btn-xs btn-light'} ><i className='fa fa-trash'></i></button>
+      <button onClick={()=>deletealert(`humanResource/leave/delete`,`${rowData.id}`)} className={'btn btn-xs btn-danger'} ><i className='fa fa-trash'></i></button>
      
       </BrowserRouter>,td)},
      {targets:2,createdCell:(td,cellData,rowData,row,col)=>
@@ -57,9 +72,9 @@ let diff=new Date(toDate).getTime()-new Date(fromDate).getTime();
 Getdata('humanResource/leave/get').then(data=>setdataSrc(data))
   },[])
   return (
-    <div>
-      <div className="row p-0 justify-content-between align-items-center mx-0 px-3 py-2 bg-primary">
-        <div className="h6 text-center">Approve Leave Request</div>
+    <div className='card'>
+      <div className="row p-0 justify-content-between align-items-center mx-0 px-3 py-2 border-bottom">
+        <div className="h5 text-center">Approve Leave Request</div>
         <div>
           <button type="button" data-toggle='modal'
           onClick={()=>setindex1({
@@ -75,7 +90,7 @@ Getdata('humanResource/leave/get').then(data=>setdataSrc(data))
     status:'pending'
   
           })}
-           data-target='#addleaverequest' className="btn btn-xs btn-light ml-1">
+           data-target='#addleaverequest' className="btn btn-xs btn-primary ml-1">
             <i className="fa fa-plus" /> Add Leave Request
           </button>
           </div>

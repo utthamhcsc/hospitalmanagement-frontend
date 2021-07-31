@@ -10,7 +10,7 @@ const userprofile = (props) => {
         </div>
         <div className="info ">
   <Link to='/accountant/profile'style={{letterSpacing:'2px',lineHeight:'100%'}} className="text-white">{localStorage.getItem('name')?localStorage.getItem('name'):'Abhinav'}</Link>
-  <Link to='/accountant/profile' style={{letterSpacing:'2px',lineHeight:'100%'}} className="d-block text-white">Admin</Link>
+  <Link to='/accountant/profile' style={{letterSpacing:'2px',lineHeight:'100%'}} className="d-block text-white">Accountant</Link>
 
         </div>
       </Link>

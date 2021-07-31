@@ -13,7 +13,7 @@ import Footer from './footer';
 
 export default (prop)=>
 <BrowserRouter>
-<div class="position-fixed d-flex flex-column vw-100 bg-dark p-0 m-0 " style={{zIndex:1,minWidth:100+'vw'}}>
+<div class="position-fixed d-flex flex-column vw-100 bg-dark p-0 m-0 elevation-2" style={{zIndex:1,minWidth:100+'vw'}}>
 {
 //   < div className='pr-5 d-flex justify-content-between bg-dark text-white p-0 ' style={{backgroundColor:'#dfdfdf'}}>
 // <div className='d-flex align-items-center'>
@@ -22,9 +22,9 @@ export default (prop)=>
 // </div>
 }
 <div className='container d-md-flex  ml-auto justify-content-end p-2'>
-<button type="button" className="btn btn-outline-light btn-sm mr-2 p-2" data-toggle="modal" data-target="#bookappointment">
+<button type="button" className="btn btn-outline-light btn-sm mr-2 p-2 rounded-pill" data-toggle="modal" data-target="#bookappointment">
  Book Appointment </button>
-<button type="button" className="btn btn-outline-light btn-sm p-2 " data-toggle="modal" data-target="#login">
+<button type="button" className="btn btn-outline-light btn-sm p-2 rounded-pill" data-toggle="modal" data-target="#login">
  Login
 </button>
 </div>
@@ -32,7 +32,7 @@ export default (prop)=>
 
 <Navbar />
 </div>
-
+<div className='p-4'>c</div>
 <BookMyAppointment />
 <Login />
 <Carosal />

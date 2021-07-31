@@ -79,7 +79,7 @@ const schema=Yup.object().shape({
         <div class="modal-dialog modal-xl" role="document">
          <div class="modal-content" role="document">
         <div className="card ">
-        <div class=" card-header bg-primary p-0 align-items-center border-0">
+        <div class=" card-header  p-0 align-items-center border-0">
         <button type="button" class="close mx-4" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button> 

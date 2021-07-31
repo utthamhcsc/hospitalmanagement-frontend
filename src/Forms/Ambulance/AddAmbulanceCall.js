@@ -22,12 +22,13 @@ console.log(d)
       <div id="addambulancecall" className="modal fade in" role="dialog" aria-hidden="false">
   <div className="modal-dialog modal-dialog2 modal-lg">
     <div className="modal-content">
-      <div className="modal-header bg-primary">
-      <h6 className="modal-title">Add&nbsp;Ambulance&nbsp;Call</h6>
-        <button type="button" className="close" data-dismiss="modal" autoComplete="off">×</button>
-       
-      </div>
-      <div className="modal-body">
+    <div className="card  ">
+            
+            <div className="card-body login-card-body">
+            <button type="button" class="close " data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button> 
+                  <h5 className="login-box-msg">Add Ambulance Call</h5> 
         <div className="row">
         <div className='col-md-4'>
                      <div className='form-group'>
@@ -41,7 +42,7 @@ console.log(d)
                       >
                            <option></option>
                             {
-                              vehicle.map(data=><option value={data.id+'-'+data.driverName}>{
+                              (vehicle||[]).map(data=><option value={data.id+'-'+data.driverName}>{
                                 data.vehicleModel+'-'+data.vehicleNo
                               }</option>)
                             }
@@ -104,14 +105,15 @@ console.log(d)
                      </div> 
                       
                          
-                     <div className='col-md-12 border-top pt-3'>
+                     <div className='col-md-12 '>
                      <div className='form-group text-right'>
                        <button 
-                       className='btn btn-sm bg-primary'
+                       className='btn btn-primary btn-block'
                        onClick={formik.handleSubmit}
                        >save</button>
                      </div>
                      </div> 
+                     </div>
         </div>
       </div>
     </div>

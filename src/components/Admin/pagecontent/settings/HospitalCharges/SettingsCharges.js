@@ -6,7 +6,7 @@ import DoctorOpdCharges from './DoctorOpdCharges'
 
 
 export default function SettingsCharges(props) {
-     
+    
     return (
 <div className='row'>
 <div className='col-md-2 w-100'>

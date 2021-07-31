@@ -4,7 +4,9 @@ export default ()=>
 <div id="Home" class="carousel slide " data-ride="carousel">
   <div class="carousel-inner">
     <div class="carousel-item active">
+      <div style={{position:'relative'}}>
         <img src="https://demo.smart-hospital.in/uploads/gallery/media/slider1.jpg" class="d-block w-100 vh-75" alt="..."/>
+           </div>
     </div>
     <div class="carousel-item">
       <img src="https://demo.smart-hospital.in/uploads/gallery/media/slider2.jpg" class="d-block w-100 vh-75" alt="..."/>

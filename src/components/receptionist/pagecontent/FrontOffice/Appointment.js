@@ -48,15 +48,15 @@ React.useEffect(()=>{
 <div className='btn-group'>
     <button className={'btn btn-xs btn-light ml-1 ' } style={{marginLeft:'0.5px !important',opacity:0}} data-toggle="modal" data-target="sdf">dfgh</button>
     <button data-toggle="modal" onClick={()=>setindex({})} data-target="#bookappointment" class="btn btn-light text-xs  btn-xs ml-1"> <i class="fa fa-plus"></i> Add Appointment</button>               
-    <NavLink to={ '/accountant/appointment/visitor'} activeClassName='active'  class="btn btn-light text-xs  btn-xs ml-1"><i class="fa fa-reorder"></i> Visitors Log</NavLink> 
-                             <NavLink to={ '/accountant/appointment/callog'} activeClassName='active'  class="btn btn-light text-xs  btn-xs ml-1"><i class="fa fa-reorder"></i> Phone Call Log</NavLink> 
-                             <NavLink to={ '/accountant/appointment/postalReceive'} activeClassName='active' class="btn btn-light text-xs  btn-xs ml-1 ">
+    <NavLink to={ '/receptionist/appointment/visitor'} activeClassName='active'  class="btn btn-light text-xs  btn-xs ml-1"><i class="fa fa-reorder"></i> Visitors Log</NavLink> 
+                             <NavLink to={ '/receptionist/appointment/callog'} activeClassName='active'  class="btn btn-light text-xs  btn-xs ml-1"><i class="fa fa-reorder"></i> Phone Call Log</NavLink> 
+                             <NavLink to={ '/receptionist/appointment/postalReceive'} activeClassName='active' class="btn btn-light text-xs  btn-xs ml-1 ">
      <i class="fa fa-reorder"></i> Postal Receive
  </NavLink>
- <NavLink to={ '/accountant/appointment/postaldispatch'} activeClassName='active' class="btn btn-light text-xs  btn-xs ml-1 ">
+ <NavLink to={ '/receptionist/appointment/postaldispatch'} activeClassName='active' class="btn btn-light text-xs  btn-xs ml-1 ">
      <i class="fa fa-reorder"></i> Postal Dispatch
  </NavLink>
-<NavLink to={ '/accountant/appointment/complain'} activeClassName='active' class="btn btn-light text-xs  btn-xs ml-1"><i class="fa fa-reorder"></i> Complain</NavLink> 
+<NavLink to={ '/receptionist/appointment/complain'} activeClassName='active' class="btn btn-light text-xs  btn-xs ml-1"><i class="fa fa-reorder"></i> Complain</NavLink> 
 </div>
   </li>
   </ol>

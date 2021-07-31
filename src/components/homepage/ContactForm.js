@@ -1,7 +1,7 @@
 import React from 'react';
 export default () =>
 <React.Fragment>
-<div className="p-0 py-3 border p-4 bg-success">
+<div className=" py-2  px-4 bg-success rounded elevation-1">
 <h3 className='font-weight-bold text-capitalize p-0 pt-3 border-bottom'>send us a message</h3>
 <div className='pb-3'>you can contact us with anything to our hospital.Regarding any queries and feedback</div>
 <form >

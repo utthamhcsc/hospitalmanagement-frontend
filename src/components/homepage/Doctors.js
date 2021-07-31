@@ -1,6 +1,6 @@
 import React from 'react';
 import './Doctors.css';
-
+import {Fade} from 'react-reveal'
 const doctor=[
   {
     name:'Dr.Reddy',
@@ -32,7 +32,7 @@ const doctor=[
     mobno:'9876543210',
     specialization:'Urology',
     specializationimg:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpata5N2OQPaE6C-5UX_aOk9cSIGg5QQ7wGl3AyMuyUQuxNVCQDg&s',
-    Profileimg:'https://www.medlife.com/doctors-enrollment/images/online-doctor-consultation-3x.png'
+    Profileimg:'https://img.medscape.com/thumbnail_library/dt_140605_serious_male_doctor_hospital_800x600.jpg'
   },
   {
     name:'Dr.Satish',
@@ -58,6 +58,7 @@ export default () =>
     <div className="h1 text-center text-white pb-5">Professional Doctors</div>
   <div className="row pl-1 pl-md-5 ">
   {doctor.map((item)=>
+  <Fade bottom cascade={false}>
    <div className="col-sm-12 col-md-6 col-lg-4  pb-5" >
        <div className="card border-0  " style={{maxWidth:18+'rem'}}>
          <div className="card-body text-center ">
@@ -69,6 +70,7 @@ export default () =>
          </div>  
        </div>
     </div>
+    </Fade>
     )}
   </div>
 </div>

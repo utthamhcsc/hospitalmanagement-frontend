@@ -23,7 +23,7 @@ export default (props)=> {
     const [dataSrc,setdataSrc]=React.useState([]);
     const columnDefs=[{targets:-1,orderable:false,responsivePriority:1,createdCell:(td,cellData,rowData,row,col)=>ReactDOM.render(
       <BrowserRouter>
-      <button onClick={()=>setindex1(rowData)} className={'btn btn-xs btn-light'} 
+      <button onClick={()=>setindex1(rowData)} className={'btn btn-xs btn-primary'} 
       data-toggle='modal' data-target='#viewBill'><i className='fa fa-eye'></i></button>
      
      
@@ -43,16 +43,18 @@ const loadUser=()=>{
 
     return (
         <>
-        <nav aria-label="breadcrumb" >
-  <ol class="p-2 px-5" style={{backgroundColor:'#3f51b5'}} >
-  <li class="text-white font-weight-bold d-sm-flex justify-content-between align-items-baseline" aria-current="page">
-      <h6 className='text-sm' style={{letterSpacing:'1px',lineHeight:'100%'}}>Pharmacy Bill</h6>
-  <div className='btn-group p-0'>
-    <button className={'btn btn-xs  btn-light ml-1 ' } style={{marginLeft:'0.5px !important',opacity:0}} data-toggle="modal" data-target="sdf">dfgh</button>
-    <button data-toggle="modal" onClick={loadUser} data-target="#generateBill" class="btn btn-light text-xs  btn-xs  ml-1"> 
+        <div className='card elevation-1 '>
+        <nav aria-label="breadcrumb"  >
+  <ol class="p-2 px-5 overflow-auto border   bg-white " style={{backgroundColor:'#ffffff !important'}} >
+
+  <li class=" font-weight-bold d-flex justify-content-between align-items-center p-0" aria-current="page">
+      <h5  >Pharmacy Bill</h5>
+<div className='btn-group '>
+    <button className={'btn btn-xs  btn-primary ml-1 ' } style={{marginLeft:'0.5px !important',opacity:0}} data-toggle="modal" data-target="sdf">dfgh</button>
+    <button data-toggle="modal" onClick={loadUser} data-target="#generateBill" class="btn btn-primary text-xs  btn-xs  ml-1"> 
     <i class="fa fa-plus"></i> Generate Bill</button>               
            
- <NavLink to={ '/admin/pharmacy/medicinestock'} activeClassName='active' class="btn btn-light text-xs  btn-xs ml-1 ">
+ <NavLink to={ '/admin/pharmacy/medicinestock'} activeClassName='active' class="btn btn-primary text-xs  btn-xs ml-1 ">
      <i class="fa fa-reorder"></i> Medicine
  </NavLink>             
                          </div>
@@ -64,6 +66,7 @@ const loadUser=()=>{
     <Table id='pharmacyBill' col={column} dataSrc={dataSrc} columnDefs={columnDefs}/>
     <GenerateBill doctor={doctor} patient={patient} medicineCategory={medicineCategory}/>
     <ViewBill {...index1}/>
+  </div>
   </div>
         </>
     )
